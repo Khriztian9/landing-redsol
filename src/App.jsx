@@ -152,20 +152,6 @@ function App() {
   </div>
 </section>
 
-  <div className="mb-3">
-    <label className="form-label">Nombre</label>
-    <input type="text" name="nombre" className="form-control" required placeholder="Tu nombre completo" />
-  </div>
-  <div className="mb-3">
-    <label className="form-label">Correo</label>
-    <input type="email" name="correo" className="form-control" required placeholder="ejemplo@correo.com" />
-  </div>
-  <div className="mb-3">
-    <label className="form-label">Mensaje</label>
-    <textarea name="mensaje" className="form-control" rows="4" required placeholder="Cuéntanos sobre tu necesidad" />
-  </div>
-  <button type="submit" className="btn btn-primary w-100">Enviar</button>
-
 
       <footer className="text-center py-4 bg-dark text-white">
         © {new Date().getFullYear()} Red Sol Colombia. Todos los derechos reservados.
