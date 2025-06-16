@@ -126,12 +126,32 @@ function App() {
 </section>
 
 
-      <form
-  className="mx-auto text-start"
-  style={{ maxWidth: 500 }}
-  action="https://formspree.io/f/xwpbbnqv"
-  method="POST"
->
+      <section id="contacto" className="py-5 bg-light text-center">
+  <div className="container">
+    <h2 className="mb-5 fw-bold text-primary">Contáctanos</h2>
+    <form
+      className="mx-auto text-start"
+      style={{ maxWidth: 500 }}
+      action="https://formspree.io/f/xwpbbnqv"
+      method="POST"
+    >
+      <div className="mb-3">
+        <label className="form-label">Nombre</label>
+        <input type="text" name="nombre" className="form-control" required placeholder="Tu nombre completo" />
+      </div>
+      <div className="mb-3">
+        <label className="form-label">Correo</label>
+        <input type="email" name="correo" className="form-control" required placeholder="ejemplo@correo.com" />
+      </div>
+      <div className="mb-3">
+        <label className="form-label">Mensaje</label>
+        <textarea name="mensaje" className="form-control" rows="4" required placeholder="Cuéntanos sobre tu necesidad" />
+      </div>
+      <button type="submit" className="btn btn-primary w-100">Enviar</button>
+    </form>
+  </div>
+</section>
+
   <div className="mb-3">
     <label className="form-label">Nombre</label>
     <input type="text" name="nombre" className="form-control" required placeholder="Tu nombre completo" />
@@ -145,7 +165,6 @@ function App() {
     <textarea name="mensaje" className="form-control" rows="4" required placeholder="Cuéntanos sobre tu necesidad" />
   </div>
   <button type="submit" className="btn btn-primary w-100">Enviar</button>
-</form>
 
 
       <footer className="text-center py-4 bg-dark text-white">
