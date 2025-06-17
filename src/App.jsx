@@ -42,6 +42,7 @@ function App() {
             FAQ
                  </a>
                 </li>
+
                 <li className="nav-item">
                  <a className="nav-link fw-medium text-secondary link-hover" href="#extras">
             Extras
@@ -146,6 +147,7 @@ function App() {
       <Features />
 
       <Faq />
+
 
       <UiShowcase />
 

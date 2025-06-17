@@ -41,4 +41,4 @@ npm run dev
 ```
 
 Nuevas secciones de **Características** y **Preguntas frecuentes** fueron añadidas utilizando componentes de React y hooks para mayor interactividad.
-Se agregó también un apartado de **Extras** que muestra componentes como Accordion, Modal, Offcanvas, Tooltips y más de Bootstrap.
+
