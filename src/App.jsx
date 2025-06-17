@@ -1,5 +1,7 @@
 import React from 'react';
 import './App.css';
+import Features from './components/Features.jsx';
+import Faq from './components/Faq.jsx';
 
 function App() {
   return (
@@ -29,6 +31,16 @@ function App() {
             Proyectos
                 </a>
                 </li>
+                <li className="nav-item">
+                 <a className="nav-link fw-medium text-secondary link-hover" href="#caracteristicas">
+            Energía solar
+                 </a>
+                </li>
+                <li className="nav-item">
+                 <a className="nav-link fw-medium text-secondary link-hover" href="#faq">
+            FAQ
+                 </a>
+                </li>
                  <li className="nav-item">
                   <a className="nav-link fw-medium text-secondary link-hover" href="#contacto">
             Contacto
@@ -46,6 +58,19 @@ function App() {
           <a href="#contacto" className="btn btn-outline-light btn-lg mt-3">Solicita una cotización</a>
         </div>
       </header>
+
+<section className="py-5 bg-white text-center">
+  <div className="container">
+    <div className="ratio ratio-16x9">
+      <iframe
+        src="https://www.youtube.com/embed/zcz6ClnodU0"
+        title="Video de LIVOLTEK"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowFullScreen
+      ></iframe>
+    </div>
+  </div>
+</section>
 
       <section id="servicios" className="py-5 bg-light text-center">
   <div className="container">
@@ -125,6 +150,10 @@ function App() {
   </div>
 </section>
 
+
+      <Features />
+
+      <Faq />
 
       <section id="contacto" className="py-5 bg-light text-center">
   <div className="container">

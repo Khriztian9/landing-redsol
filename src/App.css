@@ -74,5 +74,10 @@
 
 .carousel img {
   object-fit: cover;
-  height: 500px;
+  height: 600px;
+}
+
+/* Secciones adicionales */
+.faq-question {
+  text-align: left;
 }
