@@ -38,3 +38,6 @@ git clone https://github.com/Khriztian9/Landing-redsol.git
 cd Landing-redsol
 npm install
 npm run dev
+```
+
+Nuevas secciones de **Características** y **Preguntas frecuentes** fueron añadidas utilizando componentes de React y hooks para mayor interactividad.

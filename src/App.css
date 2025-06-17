@@ -76,3 +76,8 @@
   object-fit: cover;
   height: 300px;
 }
+
+/* Secciones adicionales */
+.faq-question {
+  text-align: left;
+}
