@@ -1,5 +1,7 @@
 import React from 'react';
 import './App.css';
+import Features from './components/Features.jsx';
+import Faq from './components/Faq.jsx';
 
 function App() {
   return (
@@ -28,6 +30,16 @@ function App() {
                  <a className="nav-link fw-medium text-secondary link-hover" href="#proyectos">
             Proyectos
                 </a>
+                </li>
+                <li className="nav-item">
+                 <a className="nav-link fw-medium text-secondary link-hover" href="#caracteristicas">
+            Características
+                 </a>
+                </li>
+                <li className="nav-item">
+                 <a className="nav-link fw-medium text-secondary link-hover" href="#faq">
+            FAQ
+                 </a>
                 </li>
                  <li className="nav-item">
                   <a className="nav-link fw-medium text-secondary link-hover" href="#contacto">
@@ -124,6 +136,11 @@ function App() {
     </div>
   </div>
 </section>
+
+      <Features />
+
+      <Faq />
+
 
 
       <section id="contacto" className="py-5 bg-light text-center">
