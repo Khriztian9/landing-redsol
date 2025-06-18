@@ -1,9 +1,9 @@
 :root {
-  --primary-color: ##39FF14;      /* Azul gris oscuro */
-  --secondary-color: ##39FF14;        /* Coral brillante */
-  --accent-color: ##39FF14;         /* Amarillo dorado */
-  --text-color: ##39FF14;           /* Azul intenso */
-  --background-color: ##39FF14;     /* Marfil claro */
+  --primary-color: #39FF14;      /* Azul gris oscuro */
+  --secondary-color: #39FF14;        /* Coral brillante */
+  --accent-color: #39FF14;         /* Amarillo dorado */
+  --text-color: #39FF14;           /* Azul intenso */
+  --background-color: #39FF14;     /* Marfil claro */
 }
 
 
