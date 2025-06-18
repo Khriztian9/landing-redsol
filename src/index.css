@@ -1,9 +1,9 @@
 :root {
-  --primary-color: #1e5adbf1;
-  --secondary-color: #1b1f23;
-  --accent-color: #00c853;
+  --primary-color: #00c853;
+  --secondary-color: #121212;
+  --accent-color: #1e5adbf1;
   --text-color: #e0f8e9;
-  --background-color: #121212;
+  --background-color: #1b1f23;
 
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
