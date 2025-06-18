@@ -38,7 +38,7 @@
 }
 
 .read-the-docs {
-  color: var(--text-color);
+  color: #39FF14;
 }
 .hero-section {
   min-height: 90vh;
@@ -57,8 +57,8 @@
 }
 
 .link-hover:hover {
-  color: var(--primary-color);
-  border-bottom: 2px solid var(--primary-color);
+  color: #39FF14;
+  border-bottom: 2px solid #39FF14;
 }
 .service-card {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
