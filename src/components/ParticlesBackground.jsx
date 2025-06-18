@@ -12,7 +12,7 @@ function ParticlesBackground() {
       id="tsparticles"
       init={particlesInit}
       options={{
-        fullScreen: { enable: true, zIndex: 0 },
+
         particles: {
           number: {
             value: 50,
