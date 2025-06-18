@@ -1,9 +1,11 @@
 :root {
-  --primary-color: #00c853;
-  --secondary-color: #121212;
-  --accent-color: #1e5adbf1;
-  --text-color: #e0f8e9;
-  --background-color: #1b1f23;
+  --primary-color: #ff6f61;        /* Coral brillante */
+  --secondary-color: #2b2d42;      /* Azul gris oscuro */
+  --accent-color: #ffd700;         /* Amarillo dorado */
+  --text-color: #1e90ff;           /* Azul intenso */
+  --background-color: #faf0e6;     /* Marfil claro */
+}
+
 
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
