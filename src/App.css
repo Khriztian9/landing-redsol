@@ -12,10 +12,10 @@
   transition: filter 300ms;
 }
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+  filter: drop-shadow(0 0 2em var(--primary-color));
 }
 .logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+  filter: drop-shadow(0 0 2em var(--accent-color));
 }
 
 @keyframes logo-spin {
@@ -38,7 +38,7 @@
 }
 
 .read-the-docs {
-  color: #888;
+  color: var(--text-color);
 }
 .hero-section {
   min-height: 90vh;
@@ -57,8 +57,8 @@
 }
 
 .link-hover:hover {
-  color: #0d6efd; /* azul Bootstrap */
-  border-bottom: 2px solid #0d6efd;
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--primary-color);
 }
 .service-card {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
