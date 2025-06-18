@@ -7,7 +7,7 @@ import './App.css';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-
+import './index.css';
 
 AOS.init();
 
