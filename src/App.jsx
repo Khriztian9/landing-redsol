@@ -2,10 +2,12 @@ import React from 'react';
 import './App.css';
 import Features from './components/Features.jsx';
 import Faq from './components/Faq.jsx';
+import ParticlesBackground from './components/ParticlesBackground.jsx';
 
 function App() {
   return (
     <div>
+      <ParticlesBackground />
       <nav className="navbar navbar-expand-lg bg-white border-bottom sticky-top shadow-sm">
         <div className="container py-2">
          <a className="navbar-brand text-primary fw-bold fs-4" href="#">
