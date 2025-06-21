@@ -1,0 +1,49 @@
+.simulador-container {
+  max-width: 800px;
+  margin: auto;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  padding: 40px;
+  margin-top: 40px;
+  margin-bottom: 60px;
+}
+
+.simulador-container h2 {
+  text-align: center;
+  color: #007BFF;
+  margin-bottom: 30px;
+}
+
+.simulador-container form .form-label {
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.simulador-container button {
+  background-color: #007BFF;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.simulador-container button:hover {
+  background-color: #39FF14;
+}
+
+.simulador-container .resultado {
+  margin-top: 40px;
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.simulador-container .resultado p {
+  font-size: 1.1rem;
+  margin: 8px 0;
+}
+
+.simulador-container canvas {
+  margin-top: 30px;
+  width: 100% !important;
+  height: auto !important;
+}

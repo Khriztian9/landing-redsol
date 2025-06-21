@@ -3,15 +3,13 @@ import './App.css';
 import Features from './components/Features.jsx';
 import Faq from './components/Faq.jsx';
 import ParticlesBackground from './components/ParticlesBackground.jsx';
+import Simulador from './components/SimuladorConGrafico.jsx';
+import Cotizador from './components/Cotizador';
 
 function App() {
   return (
     <div>
-<<<<<<< HEAD
      
-=======
-    
->>>>>>> 25a41e91148c993ee9f8e0cefbb55938afe8703f
       <nav className="navbar navbar-expand-lg bg-white border-bottom sticky-top shadow-sm">
         <div className="container py-2">
          <a className="navbar-brand text-primary fw-bold fs-4" href="#">
@@ -156,13 +154,20 @@ function App() {
   </div>
 </section>
 
-       <ParticlesBackground />
+      <section id="cotizador" className="py-5 bg-white">
+      <Cotizador />
+      </section>
+
+
+      <section id="simulador" className="py-5 bg-white">
+      <Simulador />
+      </section>
 
       <Features />
 
       <Faq />
 
-      <ParticlesBackground />
+
 
       <section id="contacto" className="py-5 bg-light text-center">
   <div className="container">
