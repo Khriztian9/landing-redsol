@@ -7,7 +7,7 @@ import ParticlesBackground from './components/ParticlesBackground.jsx';
 function App() {
   return (
     <div>
-      <ParticlesBackground />
+    
       <nav className="navbar navbar-expand-lg bg-white border-bottom sticky-top shadow-sm">
         <div className="container py-2">
          <a className="navbar-brand text-primary fw-bold fs-4" href="#">
@@ -156,6 +156,8 @@ function App() {
       <Features />
 
       <Faq />
+
+      <ParticlesBackground />
 
       <section id="contacto" className="py-5 bg-light text-center">
   <div className="container">
