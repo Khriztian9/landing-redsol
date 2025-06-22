@@ -8,7 +8,7 @@ function App() {
   return (
     <>
       <div style={{ position: 'relative', zIndex: 1 }}>
-        <nav className="navbar navbar-expand-lg bg-white border-bottom sticky-top shadow-sm">
+          <nav className="navbar navbar-expand-lg navbar-transparent fixed-top">
           <div className="container py-2">
             <a className="navbar-brand text-primary fw-bold fs-4" href="#">RED SOL</a>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">

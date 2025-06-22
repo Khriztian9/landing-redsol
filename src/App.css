@@ -1,10 +1,18 @@
-/* Establece el estilo base del contenedor principal */
 #root {
-  max-width: 1280px;              /* Limita el ancho máximo para mantener un diseño centrado */
-  margin: 0 auto;                 /* Centra horizontalmente */
-  padding: 0;                     /* Sin espacio interior */
-  text-align: center;            /* Centra el texto */
+  width: 100vw;       /* Ocupa todo el ancho de la ventana */
+  height: 100vh;      /* Ocupa todo el alto de la ventana */
+  margin: 0;          /* Elimina márgenes */
+  padding: 0;         /* Elimina padding */
+  text-align: center; /* Centra el texto, si es necesario */
 }
+
+.navbar-transparent {
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  z-index: 1030;
+}
+
 
 /* Estilos para el logo */
 .logo {
@@ -51,7 +59,7 @@
 
 /* Sección hero principal */
 .hero-section {
-  min-height: 90vh;              /* Ocupa al menos el 90% de la altura de la ventana */
+  min-height: 90vh;              /* Ocupa al menos el 100% de la altura de la ventana */
   background-image: url('/solar-bg.jpg'); /* Imagen de fondo personalizada */
   background-size: cover;        /* Cubre todo el contenedor */
   background-position: center;   /* Centra la imagen */
