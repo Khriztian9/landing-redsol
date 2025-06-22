@@ -2,7 +2,7 @@
 /* 🎨 VARIABLES PERSONALIZADAS */
 /* ---------------------- */
 :root {
-  --primary-color: #0099ff;      /* Verde neón brillante para énfasis principal */
+  --primary-color: #39FF14;      /* Verde neón brillante para énfasis principal */
   --secondary-color: #000000;    /* Segundo color (igual aquí, pero puedes cambiarlo) */
   --accent-color: #39FF14;       /* Color acento para detalles interactivos */
   --text-color: #0099ff;         /* Color principal del texto */
@@ -75,7 +75,7 @@ button {
 }
 
 button:hover {
-  border-color: var(--primary-color);       /* Borde visible en hover */
+  border-color: #39FF14;       /* Borde visible en hover */
 }
 
 button:focus,

@@ -1,47 +1,39 @@
-.cotizador-container {
-  max-width: 800px;
-  margin: auto;
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.08);
-  padding: 40px;
-  margin-top: 40px;
-  margin-bottom: 60px;
+.cotizador-wrapper {
+  background: linear-gradient(135deg, #39FF14, #ffffff);
+  border-radius: 16px;
 }
 
-.cotizador-container h2 {
-  text-align: center;
-  color: #007BFF;
-  margin-bottom: 30px;
+.cotizador-wrapper h2 {
+  color: #ffffff;
 }
 
-.cotizador-container form .form-label {
-  font-weight: 600;
+.cotizador-wrapper form .form-control,
+.cotizador-wrapper form .form-select {
+  border-radius: 8px;
+  box-shadow: none;
+  border: 1px solid #ced4da;
+  transition: box-shadow 0.2s ease;
 }
 
-.cotizador-container button {
-  background-color: #007BFF;
+.cotizador-wrapper form .form-control:focus,
+.cotizador-wrapper form .form-select:focus {
+  border-color: #39FF14;
+  box-shadow: 0 0 5px #39FF14;
+}
+
+.cotizador-wrapper button {
+  background-color: #00a2ff;
   border: none;
   transition: background-color 0.3s ease;
+  border-radius: 8px;
 }
 
-.cotizador-container button:hover {
+.cotizador-wrapper button:hover {
   background-color: #39FF14;
 }
 
-.cotizador-container .resultado {
-  margin-top: 40px;
-  background-color: #f8f9fa;
-  padding: 20px;
-  border-radius: 10px;
-}
-
-.cotizador-container .resultado p {
-  font-size: 1.1rem;
-  margin: 8px 0;
-}
-
-.cotizador-container .text-danger {
-  font-weight: 600;
-  color: #dc3545;
+.cotizador-wrapper img {
+  max-height: 220px;
+  object-fit: cover;
+  border-radius: 12px;
 }

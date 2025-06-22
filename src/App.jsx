@@ -3,12 +3,27 @@ import Features from './components/Features.jsx';
 import Faq from './components/Faq.jsx';
 import Simulador from './components/SimuladorConGrafico';
 import Cotizador from './components/Cotizador';
+import { useEffect } from 'react';
 
 function App() {
+  useEffect(() => {
+    const handleScroll = () => {
+      const navbar = document.getElementById('mainNavbar');
+      if (window.scrollY > 200) {
+        navbar.classList.add('navbar-scrolled');
+      } else {
+        navbar.classList.remove('navbar-scrolled');
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <>
       <div style={{ position: 'relative', zIndex: 1 }}>
-          <nav className="navbar navbar-expand-lg navbar-transparent fixed-top">
+        <nav id="mainNavbar" className="navbar navbar-expand-lg navbar-transparent fixed-top transition-navbar">
           <div className="container py-2">
             <a className="navbar-brand text-primary fw-bold fs-4" href="#">RED SOL</a>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
@@ -169,7 +184,7 @@ function App() {
         >
           💬
         </a>
-      </div> 
+      </div>
     </>
   );
 }

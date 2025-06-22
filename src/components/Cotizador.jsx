@@ -27,6 +27,10 @@ const Cotizador = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (formData.valor_factura <= 0 || formData.area_disponible <= 0) {
+      alert("Por favor ingresa valores positivos.");
+      return;
+    }
     const res = await fetch('http://127.0.0.1:8000/cotizar', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -37,48 +41,56 @@ const Cotizador = () => {
   };
 
   return (
-    <div className="cotizador-container" data-aos="fade-up">
-      <h2 className="text-primary fw-bold mb-4">Cotizador Solar Básico</h2>
-      <form onSubmit={handleSubmit} data-aos="fade-up" data-aos-delay="100">
-        <div className="mb-3">
-          <label className="form-label">Valor mensual de la factura (COP)</label>
-          <input type="number" name="valor_factura" className="form-control" value={formData.valor_factura} onChange={handleChange} required />
+    <div className="cotizador-wrapper container my-5" data-aos="fade-up">
+      <div className="row shadow-lg rounded p-4 bg-white align-items-center">
+        
+        {/* Formulario */}
+        <div className="col-md-6">
+          <form onSubmit={handleSubmit}>
+            <div className="mb-3">
+              <label className="form-label">Factura mensual (COP)</label>
+              <input type="number" name="valor_factura" className="form-control" value={formData.valor_factura} onChange={handleChange} required />
+            </div>
+            <div className="mb-3">
+              <label className="form-label">Tipo de instalación</label>
+              <select name="tipo_instalacion" className="form-select" value={formData.tipo_instalacion} onChange={handleChange}>
+                <option value="residencial">Residencial</option>
+                <option value="comercial">Comercial</option>
+                <option value="industrial">Industrial</option>
+              </select>
+            </div>
+            <div className="mb-3">
+              <label className="form-label">Área disponible (m²)</label>
+              <input type="number" name="area_disponible" className="form-control" value={formData.area_disponible} onChange={handleChange} required />
+            </div>
+            <div className="mb-3">
+              <label className="form-label">Tipo de área</label>
+              <select name="tipo_area" className="form-select" value={formData.tipo_area} onChange={handleChange}>
+                <option value="techo">Techo</option>
+                <option value="suelo">Suelo</option>
+                <option value="carport">Carport</option>
+              </select>
+            </div>
+            <button type="submit" className="btn btn-success w-100">Calcular Cotización</button>
+          </form>
         </div>
-        <div className="mb-3">
-          <label className="form-label">Tipo de instalación</label>
-          <select name="tipo_instalacion" className="form-select" value={formData.tipo_instalacion} onChange={handleChange}>
-            <option value="residencial">Residencial</option>
-            <option value="comercial">Comercial</option>
-            <option value="industrial">Industrial</option>
-          </select>
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Área disponible (m²)</label>
-          <input type="number" name="area_disponible" className="form-control" value={formData.area_disponible} onChange={handleChange} required />
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Tipo de área</label>
-          <select name="tipo_area" className="form-select" value={formData.tipo_area} onChange={handleChange}>
-            <option value="techo">Techo</option>
-            <option value="suelo">Suelo</option>
-            <option value="carport">Carport</option>
-          </select>
-        </div>
-        <button type="submit" className="btn btn-primary w-100" data-aos="zoom-in" data-aos-delay="150">Calcular Cotización</button>
-      </form>
 
-      {resultado && (
-        <div className="mt-5 bg-light p-4 rounded shadow-sm" data-aos="fade-up" data-aos-delay="200">
-          <h4>Resultado</h4>
-          <p><strong>Consumo estimado anual:</strong> {resultado.consumo_estimado_kwh} kWh</p>
-          <p><strong>Potencia estimada:</strong> {resultado.potencia_estim_kwp} kWp</p>
-          <p><strong>CAPEX estimado:</strong> {resultado.capex_estimado.toLocaleString()} COP</p>
-          <p><strong>Área requerida:</strong> {resultado.area_requerida} m²</p>
-          {resultado.advertencia && (
-            <p className="text-danger"><strong>⚠️ {resultado.advertencia}</strong></p>
+        {/* Imagen + Resultado */}
+        <div className="col-md-6 text-center">
+          
+          {resultado && (
+            <div className="p-3 bg-light rounded border">
+              <p><strong>Consumo anual:</strong> {resultado.consumo_estimado_kwh.toLocaleString()} kWh</p>
+              <p><strong>Potencia estimada:</strong> {resultado.potencia_estim_kwp.toLocaleString()} kWp</p>
+              <p><strong>CAPEX:</strong> {resultado.capex_estimado.toLocaleString()} COP</p>
+              <p><strong>Área requerida:</strong> {resultado.area_requerida.toLocaleString()} m²</p>
+              {resultado.advertencia && (
+                <p className="text-danger"><strong>⚠️ {resultado.advertencia}</strong></p>
+              )}
+            </div>
           )}
         </div>
-      )}
+      </div>
     </div>
   );
 };
