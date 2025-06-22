@@ -1,8 +1,8 @@
-import React, { useCallback } from 'react';
-import { Particles } from 'react-tsparticles';
-import { loadFull } from 'tsparticles';
+import { useCallback } from "react";
+import { loadFull } from "tsparticles";
+import { Particles } from "react-tsparticles";
 
-function ParticlesBackground() {
+export default function ParticlesBackground() {
   const particlesInit = useCallback(async (engine) => {
     await loadFull(engine);
   }, []);
@@ -12,44 +12,51 @@ function ParticlesBackground() {
       id="tsparticles"
       init={particlesInit}
       options={{
-
+        fullScreen: {
+          enable: true,
+          zIndex: -1
+        },
+        background: {
+          color: {
+            value: "transparent"
+          }
+        },
         particles: {
           number: {
-            value: 50,
-            density: { enable: true, area: 800 },
+            value: 25,
+            density: {
+              enable: true,
+              area: 800
+            }
           },
-          color: { value: '#ffffff' },
-          shape: { type: 'circle' },
-          opacity: { value: 0.4 },
-          size: { value: { min: 1, max: 5 } },
+          color: {
+            value: "#39FF14"
+          },
+          shape: {
+            type: "circle"
+          },
+          opacity: {
+            value: 0.1
+          },
+          size: {
+            value: 3
+          },
           links: {
             enable: true,
+            color: "#39FF14",
             distance: 150,
-            color: '#ffffff',
-            opacity: 0.4,
-            width: 1,
+            opacity: 0.1,
+            width: 1
           },
           move: {
             enable: true,
-            speed: 2,
-            outModes: { default: 'bounce' },
-          },
-        },
-        interactivity: {
-          events: {
-            onHover: { enable: true, mode: 'repulse' },
-            resize: true,
-          },
-          modes: {
-            repulse: { distance: 100, duration: 0.4 },
-          },
-        },
-        background: {
-          color: 'transparent',
-        },
+            speed: 0.5,
+            outModes: {
+              default: "bounce"
+            }
+          }
+        }
       }}
     />
   );
 }
-
-export default ParticlesBackground;

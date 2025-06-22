@@ -1,83 +1,102 @@
+/* ---------------------- */
+/* 🎨 VARIABLES PERSONALIZADAS */
+/* ---------------------- */
 :root {
-  --primary-color: #39FF14;      /* Azul gris oscuro */
-  --secondary-color: #39FF14;        /* Coral brillante */
-  --accent-color: #39FF14;         /* Amarillo dorado */
-  --text-color: #39FF14;           /* Azul intenso */
-  --background-color: #39FF14;     /* Marfil claro */
-}
+  --primary-color: #0099ff;      /* Verde neón brillante para énfasis principal */
+  --secondary-color: #000000;    /* Segundo color (igual aquí, pero puedes cambiarlo) */
+  --accent-color: #39FF14;       /* Color acento para detalles interactivos */
+  --text-color: #0099ff;         /* Color principal del texto */
+  --background-color: #ffffff;   /* Color de fondo base */
 
-
+  /* Fuente global y estilo de texto */
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  line-height: 1.5;                          /* Espaciado de líneas cómodo */
+  font-weight: 400;                          /* Peso de fuente estándar */
 
-  color-scheme: light dark;
-  color: var(--text-color);
-  background-color: var(--background-color);
+  /* Ajustes de renderizado */
+  color-scheme: light dark;                 /* Soporte para modo oscuro */
+  color: var(--text-color);                 /* Aplica color de texto personalizado */
+  background-color: var(--background-color);/* Fondo general de la app */
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-synthesis: none;                     /* Evita que el navegador genere fuentes sintéticas */
+  text-rendering: optimizeLegibility;       /* Mejora la legibilidad del texto */
+  -webkit-font-smoothing: antialiased;      /* Mejora suavizado en WebKit */
+  -moz-osx-font-smoothing: grayscale;       /* Suavizado en macOS */
 
-  /* Bootstrap color overrides */
-  --bs-body-color: var(--text-color);
-  --bs-body-bg: var(--background-color);
-  --bs-primary: var(--primary-color);
-  --bs-secondary: var(--secondary-color);
-  --bs-success: var(--accent-color);
+  /* 🎯 Personalización del tema de Bootstrap */
+  --bs-body-color: var(--text-color);       /* Color del texto Bootstrap */
+  --bs-body-bg: var(--background-color);    /* Color de fondo Bootstrap */
+  --bs-primary: var(--primary-color);       /* Sobrescribe color primario Bootstrap */
+  --bs-secondary: var(--secondary-color);   /* Sobrescribe color secundario Bootstrap */
+  --bs-success: var(--accent-color);        /* Color éxito Bootstrap (usado en botones, alerts, etc.) */
 }
 
+/* ---------------------- */
+/* 🌐 ESTILOS GLOBALES */
+/* ---------------------- */
 a {
-  font-weight: 500;
-  color: var(--primary-color);
-  text-decoration: inherit;
-}
-a:hover {
-  color: var(--accent-color);
+  font-weight: 500;                          /* Negrita media para enlaces */
+  color: var(--primary-color);              /* Usa el color principal */
+  text-decoration: inherit;                 /* Hereda estilos de subrayado */
 }
 
+a:hover {
+  color: var(--accent-color);               /* Cambia de color al hacer hover */
+}
+
+/* Estilo base para el <body> */
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
+  padding: 0;
   min-height: 100vh;
+  min-width: 320px;
+  overflow-x: hidden;
+  background-color: transparent;
 }
 
+
+/* Títulos principales */
 h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  font-size: 3.2em;                         /* Muy grande para destacar */
+  line-height: 1.1;                         /* Espaciado compacto */
 }
 
+/* Botones globales */
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: var(--secondary-color);
-  cursor: pointer;
-  transition: border-color 0.25s;
+  border-radius: 8px;                       /* Bordes redondeados */
+  border: 1px solid transparent;            /* Borde invisible por defecto */
+  padding: 0.6em 1.2em;                     /* Espaciado interno */
+  font-size: 1em;                           /* Tamaño estándar */
+  font-weight: 500;                         /* Negrita media */
+  font-family: inherit;                     /* Hereda la fuente general */
+  background-color: var(--secondary-color);/* Fondo según variable */
+  cursor: pointer;                          /* Cursor en forma de mano */
+  transition: border-color 0.25s;           /* Transición suave de borde */
 }
+
 button:hover {
-  border-color: var(--primary-color);
+  border-color: var(--primary-color);       /* Borde visible en hover */
 }
+
 button:focus,
 button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  outline: 4px auto -webkit-focus-ring-color; /* Aumenta accesibilidad */
 }
 
+/* ---------------------- */
+/* ☀️ MODO CLARO MANUAL (opcional) */
+/* ---------------------- */
 @media (prefers-color-scheme: light) {
   :root {
-    color: var(--secondary-color);
-    background-color: #ffffff;
+    color: var(--secondary-color);         /* Texto más oscuro para fondo claro */
+    background-color: #ffffff;             /* Fondo blanco */
   }
+
   a:hover {
-    color: var(--accent-color);
+    color: var(--accent-color);            /* Hover mantiene acento */
   }
+
   button {
-    background-color: #f9f9f9;
+    background-color: #f9f9f9;             /* Fondo claro para botones en modo claro */
   }
 }

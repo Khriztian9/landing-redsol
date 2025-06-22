@@ -1,83 +1,101 @@
+/* Establece el estilo base del contenedor principal */
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0;
-  text-align: center;
+  max-width: 1280px;              /* Limita el ancho máximo para mantener un diseño centrado */
+  margin: 0 auto;                 /* Centra horizontalmente */
+  padding: 0;                     /* Sin espacio interior */
+  text-align: center;            /* Centra el texto */
 }
 
+/* Estilos para el logo */
 .logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em var(--primary-color));
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em var(--accent-color));
+  height: 6em;                    /* Altura fija del logo */
+  padding: 1.5em;                 /* Espacio interno */
+  will-change: filter;           /* Optimiza para futuras transformaciones de filtro */
+  transition: filter 300ms;      /* Transición suave al aplicar filtros */
 }
 
+.logo:hover {
+  filter: drop-shadow(0 0 2em var(--primary-color)); /* Resalta el logo con sombra al hacer hover */
+}
+
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em var(--accent-color));  /* Variante cuando el logo tiene clase 'react' */
+}
+
+/* Animación para rotar el logo */
 @keyframes logo-spin {
   from {
-    transform: rotate(0deg);
+    transform: rotate(0deg);     /* Inicio: sin rotación */
   }
   to {
-    transform: rotate(360deg);
+    transform: rotate(360deg);   /* Fin: giro completo */
   }
 }
 
+/* Aplica animación solo si el usuario permite movimiento */
 @media (prefers-reduced-motion: no-preference) {
   a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+    animation: logo-spin infinite 20s linear; /* Aplica giro continuo al segundo enlace */
   }
 }
 
+/* Tarjetas generales */
 .card {
-  padding: 2em;
+  padding: 2em;                  /* Espaciado interno amplio */
 }
 
+/* Clase auxiliar para texto de documentación */
 .read-the-docs {
-  color: #39FF14;
-}
-.hero-section {
-  min-height: 90vh;
-  background-image: url('/solar-bg.jpg');
-  background-size: cover;
-  background-position: center;
-  position: relative;
+  color: #39FF14;                /* Verde neón para destacar */
 }
 
-.bg-overlay {
-  background-color: rgba(0, 0, 0, 0.6);
+/* Sección hero principal */
+.hero-section {
+  min-height: 90vh;              /* Ocupa al menos el 90% de la altura de la ventana */
+  background-image: url('/solar-bg.jpg'); /* Imagen de fondo personalizada */
+  background-size: cover;        /* Cubre todo el contenedor */
+  background-position: center;   /* Centra la imagen */
+  position: relative;            /* Necesario para overlays */
 }
+
+/* Capa oscura sobre la imagen para mejorar contraste del texto */
+.bg-overlay {
+  background-color: rgba(0, 0, 0, 0.6); /* Negro semitransparente */
+}
+
+/* Efecto de hover para enlaces del navbar */
 .link-hover {
-  transition: color 0.3s ease, border-bottom 0.3s ease;
-  border-bottom: 2px solid transparent;
+  transition: color 0.3s ease, border-bottom 0.3s ease; /* Transiciones suaves */
+  border-bottom: 2px solid transparent; /* Línea inferior invisible por defecto */
 }
 
 .link-hover:hover {
-  color: #39FF14;
-  border-bottom: 2px solid #39FF14;
+  color: #39FF14;                /* Cambia a verde en hover */
+  border-bottom: 2px solid #39FF14; /* Subraya en verde */
 }
+
+/* Tarjetas de servicios con efecto flotante */
 .service-card {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición en sombra y movimiento */
 }
 
 .service-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  transform: translateY(-20px);   /* Eleva ligeramente la tarjeta */
+  box-shadow: 0 0.5rem 1rem rgb(103, 255, 2); /* Sombra para profundidad */
 }
+
+/* Título del carrusel más grueso */
 .carousel-caption h5 {
   font-weight: 600;
 }
 
+/* Estilo de las imágenes en el carrusel */
 .carousel img {
-  object-fit: cover;
-  height: 600px;
+  object-fit: cover;             /* Cubre el espacio sin deformarse */
+  height: 600px;                 /* Altura fija */
 }
 
-/* Secciones adicionales */
+/* Estilo para preguntas frecuentes */
 .faq-question {
-  text-align: left;
+  text-align: left;              /* Alinea a la izquierda para mejor lectura */
 }
