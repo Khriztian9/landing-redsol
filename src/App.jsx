@@ -3,6 +3,7 @@ import Features from './components/Features.jsx';
 import Faq from './components/Faq.jsx';
 import Simulador from './components/SimuladorConGrafico';
 import Cotizador from './components/Cotizador';
+import CotizadorFactura from './components/Cotizadorfactura';
 import { useEffect } from 'react';
 
 function App() {
@@ -135,6 +136,12 @@ function App() {
             </div>
           </div>
         </section>
+
+        <section id="cotizador-factura" className="py-5 bg-white" data-aos="fade-up-right" data-aos-delay="100">
+         <CotizadorFactura />
+        </section>
+
+
 
         <section id="cotizador" className="py-5 bg-white" data-aos="fade-up-right" data-aos-delay="100">
           <Cotizador />
