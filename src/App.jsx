@@ -64,6 +64,20 @@ function App() {
   </div>
 </section>
 
+       <section id="cotizador-factura" className="py-5 bg-white" data-aos="fade-up-right" data-aos-delay="100">
+         <CotizadorFactura />
+        </section>
+
+
+
+        <section id="cotizador" className="py-5 bg-white" data-aos="fade-up-right" data-aos-delay="100">
+          <Cotizador />
+        </section>
+
+        <section id="simulador" className="py-5 bg-white" data-aos="flip-up" data-aos-delay="100">
+          <Simulador />
+        </section>
+
 
         <section id="servicios" className="py-5 bg-light text-center" data-aos="flip-left" data-aos-delay="100">
           <div className="container">
@@ -137,19 +151,6 @@ function App() {
           </div>
         </section>
 
-        <section id="cotizador-factura" className="py-5 bg-white" data-aos="fade-up-right" data-aos-delay="100">
-         <CotizadorFactura />
-        </section>
-
-
-
-        <section id="cotizador" className="py-5 bg-white" data-aos="fade-up-right" data-aos-delay="100">
-          <Cotizador />
-        </section>
-
-        <section id="simulador" className="py-5 bg-white" data-aos="flip-up" data-aos-delay="100">
-          <Simulador />
-        </section>
 
         <section data-aos="zoom-in-up" data-aos-delay="100">
           <Features />

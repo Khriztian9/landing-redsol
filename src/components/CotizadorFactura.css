@@ -1,0 +1,55 @@
+/* CotizadorFactura.css */
+
+.container {
+  max-width: 960px;
+}
+
+.card {
+  border-radius: 1rem;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.01);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.card-title {
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+ul.list-unstyled li {
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+button[type="submit"] {
+  font-weight: bold;
+  font-size: 1.1rem;
+  padding: 10px;
+}
+
+h2 {
+  font-weight: bold;
+}
+
+select,
+input[type="file"] {
+  font-size: 0.95rem;
+}
+
+.custom-cotizador-btn {
+  background-color: #0099ff;;  /* azul suave */
+  border: none;
+  color: white;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.custom-cotizador-btn:hover {
+  background-color: #39ff14; /* Verde neón */
+  color: #ffffff;
+  box-shadow: 0 0 5px #39ff14, 0 0 5px #ffffff;
+  transform: scale(1.01);
+}

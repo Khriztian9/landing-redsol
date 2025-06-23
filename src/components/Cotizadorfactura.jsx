@@ -1,112 +1,128 @@
-// src/components/CotizadorFactura.jsx
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "bootstrap/dist/css/bootstrap.min.css";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import "./CotizadorFactura.css";
+
 
 const CotizadorFactura = () => {
-  const [pdfFile, setPdfFile] = useState(null);
-  const [form, setForm] = useState({
-    estructura: 'madera',
-    cubierta: 'fibrocemento',
-    ubicacion: 'quindio',
-    tipoInversor: 'ongrid'
-  });
+  const [file, setFile] = useState(null);
+  const [estructura, setEstructura] = useState("trapezoidal");
+  const [cubierta, setCubierta] = useState("fibrocemento");
+  const [ubicacion, setUbicacion] = useState("risaralda");
+  const [tipoInversor, setTipoInversor] = useState("ongrid");
   const [resultado, setResultado] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  const handleFileChange = (e) => {
-    setPdfFile(e.target.files[0]);
-  };
+  useEffect(() => {
+    AOS.init({ duration: 1000 });
+  }, []);
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+  const handleFileChange = (e) => setFile(e.target.files[0]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!pdfFile) return alert("Por favor carga una factura en PDF.");
-
     const formData = new FormData();
-    formData.append('file', pdfFile);
-    formData.append('estructura', form.estructura);
-    formData.append('cubierta', form.cubierta);
-    formData.append('ubicacion', form.ubicacion);
-    formData.append('tipoInversor', form.tipoInversor);
+    formData.append("file", file);
+    formData.append("estructura", estructura);
+    formData.append("cubierta", cubierta);
+    formData.append("ubicacion", ubicacion);
+    formData.append("tipoInversor", tipoInversor);
 
     try {
-      setLoading(true);
-      const res = await axios.post('http://localhost:8000/procesar-factura', formData);
+      const res = await axios.post("http://127.0.0.1:8000/procesar-factura", formData);
       setResultado(res.data);
+      setError(null);
     } catch (err) {
-      console.error(err);
-      alert('Error al procesar la factura');
-    } finally {
-      setLoading(false);
+      setError("No se pudo procesar la factura. Verifica el archivo y vuelve a intentar.");
+      setResultado(null);
     }
   };
 
   return (
-    <div className="container my-5">
-      <h2 className="mb-4 text-center">Cotiza tu sistema solar</h2>
+    <div className="container py-4">
+      <h2 className="mb-4 text-center text-primary" data-aos="fade-down">
+        Cotizador Solar desde Factura
+      </h2>
 
-      <form onSubmit={handleSubmit} className="text-center">
+      <form onSubmit={handleSubmit} className="card p-4 shadow mb-4" data-aos="fade-up">
         <div className="mb-3">
-          <input type="file" accept="application/pdf" onChange={handleFileChange} className="form-control" />
+          <label className="form-label">Factura en PDF</label>
+          <input type="file" accept="application/pdf" onChange={handleFileChange} className="form-control" required />
         </div>
 
-        <div className="row mb-3">
-          <div className="col">
-            <label>Estructura</label>
-            <select name="estructura" value={form.estructura} onChange={handleChange} className="form-select">
+        <div className="row">
+          <div className="col-md-6 mb-3">
+            <label className="form-label">Estructura</label>
+            <select className="form-select" value={estructura} onChange={(e) => setEstructura(e.target.value)}>
               <option value="madera">Madera</option>
-              <option value="perfil_metalico">Perfil metálico</option>
               <option value="cercha">Cercha</option>
-              <option value="plancha">Plancha</option>
               <option value="granja">Granja</option>
+              <option value="plancha">Plancha</option>
+              <option value="perfil_metalico">Perfil Metálico</option>
             </select>
           </div>
 
-          <div className="col">
-            <label>Cubierta</label>
-            <select name="cubierta" value={form.cubierta} onChange={handleChange} className="form-select">
-              <option value="teja_colonial">Teja colonial</option>
+          <div className="col-md-6 mb-3">
+            <label className="form-label">Cubierta</label>
+            <select className="form-select" value={cubierta} onChange={(e) => setCubierta(e.target.value)}>
               <option value="fibrocemento">Fibrocemento</option>
+              <option value="teja_colonial">Teja Colonial</option>
               <option value="trapezoidal">Trapezoidal</option>
             </select>
           </div>
 
-          <div className="col">
-            <label>Ubicación</label>
-            <select name="ubicacion" value={form.ubicacion} onChange={handleChange} className="form-select">
-              <option value="quindio">Quindío</option>
+          <div className="col-md-6 mb-3">
+            <label className="form-label">Ubicación</label>
+            <select className="form-select" value={ubicacion} onChange={(e) => setUbicacion(e.target.value)}>
               <option value="risaralda">Risaralda</option>
-              <option value="caldas">Caldas</option>
+              <option value="quindio">Quindío</option>
               <option value="valle">Valle</option>
+              <option value="caldas">Caldas</option>
             </select>
           </div>
 
-          <div className="col">
-            <label>Tipo de inversor</label>
-            <select name="tipoInversor" value={form.tipoInversor} onChange={handleChange} className="form-select">
-              <option value="ongrid">On-grid</option>
+          <div className="col-md-6 mb-3">
+            <label className="form-label">Tipo de inversor</label>
+            <select className="form-select" value={tipoInversor} onChange={(e) => setTipoInversor(e.target.value)}>
+              <option value="ongrid">On Grid</option>
               <option value="hibrido">Híbrido</option>
             </select>
           </div>
         </div>
 
-        <button type="submit" className="btn btn-primary" disabled={loading}>
-          {loading ? 'Procesando...' : 'Enviar'}
-        </button>
+            <button type="submit" className="btn custom-cotizador-btn w-100">Calcular</button>
       </form>
 
+      {error && <div className="alert alert-danger" data-aos="fade-right">{error}</div>}
+
       {resultado && (
-        <div className="mt-5 text-start">
-          <h4>Resultado del análisis:</h4>
-          <ul>
-            <li><strong>Consumo mensual promedio:</strong> {resultado.consumo_kwh} kWh</li>
-            <li><strong>Potencia estimada:</strong> {resultado.potencia_kwp} kWp</li>
-            <li><strong>Número de paneles sugerido:</strong> {resultado.numero_paneles}</li>
-            <li><strong>Precio estimado:</strong> ${resultado.precio_total.toLocaleString()}</li>
-          </ul>
+        <div className="row">
+          <div className="col-md-6" data-aos="fade-right">
+            <div className="card shadow p-3 mb-4 border-primary bg-white">
+              <h5 className="card-title text-primary mb-3">📋 Datos del Cliente</h5>
+              <ul className="list-unstyled">
+                <li><strong>👤 Nombre:</strong> {resultado.nombre || 'No disponible'}</li>
+                <li><strong>🏠 Dirección:</strong> {resultado.direccion || 'No disponible'}</li>
+                <li><strong>🏘️ Municipio:</strong> {resultado.municipio || 'No disponible'}</li>
+                <li><strong>📶 Tipo de servicio:</strong> {resultado.tipo_servicio || 'No disponible'}</li>
+                <li><strong>🏷️ Estrato:</strong> {resultado.estrato ?? 'No disponible'}</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="col-md-6" data-aos="fade-left">
+            <div className="card shadow p-3 mb-4 border-success bg-light">
+              <h5 className="card-title text-primary mb-3">📊 Resultados Técnicos</h5>
+              <ul className="list-unstyled">
+                <li><strong>⚡ Consumo mensual:</strong> {resultado.consumo_kwh?.toFixed(2)} kWh</li>
+                <li><strong>🔋 Potencia requerida:</strong> {resultado.potencia_kwp?.toFixed(2)} kWp</li>
+                <li><strong>🔧 Número de paneles:</strong> {resultado.numero_paneles}</li>
+                <li><strong>💰 Precio estimado:</strong> {resultado.precio_total.toLocaleString("es-CO")}</li>
+              </ul>
+            </div>
+          </div>
         </div>
       )}
     </div>
