@@ -31,7 +31,7 @@ const CotizadorFactura = () => {
     formData.append("tipoInversor", tipoInversor);
 
     try {
-      const res = await axios.post("http://127.0.0.1:8000/procesar-factura", formData);
+      const res = await axios.post("https://cash-48v3.onrender.com/procesar-factura", formData);
       setResultado(res.data);
       setError(null);
     } catch (err) {
