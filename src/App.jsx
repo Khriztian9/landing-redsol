@@ -9,7 +9,7 @@ function App() {
   useEffect(() => {
     const handleScroll = () => {
       const navbar = document.getElementById('mainNavbar');
-      if (window.scrollY > 200) {
+      if (window.scrollY > 50) {
         navbar.classList.add('navbar-scrolled');
       } else {
         navbar.classList.remove('navbar-scrolled');
@@ -50,18 +50,19 @@ function App() {
           </div>
         </header>
 
-        <section className="py-5 bg-white text-center" data-aos="fade-right" data-aos-delay="200">
-          <div className="container">
-            <div className="ratio ratio-16x9">
-              <iframe
-                src="https://www.youtube.com/embed/zcz6ClnodU0"
-                title="Video de LIVOLTEK"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-              ></iframe>
-            </div>
-          </div>
-        </section>
+<section className="video-section text-center" data-aos="fade-right" data-aos-delay="200">
+  <div className="video-container">
+    <div className="responsive-video">
+      <iframe
+        src="https://www.youtube.com/embed/zcz6ClnodU0"
+        title="Video de LIVOLTEK"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowFullScreen
+      ></iframe>
+    </div>
+  </div>
+</section>
+
 
         <section id="servicios" className="py-5 bg-light text-center" data-aos="flip-left" data-aos-delay="100">
           <div className="container">
