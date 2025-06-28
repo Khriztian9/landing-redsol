@@ -31,7 +31,7 @@ const CotizadorFactura = () => {
     formData.append("tipoInversor", tipoInversor);
 
     try {
-      const res = await axios.post("https://cash-48v3.onrender.com/procesar-factura", formData);
+      const res = await axios.post("http://127.0.0.1:8000/procesar-factura", formData);
       setResultado(res.data);
       setError(null);
     } catch (err) {
@@ -107,7 +107,8 @@ const CotizadorFactura = () => {
                 <li><strong>🏠 Dirección:</strong> {resultado.direccion || 'No disponible'}</li>
                 <li><strong>🏘️ Municipio:</strong> {resultado.municipio || 'No disponible'}</li>
                 <li><strong>📶 Tipo de servicio:</strong> {resultado.tipo_servicio || 'No disponible'}</li>
-                <li><strong>🏷️ Estrato:</strong> {resultado.estrato ?? 'No disponible'}</li>
+                <li><strong>⚡ Consumo anual:</strong> {resultado.consumo_kwh*12?.toFixed(0)} kWh</li>
+                <li><strong>📈 Precio por kWh:</strong> {resultado.valor_kwh ? resultado.valor_kwh.toFixed(0) + " COP" : "No disponible"}</li>
               </ul>
             </div>
           </div>
@@ -116,10 +117,12 @@ const CotizadorFactura = () => {
             <div className="card shadow p-3 mb-4 border-success bg-light">
               <h5 className="card-title text-primary mb-3">📊 Resultados Técnicos</h5>
               <ul className="list-unstyled">
-                <li><strong>⚡ Consumo mensual:</strong> {resultado.consumo_kwh?.toFixed(2)} kWh</li>
+                <li><strong>💸 Costo energía anual:</strong> $ {resultado.costo_energia?.toLocaleString("es-CO") || "No aplica"}</li>
                 <li><strong>🔋 Potencia requerida:</strong> {resultado.potencia_kwp?.toFixed(2)} kWp</li>
+                <li><strong>⚙️ Inversor propuesto:</strong> {resultado.inversor_utilizado || "No disponible"}</li>
                 <li><strong>🔧 Número de paneles:</strong> {resultado.numero_paneles}</li>
-                <li><strong>💰 Precio estimado:</strong> {resultado.precio_total.toLocaleString("es-CO")}</li>
+                <li><strong>💰 Precio estimado proyecto:</strong> $ {resultado.precio_total.toLocaleString("es-CO")}</li>
+                <li><strong>🔆 Generación anual estimada:</strong> {resultado.generacion_mensual_min*12?.toFixed(0).toLocaleString("es-CO")} – {resultado.generacion_mensual_max*12?.toFixed(0).toLocaleString("es-CO")} kWh</li>
               </ul>
             </div>
           </div>

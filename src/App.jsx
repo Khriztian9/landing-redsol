@@ -1,9 +1,6 @@
 import './App.css';
-import Features from './components/Features.jsx';
-import Faq from './components/Faq.jsx';
-import Simulador from './components/SimuladorConGrafico';
-import Cotizador from './components/Cotizador';
 import CotizadorFactura from './components/Cotizadorfactura';
+import SimuladorConGrafico from './components/SimuladorConGrafico';
 import { useEffect } from 'react';
 
 function App() {
@@ -68,14 +65,8 @@ function App() {
          <CotizadorFactura />
         </section>
 
-
-
-        <section id="cotizador" className="py-5 bg-white" data-aos="fade-up-right" data-aos-delay="100">
-          <Cotizador />
-        </section>
-
-        <section id="simulador" className="py-5 bg-white" data-aos="flip-up" data-aos-delay="100">
-          <Simulador />
+        <section id="cotizador-factura" className="py-5 bg-white" data-aos="fade-up-right" data-aos-delay="100">
+         <SimuladorConGrafico />
         </section>
 
 
@@ -152,25 +143,21 @@ function App() {
         </section>
 
 
-        <section data-aos="zoom-in-up" data-aos-delay="100">
-          <Features />
-        </section>
-
-        <section data-aos="fade-left" data-aos-delay="100">
-          <Faq />
-        </section>
-
         <section id="contacto" className="py-5 bg-light text-center" data-aos="fade-up" data-aos-delay="150">
           <div className="container">
             <h2 className="mb-5 fw-bold text-primary">Contáctanos</h2>
             <form className="mx-auto text-start" style={{ maxWidth: 500 }} action="https://formspree.io/f/xwpbbnqv" method="POST">
               <div className="mb-3">
                 <label className="form-label">Nombre</label>
-                <input type="text" name="nombre" className="form-control" required placeholder="Tu nombre completo" />
+                <input type="text" name="nombre" className="form-control" required placeholder=" " />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Whatsapp</label>
+                <input type="text" name="telefono" className="form-control" required placeholder=" " />
               </div>
               <div className="mb-3">
                 <label className="form-label">Correo</label>
-                <input type="email" name="correo" className="form-control" required placeholder="ejemplo@correo.com" />
+                <input type="email" name="correo" className="form-control" required placeholder=" " />
               </div>
               <div className="mb-3">
                 <label className="form-label">Mensaje</label>
@@ -180,6 +167,7 @@ function App() {
             </form>
           </div>
         </section>
+
 
         <footer className="text-center py-4 bg-dark text-white" data-aos="fade-in" data-aos-delay="300">
           © {new Date().getFullYear()} Red Sol Colombia. Todos los derechos reservados.

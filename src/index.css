@@ -75,7 +75,7 @@ button {
 }
 
 button:hover {
-  border-color: #39FF14;       /* Borde visible en hover */
+  border-color: var(--primary-color);       /* Borde visible en hover */
 }
 
 button:focus,

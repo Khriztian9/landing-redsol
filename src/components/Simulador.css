@@ -1,49 +1,70 @@
+/* Simulador.css */
+
 .simulador-container {
-  max-width: 800px;
-  margin: auto;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
   background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.1);
-  padding: 40px;
-  margin-top: 40px;
-  margin-bottom: 60px;
+  border-radius: 1rem;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
 .simulador-container h2 {
   text-align: center;
-  color: #007BFF;
-  margin-bottom: 30px;
+  font-weight: bold;
+  font-size: 2rem;
 }
 
-.simulador-container form .form-label {
+.simulador-container form {
+  margin-top: 1rem;
+  padding: 1rem 1.5rem;
+  background-color: #f8f9fa;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.simulador-container .form-label {
   font-weight: 600;
-  text-transform: capitalize;
+  color: #333;
+}
+
+.simulador-container input[type="number"] {
+  border-radius: 0.5rem;
+  border: 1px solid #ced4da;
+  padding: 0.6rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.simulador-container input[type="number"]:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.2rem rgba(57, 255, 20, 0.25);
 }
 
 .simulador-container button {
-  background-color: #007BFF;
-  border: none;
-  transition: background-color 0.3s ease;
+  font-weight: bold;
+  padding: 0.75rem;
+  font-size: 1.1rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .simulador-container button:hover {
-  background-color: #39FF14;
+  background-color: #39ff14;
+  color: #fff;
+  transform: scale(1.01);
+  box-shadow: 0 0 10px #39ff14;
 }
 
-.simulador-container .resultado {
-  margin-top: 40px;
-  background-color: #f8f9fa;
-  padding: 20px;
-  border-radius: 10px;
+.simulador-container h4 {
+  margin-top: 2rem;
+  font-weight: bold;
+  color: #007bff;
 }
 
-.simulador-container .resultado p {
-  font-size: 1.1rem;
-  margin: 8px 0;
+.simulador-container p {
+  font-size: 1rem;
+  margin-bottom: 0.4rem;
 }
 
-.simulador-container canvas {
-  margin-top: 30px;
-  width: 100% !important;
-  height: auto !important;
-}
+canvas {
+  display: block;
+  max-width: 10
