@@ -31,8 +31,6 @@ function App() {
               <ul className="navbar-nav ms-auto gap-3 align-items-center">
                 <li className="nav-item"><a className="nav-link fw-medium text-secondary link-hover" href="#servicios">Servicios</a></li>
                 <li className="nav-item"><a className="nav-link fw-medium text-secondary link-hover" href="#proyectos">Proyectos</a></li>
-                <li className="nav-item"><a className="nav-link fw-medium text-secondary link-hover" href="#caracteristicas">Energía solar</a></li>
-                <li className="nav-item"><a className="nav-link fw-medium text-secondary link-hover" href="#faq">FAQ</a></li>
                 <li className="nav-item"><a className="nav-link fw-medium text-secondary link-hover" href="#contacto">Contacto</a></li>
               </ul>
             </div>

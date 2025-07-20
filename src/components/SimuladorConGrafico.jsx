@@ -18,26 +18,30 @@ const Simulador = () => {
     capex: 22000000,
     opex_anual: 1000000,
     horizonte_anios: 25,
-    tasa_descuento: 0.10
+    tasa_descuento: 0.10,
+    anios_deduccion_renta: 3
   });
 
   const [resultado, setResultado] = useState(null);
+  const [verConBeneficios, setVerConBeneficios] = useState(false);
   const chartRef = useRef(null);
   const chartInstance = useRef(null);
 
   const handleChange = e => {
-    setFormData({ ...formData, [e.target.name]: parseFloat(e.target.value) });
+    const value = e.target.type === 'number' ? parseFloat(e.target.value) : e.target.value;
+    setFormData({ ...formData, [e.target.name]: value });
   };
 
   const handleSubmit = async e => {
     e.preventDefault();
-    const res = await fetch('https://cash-48v3.onrender.com/calcular', {
+    const res = await fetch('http://127.0.0.1:8000/calcular', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData)
     });
     const data = await res.json();
     setResultado(data);
+    setVerConBeneficios(false);
   };
 
   useEffect(() => {
@@ -47,15 +51,20 @@ const Simulador = () => {
       }
 
       const ctx = chartRef.current.getContext('2d');
+      const flujos = verConBeneficios ? resultado.flujos_con_bt : resultado.flujos_sin_bt;
+      const payback = verConBeneficios ? resultado.payback_year_con_bt : resultado.payback_year;
+      const color = verConBeneficios ? 'blue' : 'blue';
+      const label = verConBeneficios ? 'Flujo con Beneficios' : 'Flujo sin Beneficios';
+
       chartInstance.current = new Chart(ctx, {
         type: 'line',
         data: {
-          labels: resultado.flujos.map((_, i) => i), // ← etiquetas numéricas
+          labels: flujos.map((_, i) => i),
           datasets: [{
-            label: 'Flujo de Caja (COP)',
-            data: resultado.flujos,
-            borderColor: 'blue',
-            backgroundColor: 'rgba(0, 123, 255, 0.2)',
+            label,
+            data: flujos,
+            borderColor: color,
+            backgroundColor: color === 'green' ? 'rgba(40, 167, 69, 0.2)' : 'rgba(0, 123, 255, 0.2)',
             fill: true,
             tension: 0.1,
             pointRadius: 4,
@@ -71,37 +80,31 @@ const Simulador = () => {
               text: 'Flujo de Caja Anual del Proyecto'
             },
             annotation: {
-              annotations: resultado.payback_year !== null ? {
-                lineaPayback: {
+              annotations: {
+                paybackLine: {
                   type: 'line',
                   scaleID: 'x',
-                  value: resultado.payback_year,  // ← valor numérico
-                  borderColor: 'red',
+                  value: payback,
+                  borderColor: verConBeneficios ? 'lime' : 'red',
                   borderWidth: 2,
                   label: {
-                    content: 'Payback',
+                    content: verConBeneficios ? 'Payback con BT' : 'Payback sin BT',
                     enabled: true,
                     position: 'start'
                   }
                 }
-              } : {}
+              }
             }
           },
           scales: {
             y: {
               beginAtZero: false,
-              title: {
-                display: true,
-                text: 'COP'
-              }
+              title: { display: true, text: 'COP' }
             },
             x: {
-              title: {
-                display: true,
-                text: 'Año'
-              },
+              title: { display: true, text: 'Año' },
               ticks: {
-                callback: function(value) {
+                callback: function (value) {
                   return 'Año ' + value;
                 }
               }
@@ -110,7 +113,7 @@ const Simulador = () => {
         }
       });
     }
-  }, [resultado]);
+  }, [resultado, verConBeneficios]);
 
   return (
     <div className="simulador-container">
@@ -118,14 +121,22 @@ const Simulador = () => {
       <form onSubmit={handleSubmit}>
         {Object.keys(formData).map(key => (
           <div className="mb-3" key={key}>
-            <label className="form-label">{key.replace(/_/g, ' ')}</label>
-            <input
+          <label className="form-label">
+  {key
+    .replace(/_/g, ' ')
+    .replace(/anios/g, 'años') // ← corrige "anios" a "años"
+}
+</label>
+      
+              <input
               type="number"
               step="any"
               name={key}
               className="form-control"
               value={formData[key]}
               onChange={handleChange}
+              min={key === "anios_deduccion_renta" ? 1 : undefined}
+              max={key === "anios_deduccion_renta" ? 15 : undefined}
               required
             />
           </div>
@@ -134,19 +145,52 @@ const Simulador = () => {
       </form>
 
       {resultado && (
-        <div className="mt-5">
-          <h4>Resultado Financiero</h4>
-          <p><strong>VPN:</strong> {resultado.vpn.toLocaleString()} COP</p>
-          <p><strong>TIR:</strong> {resultado.tir} %</p>
-          <p><strong>Año de Payback:</strong> {resultado.payback_year}</p>
-          <p><strong>Ingreso total año 1:</strong> {resultado.ingreso_total.toLocaleString()} COP</p>
-          <p><strong>Autoconsumo:</strong> {resultado.autoconsumo_kwh.toLocaleString()} kWh</p>
-          <p><strong>Excedente 1:</strong> {resultado.excedente1_kwh.toLocaleString()} kWh</p>
-          <p><strong>Excedente 2:</strong> {resultado.excedente2_kwh.toLocaleString()} kWh</p>
-
-          <canvas ref={chartRef} width="600" height="300" className="mt-4" />
+        <div className="form-check mt-3">
+          <input
+            className="form-check-input"
+            type="checkbox"
+            id="verConBeneficios"
+            checked={verConBeneficios}
+            onChange={() => setVerConBeneficios(!verConBeneficios)}
+          />
+          <label className="form-check-label" htmlFor="verConBeneficios">
+            Ver resultados con beneficios tributarios
+          </label>
         </div>
       )}
+
+      {resultado && (
+  <div className="mt-4">
+    <div className="card shadow-sm border-0 bg-light">
+      <div className="card-body">
+        <h5 className="card-title fw-bold mb-4 text-primary">📊 Resultado Financiero</h5>
+
+        <p><strong>VPN:</strong> ${(verConBeneficios ? resultado.vpn_con_bt : resultado.vpn_sin_bt).toLocaleString()} COP</p>
+        <p><strong>TIR:</strong> {verConBeneficios ? resultado.tir_con_bt : resultado.tir_sin_bt} %</p>
+        <p><strong>Payback:</strong> Año {verConBeneficios ? resultado.payback_year_con_bt : resultado.payback_year}</p>
+        
+        <hr />
+
+        <p><strong>Ingreso por generación año 1:</strong> ${resultado.ingreso_total_anual.toLocaleString()} COP</p>
+        <p><strong>Autoconsumo:</strong> ${resultado.autoconsumo_anual.toLocaleString()}</p>
+        <p><strong>Excedente 1:</strong> ${resultado.excedente1_anual.toLocaleString()}</p>
+        <p><strong>Excedente 2:</strong> ${resultado.excedente2_anual.toLocaleString()}</p>
+
+        {verConBeneficios && (
+          <>
+            <hr />
+            <p><strong>Depreciación acelerada año 1:</strong> ${resultado.beneficio_depreciacion_anio1.toLocaleString()}</p>
+            <p><strong>Deducción renta año 1:</strong> ${resultado.beneficio_renta_anio1.toLocaleString()}</p>
+            <p><strong>Total beneficios tributarios año 1:</strong> ${resultado.beneficio_total_anio1.toLocaleString()}</p>
+          </>
+        )}
+      </div>
+    </div>
+
+    <canvas ref={chartRef} width="600" height="300" className="mt-4" />
+  </div>
+)}
+
     </div>
   );
 };
