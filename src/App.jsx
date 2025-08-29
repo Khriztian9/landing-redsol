@@ -1,9 +1,39 @@
 import './App.css';
 import CotizadorFactura from './components/Cotizadorfactura';
 import SimuladorConGrafico from './components/SimuladorConGrafico';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { auth, login, logout } from "./firebase";
+import { onAuthStateChanged } from 'firebase/auth';
+import { Link } from "react-router-dom";
 
 function App() {
+  const [user, setUser] = useState(null);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [showLogin, setShowLogin] = useState(false);
+
+  // Detectar sesión activa
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  // Login con email y contraseña
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      await login(email, password);
+      setError("");
+      setShowLogin(false); // cerrar modal
+    } catch (err) {
+      setError("Usuario o contraseña incorrectos");
+    }
+  };
+
+  // Efecto scroll para navbar
   useEffect(() => {
     const handleScroll = () => {
       const navbar = document.getElementById('mainNavbar');
@@ -21,6 +51,7 @@ function App() {
   return (
     <>
       <div style={{ position: 'relative', zIndex: 1 }}>
+        {/* NAVBAR */}
         <nav id="mainNavbar" className="navbar navbar-expand-lg navbar-transparent fixed-top transition-navbar">
           <div className="container py-2">
             <a className="navbar-brand text-primary fw-bold fs-4" href="#">RED SOL</a>
@@ -32,11 +63,24 @@ function App() {
                 <li className="nav-item"><a className="nav-link fw-medium text-secondary link-hover" href="#servicios">Servicios</a></li>
                 <li className="nav-item"><a className="nav-link fw-medium text-secondary link-hover" href="#proyectos">Proyectos</a></li>
                 <li className="nav-item"><a className="nav-link fw-medium text-secondary link-hover" href="#contacto">Contacto</a></li>
+                <li className="nav-item">
+                  {user ? (
+                    <>
+                      <span className="fw-bold text-primary me-2">{user.email}</span>
+                      {/* 🔹 Dashboard ahora con Link */}
+                      <Link to="/dashboard" className="btn btn-success btn-sm me-2">Dashboard</Link>
+                      <button className="btn btn-outline-danger btn-sm" onClick={logout}>Logout</button>
+                    </>
+                  ) : (
+                    <button className="btn btn-outline-primary btn-sm" onClick={() => setShowLogin(true)}>Login</button>
+                  )}
+                </li>
               </ul>
             </div>
           </div>
         </nav>
 
+        {/* HERO */}
         <header className="hero-section text-white text-center d-flex align-items-center justify-content-center"
           data-aos="fade-down" data-aos-delay="100" data-aos-duration="1000">
           <div className="bg-overlay p-5 rounded">
@@ -46,28 +90,30 @@ function App() {
           </div>
         </header>
 
-<section className="video-section text-center" data-aos="fade-right" data-aos-delay="200">
-  <div className="video-container">
-    <div className="responsive-video">
-      <iframe
-        src="https://www.youtube.com/embed/zcz6ClnodU0"
-        title="Video de LIVOLTEK"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowFullScreen
-      ></iframe>
-    </div>
-  </div>
-</section>
-
-       <section id="cotizador-factura" className="py-5 bg-white" data-aos="fade-up-right" data-aos-delay="100">
-         <CotizadorFactura />
+        {/* VIDEO */}
+        <section className="video-section text-center" data-aos="fade-right" data-aos-delay="200">
+          <div className="video-container">
+            <div className="responsive-video">
+              <iframe
+                src="https://www.youtube.com/embed/bNO_ha_oO20"
+                title="Video de LIVOLTEK"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              ></iframe>
+            </div>
+          </div>
         </section>
 
+        {/* COMPONENTES */}
         <section id="cotizador-factura" className="py-5 bg-white" data-aos="fade-up-right" data-aos-delay="100">
-         <SimuladorConGrafico />
+          <CotizadorFactura />
         </section>
 
+        <section id="simulador" className="py-5 bg-white" data-aos="fade-up-right" data-aos-delay="100">
+          <SimuladorConGrafico />
+        </section>
 
+        {/* SERVICIOS */}
         <section id="servicios" className="py-5 bg-light text-center" data-aos="flip-left" data-aos-delay="100">
           <div className="container">
             <h2 className="mb-5 fw-bold text-primary">Servicios</h2>
@@ -95,7 +141,7 @@ function App() {
                   <div className="card-body py-5">
                     <i className="bi bi-tools fs-1 text-primary mb-3"></i>
                     <h5 className="card-title fw-semibold mb-2">Instalación</h5>
-                    <p className="text-muted">Montajes certificados bajo RETIE y RETILAP para viviendas e industria.</p>
+                    <p className="text-muted">Montaje y puesta en marcha de sistemas solares de cualquier escala.</p>
                   </div>
                 </div>
               </div>
@@ -103,31 +149,20 @@ function App() {
           </div>
         </section>
 
+        {/* PROYECTOS */}
         <section id="proyectos" className="py-5 bg-white" data-aos="slide-up" data-aos-delay="100">
           <div className="container">
-            <h2 className="mb-5 text-center text-primary fw-bold">Nuestros Proyectos</h2>
+            <h2 className="mb-5 text-center text-primary fw-bold">Proyectos</h2>
             <div id="carouselProyectos" className="carousel slide shadow-sm rounded overflow-hidden" data-bs-ride="carousel">
               <div className="carousel-inner">
                 <div className="carousel-item active" data-aos="zoom-in" data-aos-delay="300">
                   <img src="/proyecto1.jpg" className="d-block w-100" alt="Proyecto 1" />
-                  <div className="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-2">
-                    <h5>Instalación en Boyacá</h5>
-                    <p>Sistema hibrido 10kWp para finca rural.</p>
-                  </div>
                 </div>
                 <div className="carousel-item" data-aos="zoom-in" data-aos-delay="400">
                   <img src="/proyecto2.jpg" className="d-block w-100" alt="Proyecto 2" />
-                  <div className="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-2">
-                    <h5>Industria en Soacha</h5>
-                    <p>Medición neta e integración con inversores híbridos.</p>
-                  </div>
                 </div>
                 <div className="carousel-item" data-aos="zoom-in" data-aos-delay="500">
                   <img src="/proyecto3.jpg" className="d-block w-100" alt="Proyecto 3" />
-                  <div className="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-2">
-                    <h5>Proyecto urbano en Bogotá</h5>
-                    <p>Integración de energía solar en espacio reducido.</p>
-                  </div>
                 </div>
               </div>
               <button className="carousel-control-prev" type="button" data-bs-target="#carouselProyectos" data-bs-slide="prev">
@@ -140,7 +175,7 @@ function App() {
           </div>
         </section>
 
-
+        {/* CONTACTO */}
         <section id="contacto" className="py-5 bg-light text-center" data-aos="fade-up" data-aos-delay="150">
           <div className="container">
             <h2 className="mb-5 fw-bold text-primary">Contáctanos</h2>
@@ -166,13 +201,14 @@ function App() {
           </div>
         </section>
 
-
+        {/* FOOTER */}
         <footer className="text-center py-4 bg-dark text-white" data-aos="fade-in" data-aos-delay="300">
           © {new Date().getFullYear()} Red Sol Colombia. Todos los derechos reservados.
         </footer>
 
+        {/* BOTÓN WHATSAPP */}
         <a
-          href="https://wa.me/573214963534"
+          href="https://wa.me/573183464183"
           className="btn btn-success position-fixed bottom-0 end-0 m-4 rounded-circle shadow"
           style={{ width: 60, height: 60, fontSize: 28, display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9999 }}
           target="_blank" rel="noopener noreferrer"
@@ -180,6 +216,32 @@ function App() {
           💬
         </a>
       </div>
+
+      {/* MODAL DE LOGIN */}
+      {showLogin && (
+        <div className="modal d-block" tabIndex="-1" style={{ background: "rgba(0,0,0,0.5)" }}>
+          <div className="modal-dialog">
+            <div className="modal-content p-4">
+              <h5 className="mb-3">Iniciar Sesión</h5>
+              {error && <div className="alert alert-danger">{error}</div>}
+              <form onSubmit={handleLogin}>
+                <div className="mb-3">
+                  <label>Email</label>
+                  <input type="email" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                </div>
+                <div className="mb-3">
+                  <label>Contraseña</label>
+                  <input type="password" className="form-control" value={password} onChange={(e) => setPassword(e.target.value)} required />
+                </div>
+                <div className="d-flex justify-content-between">
+                  <button type="submit" className="btn btn-primary">Ingresar</button>
+                  <button type="button" className="btn btn-secondary" onClick={() => setShowLogin(false)}>Cancelar</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
