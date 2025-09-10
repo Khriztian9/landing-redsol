@@ -1,55 +1,125 @@
-/* CotizadorFactura.css */
-
+/* ====== CONTENEDOR GENERAL ====== */
 .container {
-  max-width: 960px;
+  max-width: 1100px;
 }
 
-.card {
-  border-radius: 1rem;
-  transition: all 0.3s ease;
-}
-
-.card:hover {
-  transform: scale(1.01);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-}
-
-.card-title {
-  font-size: 1.3rem;
-  font-weight: bold;
-}
-
-ul.list-unstyled li {
-  margin-bottom: 0.5rem;
-  font-size: 1rem;
-}
-
-button[type="submit"] {
-  font-weight: bold;
-  font-size: 1.1rem;
-  padding: 10px;
-}
-
+/* ====== TITULO PRINCIPAL ====== */
 h2 {
-  font-weight: bold;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #0d6efd; /* Azul Bootstrap */
+  text-transform: uppercase;
+  position: relative;
 }
 
-select,
-input[type="file"] {
-  font-size: 0.95rem;
+h2::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, #0d6efd, #20c997);
+  margin: 8px auto 0 auto;
+  border-radius: 2px;
 }
 
-.custom-cotizador-btn {
-  background-color: #0099ff;;  /* azul suave */
+/* ====== FORMULARIO ====== */
+form.card {
   border: none;
+  border-left: 5px solid #fdfdfd;
+  background: #fdfdfd;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+form.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.form-label {
+  font-weight: 600;
+  color: #444;
+}
+
+/* ====== BOTÓN PERSONALIZADO ====== */
+.custom-cotizador-btn {
+  background: linear-gradient(10deg, #0099ff, #39FF14);
   color: white;
-  font-weight: bold;
+  font-weight: 600;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
   transition: all 0.3s ease;
 }
 
 .custom-cotizador-btn:hover {
-  background-color: #39ff14; /* Verde neón */
-  color: #ffffff;
-  box-shadow: 0 0 5px #39ff14, 0 0 5px #ffffff;
-  transform: scale(1.01);
+  background: linear-gradient(90deg, #20c997, #0d6efd);
+  transform: scale(1.02);
+  box-shadow: 0 6px 15px rgba(13, 110, 253, 0.4);
+}
+
+/* ====== RESULTADOS ====== */
+.card.shadow-lg {
+  border-radius: 12px;
+  background: #ffffff;
+  border: 1px solid #e9ecef;
+  transition: transform 0.3s ease;
+}
+
+.card.shadow-lg:hover {
+  transform: translateY(-5px);
+}
+
+/* Subtítulo Resultados */
+.card h4 {
+  font-weight: 700;
+  color: #0d6efd;
+  letter-spacing: 0.5px;
+}
+
+/* ====== PARRAFOS DE RESULTADOS ====== */
+.card p {
+  font-size: 0.95rem;
+  margin-bottom: 10px;
+  color: #333;
+  display: flex;
+  align-items: center;
+}
+
+.card p strong {
+  color: #212529;
+  font-weight: 600;
+}
+
+/* ====== BADGES PERSONALIZADOS ====== */
+.badge {
+  font-size: 0.85rem;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+}
+
+.badge.bg-primary {
+  background: #0d6efd !important;
+}
+
+.badge.bg-success {
+  background: #20c997 !important;
+}
+
+/* ====== BOTÓN DESCARGAR PDF ====== */
+.card .btn-primary {
+  background: #0d6efd;
+  border: none;
+  font-weight: 600;
+  padding: 10px 30px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.card .btn-primary:hover {
+  background: #39FF14;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(32, 201, 151, 0.4);
 }

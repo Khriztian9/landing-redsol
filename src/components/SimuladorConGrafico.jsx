@@ -196,7 +196,7 @@ const exportPDF = () => {
   const canvas = chartRef.current;
   if (canvas) {
     // Crear un canvas temporal con mayor resolución
-    const scale = 2; // puedes probar con 3 si quieres más nitidez
+    const scale = 3; // puedes probar con 3 si quieres más nitidez
     const tmpCanvas = document.createElement("canvas");
     tmpCanvas.width = canvas.width * scale;
     tmpCanvas.height = canvas.height * scale;
