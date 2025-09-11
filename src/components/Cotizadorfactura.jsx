@@ -69,7 +69,7 @@ const CotizadorFactura = () => {
 
 
     try {
-      const res = await axios.post("http://127.0.0.1:8000/procesar-factura", formData);
+      const res = await axios.post("https://cash-48v3.onrender.com/procesar-factura", formData);
       if (!res.data) throw new Error("El servidor no devolvió resultados");
 
       setResultado(res.data);
@@ -167,91 +167,147 @@ const exportarPDF = () => {
     
 
     // ====== SEGUNDA PÁGINA ======
-    doc.addPage("a4", "landscape");
+doc.addPage("a4", "landscape");
 
-    doc.setFillColor(...COLORS.primary);
-    doc.rect(0, 0, 297, 12, "F");
-    doc.setTextColor(255);
-    doc.setFontSize(11);
-    doc.text("Cotización Solar FV", 12, 8);
+// Encabezado corporativo
+doc.setFillColor(...COLORS.primary);
+doc.rect(0, 0, 297, 12, "F");
+doc.setTextColor(255);
+doc.setFontSize(11);
+doc.text("Cotización Solar FV", 12, 8);
 
-    doc.setTextColor(...COLORS.dark);
-    doc.setFont("helvetica", "bold");
+// Logo en la esquina superior derecha (opcional si tienes ruta base64 o img)
+// doc.addImage(LOGO, "PNG", 260, 3, 25, 8);
 
-    // 📌 Datos del Cliente
-    doc.setFontSize(13);
-    doc.text("Datos del Cliente", 15, 22);
-    autoTable(doc, {
-      startY: 28,
-      margin: { left: 15, right: 15 },
-      tableWidth: "auto",
-      theme: "grid",
-      headStyles: { fillColor: COLORS.primary, textColor: 255 },
-      styles: { fontSize: 9, cellPadding: 3 },
-      head: [["Campo", "Valor"]],
-      body: [
-        ["Nombre", resultado.nombre || "N/D"],
-        ["Dirección", resultado.direccion || "N/D"],
-        ["Municipio", resultado.municipio || "N/D"],
-        ["Estrato", resultado.estrato || "N/D"],
-        ["Tipo servicio", resultado.tipo_servicio || "N/D"],
-      ],
-    });
+doc.setTextColor(...COLORS.dark);
+doc.setFont("helvetica", "bold");
 
-    // ⚡ Resultados Técnicos
-    doc.text("Resultados Técnicos", 15, doc.lastAutoTable.finalY + 10);
-    autoTable(doc, {
-      startY: doc.lastAutoTable.finalY + 14,
-      margin: { left: 15, right: 15 },
-      tableWidth: "auto",
-      theme: "grid",
-      headStyles: { fillColor: COLORS.primary, textColor: 255 },
-      styles: { fontSize: 9, cellPadding: 3 },
-      head: [["Parámetro", "Valor"]],
-      body: [
-        ["Consumo mensual", `${resultado.consumo_kwh} kWh`],
-        ["Potencia requerida", `${resultado.potencia_kwp} kWp`],
-        ["Número de paneles", `${resultado.numero_paneles}`],
-        ["Inversor", `${resultado.inversor_utilizado}`],
-        ["Generación mensual", `${resultado.generacion_mensual_min.toFixed(2)} - ${resultado.generacion_mensual_max.toFixed(2)} kWh`   ],
-        ["Porcentaje de cobertura", `${resultado.porcentaje_generacion ?? porcentajeGeneracion}%`], // ✅ corregido
+// 📌 Datos del Cliente
+doc.setFontSize(13);
+doc.setTextColor(...COLORS.dark);
+doc.text("Datos del Cliente", 15, 22);
+autoTable(doc, {
+  startY: 28,
+  margin: { left: 15, right: 15 },
+  tableWidth: "auto",
+  theme: "grid",
+  headStyles: { 
+    fillColor: COLORS.primary, 
+    textColor: 255, 
+    fontStyle: "bold" 
+  },
+  styles: { 
+    fontSize: 9, 
+    cellPadding: 3, 
+    fillColor: [250, 250, 250] // gris muy claro para profesionalismo
+  },
+  alternateRowStyles: { fillColor: [245, 245, 245] }, // rayado sutil
+  head: [["Campo", "Valor"]],
+  body: [
+    ["Nombre", resultado.nombre || "N/D"],
+    ["Dirección", resultado.direccion || "N/D"],
+    ["Municipio", resultado.municipio || "N/D"],
+    ["Estrato", resultado.estrato || "N/D"],
+    ["Tipo servicio", resultado.tipo_servicio || "N/D"],
+  ],
+});
 
-      ],
-    });
+// ⚡ Resultados Técnicos
+doc.text("Resultados Técnicos", 15, doc.lastAutoTable.finalY + 15);
+doc.setTextColor(...COLORS.dark);
+autoTable(doc, {
+  startY: doc.lastAutoTable.finalY + 20,
+  margin: { left: 15, right: 15 },
+  tableWidth: "auto",
+  theme: "grid",
+  headStyles: { 
+    fillColor: COLORS.primary, 
+    textColor: 255, 
+    fontStyle: "bold" 
+  },
+  styles: { 
+    fontSize: 9, 
+    cellPadding: 3, 
+    fillColor: [250, 250, 250] 
+  },
+  alternateRowStyles: { fillColor: [245, 245, 245] },
+  head: [["Parámetro", "Valor"]],
+  body: [
+    ["Consumo mensual", `${resultado.consumo_kwh} kWh`],
+    ["Potencia requerida", `${resultado.potencia_kwp} kWp`],
+    ["Número de paneles", `${resultado.numero_paneles}`],
+    ["Inversor", `${resultado.inversor_utilizado}`],
+    [
+      "Generación mensual",
+      `${resultado.generacion_mensual_min.toFixed(2)} - ${resultado.generacion_mensual_max.toFixed(2)} kWh`,
+    ],
+    [
+      "Porcentaje de cobertura",
+      `${resultado.porcentaje_generacion ?? porcentajeGeneracion}%`,
+    ],
+  ],
+});
 
-    // 💰 Inversión
-    doc.text("Inversión", 15, doc.lastAutoTable.finalY + 10);
-    autoTable(doc, {
-      startY: doc.lastAutoTable.finalY + 14,
-      margin: { left: 15, right: 15 },
-      tableWidth: "auto",
-      theme: "grid",
-      headStyles: { fillColor: COLORS.primary, textColor: 255 },
-      styles: { fontSize: 9, cellPadding: 3 },
-      head: [["Concepto", "Valor"]],
-      body: [
-        ["Precio estimado del sistema", formatCOP(resultado.precio_total)],
-        ["Costo energía anual (referencial)", formatCOP(resultado.costo_energia)],
-      ],
-    });
 
-    // Condiciones
-    doc.text("Condiciones del Proyecto", 15, doc.lastAutoTable.finalY + 10);
-    autoTable(doc, {
-      startY: doc.lastAutoTable.finalY + 14,
-      margin: { left: 15, right: 15 },
-      tableWidth: "auto",
-      theme: "striped",
-      headStyles: { fillColor: COLORS.primary, textColor: 255 },
-      styles: { fontSize: 9, cellPadding: 3 },
-      head: [["Parámetro", "Valor"]],
-      body: [
-        ["Estructura", estructura],
-        ["Cubierta", cubierta],
-        ["Ubicación", ubicacion],
-        ["Tipo inversor", tipoInversor],
-      ],
-    });
+
+   // ====== TERCERA PÁGINA ======
+// 💰 Inversión
+doc.addPage("a4", "landscape");
+doc.setTextColor(...COLORS.dark);
+doc.setFontSize(14);
+doc.text("Inversión", 15, 15);
+
+autoTable(doc, {
+  startY: 25,
+  margin: { left: 15, right: 15 },
+  tableWidth: "auto",
+  theme: "grid",
+  headStyles: { fillColor: COLORS.primary, textColor: 255 },
+  styles: { fontSize: 9, cellPadding: 3 },
+  head: [["Concepto", "Valor"]],
+  body: [
+    ["Precio estimado del sistema", formatCOP(resultado.precio_total)],
+    ["Costo energía anual (referencial)", formatCOP(resultado.costo_energia)],
+  ],
+});
+
+// Condiciones técnicas
+doc.setFontSize(14);
+doc.text("Condiciones del Proyecto", 15, doc.lastAutoTable.finalY + 10);
+doc.setTextColor(...COLORS.dark);
+
+autoTable(doc, {
+  startY: doc.lastAutoTable.finalY + 14,
+  margin: { left: 15, right: 15 },
+  tableWidth: "auto",
+  theme: "grid",
+  headStyles: { fillColor: COLORS.primary, textColor: 255 },
+  styles: { fontSize: 9, cellPadding: 3 },
+  head: [["Parámetro", "Valor"]],
+  body: [
+    ["Estructura", estructura],
+    ["Cubierta", cubierta],
+    ["Ubicación", ubicacion],
+    ["Tipo inversor", tipoInversor],
+  ],
+});
+
+doc.setFontSize(9).setTextColor(71, 75, 78);
+let textoNaturaleza = `
+1. Naturaleza de la propuesta
+La presente presentación constituye un estudio preliminar de potencial fotovoltaico desarrollado a partir de la información pública y datos de referencia técnica. No corresponde a una oferta comercial vinculante, ni a una cotización formal, factura proforma o contrato.
+2. Valores estimados
+Todos los valores expresados en esta propuesta son simulados y referenciales, calculados con base en precios promedio del mercado y condiciones técnicas generales. Pueden variar dependiendo de factores como: condiciones reales del sitio, análisis estructural, disponibilidad de red, especificaciones técnicas del operador de red (OR), entre otros.
+3. Generación estimada
+La promesa de generación energética es una proyección basada en herramientas de simulación estándar. La cifra de GENERACIÓN kWh/año es estimativa y puede variar dependiendo del comportamiento climático, mantenimientos, orientación del sistema y sombreados.
+4. Obtención de una oferta comercial
+Para acceder a una oferta formal, con cotización detallada, factura proforma o propuesta comercial vinculante, se requiere LA FIRMA DEL CONTRATO DE MANDATO PARA ADELANTAR LOS TRÁMITES Y ESTUDIOS NECESARIOS ADEMÁS DE UNA VISITA DE INSPECCIÓN AL SITIO.
+5. Limitación de responsabilidad
+RED SOL no asume responsabilidad por decisiones que el cliente tome con base en esta propuesta preliminar. Toda decisión de inversión deberá tomarse con base en la oferta formal y posterior firma de contrato.
+`;
+
+let splitText = doc.splitTextToSize(textoNaturaleza, 260);
+doc.text(splitText, 15, doc.lastAutoTable.finalY + 5);
 
     // Footer corporativo
     const pageCount = doc.internal.getNumberOfPages();
@@ -409,10 +465,6 @@ const exportarPDF = () => {
           <tr>
             <td>⚡ Consumo mensual</td>
             <td>{resultado.consumo_kwh.toFixed(0)} kWh</td>
-          </tr>
-          <tr className="table-success">
-            <td>🔋 Potencia requerida</td>
-            <td>{resultado.potencia_kwp} kWp</td>
           </tr>
           <tr className="table-success">
             <td>📦 Número de paneles</td>

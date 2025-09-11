@@ -278,25 +278,28 @@ const exportPDF = () => {
     <div className="simulador-container">
       <h2>SIMULADOR FINANCIERO FV</h2>
       <form onSubmit={handleSubmit}>
-        {Object.keys(formData).map(key => (
-          <div className="mb-3" key={key}>
-            <label className="form-label">
-              {key.replace(/_/g, ' ').replace(/anios/g, 'años')}
-            </label>
-            <input
-              type="number"
-              step="any"
-              name={key}
-              className="form-control"
-              value={formData[key]}
-              onChange={handleChange}
-              min={key.includes("anios") ? 1 : undefined}
-              required
-            />
-          </div>
-        ))}
-        <button type="submit" className="btn btn-primary w-100">Calcular Flujo</button>
-      </form>
+  <div className="row">
+    {Object.keys(formData).map((key, index) => (
+      <div className="col-md-6 mb-3" key={key}>
+        <label className="form-label">
+          {key.replace(/_/g, ' ').replace(/anios/g, 'años')}
+        </label>
+        <input
+          type="number"
+          step="any"
+          name={key}
+          className="form-control"
+          value={formData[key]}
+          onChange={handleChange}
+          min={key.includes("anios") ? 1 : undefined}
+          required
+        />
+      </div>
+    ))}
+  </div>
+  <button type="submit" className="btn btn-primary w-100">Calcular Flujo</button>
+</form>
+
 
       {resultado && (
         <>
