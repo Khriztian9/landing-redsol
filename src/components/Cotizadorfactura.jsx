@@ -19,6 +19,7 @@ const CotizadorFactura = () => {
   const [cubierta, setCubierta] = useState("fibrocemento");
   const [ubicacion, setUbicacion] = useState("risaralda");
   const [tipoInversor, setTipoInversor] = useState("ongrid");
+  const [porcentajeGeneracion, setPorcentajeGeneracion] = useState(100); // NUEVO
   const [resultado, setResultado] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -64,9 +65,11 @@ const CotizadorFactura = () => {
     formData.append("cubierta", cubierta);
     formData.append("ubicacion", ubicacion);
     formData.append("tipoInversor", tipoInversor);
+    formData.append("porcentajeGeneracion", porcentajeGeneracion); // NUEVO
+
 
     try {
-      const res = await axios.post("https://cash-48v3.onrender.com/procesar-factura", formData);
+      const res = await axios.post("http://127.0.0.1:8000/procesar-factura", formData);
       if (!res.data) throw new Error("El servidor no devolvió resultados");
 
       setResultado(res.data);
@@ -83,6 +86,7 @@ const CotizadorFactura = () => {
           cubierta,
           ubicacion,
           tipoInversor,
+          porcentajeGeneracion, // guardamos también
           ip: userIp,
           fecha: serverTimestamp(),
         });
@@ -160,15 +164,7 @@ const exportarPDF = () => {
     doc.text(`Cliente: ${resultado.nombre || "N/D"}`, 15, 170);
     doc.text(`Fecha: ${fecha}`, 15, 178);
     doc.text(`Asesor: ${auth?.currentUser?.email || "—"}`, 15, 186);
-
-    doc.setFontSize(10);
-    doc.setTextColor(...COLORS.gray);
-    doc.text(
-      `${COMPANY.address} · ${COMPANY.website}`,
-      148,
-      200,
-      { align: "center" }
-    );
+    
 
     // ====== SEGUNDA PÁGINA ======
     doc.addPage("a4", "landscape");
@@ -217,12 +213,9 @@ const exportarPDF = () => {
         ["Potencia requerida", `${resultado.potencia_kwp} kWp`],
         ["Número de paneles", `${resultado.numero_paneles}`],
         ["Inversor", `${resultado.inversor_utilizado}`],
-        [
-          "Generación anual",
-          resultado.generacion_mensual_min && resultado.generacion_mensual_max
-            ? `${(resultado.generacion_mensual_min * 12).toFixed(0)} – ${(resultado.generacion_mensual_max * 12).toFixed(0)} kWh`
-            : "N/D",
-        ],
+        ["Generación mensual", `${resultado.generacion_mensual_min.toFixed(2)} - ${resultado.generacion_mensual_max.toFixed(2)} kWh`   ],
+        ["Porcentaje de cobertura", `${resultado.porcentaje_generacion ?? porcentajeGeneracion}%`], // ✅ corregido
+
       ],
     });
 
@@ -307,7 +300,6 @@ const exportarPDF = () => {
               <option value="granja">Granja</option>
               <option value="plancha">Plancha</option>
               <option value="perfil_metalico">Perfil Metálico</option>
-              <option value="trapezoidal">Trapezoidal</option>
             </select>
           </div>
 
@@ -339,9 +331,43 @@ const exportarPDF = () => {
           </div>
         </div>
 
-        <button type="submit" className="btn custom-cotizador-btn w-100" disabled={loading}>
-          {loading ? "Procesando..." : "Calcular"}
-        </button>
+        {/* NUEVO: Slider de cobertura */}
+        <div className="mb-3">
+          <label className="form-label d-flex justify-content-between">
+            <span>Cobertura de generación</span>
+            <span className="fw-bold">{porcentajeGeneracion}%</span>
+          </label>
+          <input
+            type="range"
+            className="form-range"
+            min="50"
+            max="200"
+            step="50"
+            value={porcentajeGeneracion}
+            onChange={(e) => setPorcentajeGeneracion(parseInt(e.target.value, 10))}
+          />
+          <div className="d-flex justify-content-between small text-muted mt-1">
+            <span>50%</span><span>100%</span><span>150%</span><span>200%</span>
+          </div>
+        </div>
+      
+
+        <button
+  type="submit"
+  className="btn custom-cotizador-btn w-100"
+  disabled={loading}
+>
+  {loading ? (
+    <>
+      Procesando...
+      <span className="loader"></span>
+    </>
+  ) : (
+    "Calcular"
+  )}
+</button>
+
+
       </form>
 
       {error && <div className="alert alert-danger" data-aos="fade-right">{error}</div>}
@@ -351,27 +377,75 @@ const exportarPDF = () => {
           <h4 className="text-center mb-4 text-primary fw-bold">
             Resultados de la Cotización
           </h4>
-          <div className="row">
-            <div className="col-md-6">
-              <p><span className="badge bg-primary me-2">👤 Nombre:</span> {resultado.nombre}</p>
-              <p><span className="badge bg-primary me-2">🏠 Dirección:</span> {resultado.direccion}</p>
-              <p><span className="badge bg-primary me-2">📍 Municipio:</span> {resultado.municipio}</p>
-              <p><span className="badge bg-primary me-2">🏘️ Estrato:</span> {resultado.estrato}</p>
-              <p><span className="badge bg-primary me-2">🔌 Tipo servicio:</span> {resultado.tipo_servicio}</p>
-              <p><span className="badge bg-primary me-2">⚡ Consumo mensual:</span> {resultado.consumo_kwh} kWh</p>
-            </div>
-            <div className="col-md-6">
-              <p><span className="badge bg-success me-2">🔋 Potencia requerida:</span> {resultado.potencia_kwp} kWp</p>
-              <p><span className="badge bg-success me-2">📦 Número de paneles:</span> {resultado.numero_paneles}</p>
-              <p><span className="badge bg-success me-2">⚙️ Inversor:</span> {resultado.inversor_utilizado}</p>
-              <p><span className="badge bg-success me-2">💰 Precio estimado:</span> {resultado.precio_total?.toLocaleString("es-CO", {style:"currency",currency:"COP"})}</p>
-              <p><span className="badge bg-success me-2">🔆 Generación anual:</span>{" "}
-                {resultado.generacion_mensual_min && resultado.generacion_mensual_max
-                  ? `${(resultado.generacion_mensual_min * 12).toFixed(0)} – ${(resultado.generacion_mensual_max * 12).toFixed(0)} kWh`
-                  : "N/D"}
-              </p>
-            </div>
-          </div>
+          <div className="table-responsive">
+      <table className="table table-bordered align-middle">
+        <thead className="table-primary text-center">
+          <tr>
+            <th>Parámetro</th>
+            <th>Valor</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>👤 Nombre</td>
+            <td>{resultado.nombre}</td>
+          </tr>
+          <tr>
+            <td>🏠 Dirección</td>
+            <td>{resultado.direccion}</td>
+          </tr>
+          <tr>
+            <td>📍 Municipio</td>
+            <td>{resultado.municipio}</td>
+          </tr>
+          <tr>
+            <td>🏘️ Estrato</td>
+            <td>{resultado.estrato}</td>
+          </tr>
+          <tr>
+            <td>🔌 Tipo de servicio</td>
+            <td>{resultado.tipo_servicio}</td>
+          </tr>
+          <tr>
+            <td>⚡ Consumo mensual</td>
+            <td>{resultado.consumo_kwh.toFixed(0)} kWh</td>
+          </tr>
+          <tr className="table-success">
+            <td>🔋 Potencia requerida</td>
+            <td>{resultado.potencia_kwp} kWp</td>
+          </tr>
+          <tr className="table-success">
+            <td>📦 Número de paneles</td>
+            <td>{resultado.numero_paneles}</td>
+          </tr>
+          <tr className="table-success">
+            <td>⚙️ Inversor</td>
+            <td>{resultado.inversor_utilizado}</td>
+          </tr>
+          <tr className="table-success">
+            <td>💰 Precio estimado</td>
+            <td>
+              {resultado.precio_total?.toLocaleString("es-CO", {
+                style: "currency",
+                currency: "COP",
+              })}
+            </td>
+          </tr>
+          <tr>
+            <td>🔆 Generación mensual</td>
+            <td>
+              {resultado.generacion_mensual_min && resultado.generacion_mensual_max
+                ? `${(resultado.generacion_mensual_min ).toFixed(0)} – ${(resultado.generacion_mensual_max ).toFixed(0)} kWh`
+                : "N/D"}
+            </td>
+          </tr>
+          <tr>
+            <td>💡 Cobertura</td>
+            <td>{resultado.porcentaje_generacion ?? porcentajeGeneracion}%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
           <div className="text-center mt-4">
             <button className="btn btn-primary px-4 shadow-sm" onClick={exportarPDF}>
