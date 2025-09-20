@@ -3,6 +3,7 @@ import { auth, db, logout } from "../firebase";
 import { collection, query, where, orderBy, onSnapshot } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import jsPDF from "jspdf";
+import "jspdf-autotable";
 
 const Dashboard = () => {
   const [cotizaciones, setCotizaciones] = useState([]);
@@ -11,26 +12,19 @@ const Dashboard = () => {
   useEffect(() => {
     if (!auth.currentUser) return;
 
-    // 🔹 Solo muestra cotizaciones del usuario actual
     const q = query(
       collection(db, "cotizaciones"),
       where("userId", "==", auth.currentUser.uid),
       orderBy("fecha", "desc")
     );
 
-    const unsubscribe = onSnapshot(
-      q,
-      (snapshot) => {
-        const docs = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setCotizaciones(docs);
-      },
-      (err) => {
-        console.error("❌ Error cargando cotizaciones:", err);
-      }
-    );
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const docs = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setCotizaciones(docs);
+    });
 
     return () => unsubscribe();
   }, []);
@@ -40,65 +34,121 @@ const Dashboard = () => {
     navigate("/");
   };
 
-  // 🔹 Exportar cotización a PDF
-  const exportarPDF = (coti) => {
+  // 🔹 Exportar comprobante con template corporativo
+  const exportarComprobante = (coti) => {
     const doc = new jsPDF();
-    doc.setFontSize(14);
-    doc.text(" Cotización Solar FV", 15, 20);
+    const precio = coti.precio_total || 0;
+    const comision = precio * 0.05; // % ajustable
+    const fecha = coti.fecha?.toDate
+      ? coti.fecha.toDate().toLocaleDateString("es-CO")
+      : "Sin fecha";
 
-    doc.setFontSize(11);
-    doc.text(`Fecha: ${coti.fecha?.toDate ? coti.fecha.toDate().toLocaleString("es-CO") : "Sin fecha"}`, 15, 30);
-    doc.text(`Nombre: ${coti.nombre}`, 15, 40);
-    doc.text(`Email: ${coti.email}`, 15, 50);
-    doc.text(`Dirección: ${coti.direccion}`, 15, 60);
-    doc.text(`Municipio: ${coti.municipio}`, 15, 70);
-    doc.text(`Estrato: ${coti.estrato}`, 15, 80);
-    doc.text(`Tipo servicio: ${coti.tipo_servicio}`, 15, 90);
+    // ===========================
+    // 1. ENCABEZADO
+    // ===========================
+    const logoUrl = "/logo.png"; // coloca tu logo en /public/logo.png
+    doc.setFillColor(13, 110, 253); // Azul corporativo
+    doc.rect(0, 0, 210, 35, "F");
 
-    doc.text(`Consumo mensual: ${coti.consumo_kwh} kWh`, 15, 110);
-    doc.text(`Potencia requerida: ${coti.potencia_kwp} kWp`, 15, 120);
-    doc.text(`Número de paneles: ${coti.numero_paneles}`, 15, 130);
-    doc.text(`Inversor propuesto: ${coti.inversor}`, 15, 140);
-
-    doc.text(
-      `Precio estimado: ${coti.precio_total?.toLocaleString("es-CO", {
-        style: "currency",
-        currency: "COP",
-        minimumFractionDigits: 0,
-      })}`,
-      15,
-      150
-    );
-
-    doc.text(
-      `Costo energía anual: ${coti.costo_energia?.toLocaleString("es-CO", {
-        style: "currency",
-        currency: "COP",
-        minimumFractionDigits: 0,
-      })}`,
-      15,
-      160
-    );
-
-    if (coti.generacion_mensual_min && coti.generacion_mensual_max) {
-      doc.text(
-        `Generación anual: ${(coti.generacion_mensual_min * 12).toFixed(0)} – ${(coti.generacion_mensual_max * 12).toFixed(0)} kWh`,
-        15,
-        170
-      );
+    try {
+      doc.addImage(logoUrl, "PNG", 15, 5, 25, 25);
+    } catch (e) {
+      console.warn("Logo no encontrado, asegúrate de poner /public/logo.png");
     }
 
-    doc.text(`Estructura: ${coti.estructura}`, 15, 190);
-    doc.text(`Cubierta: ${coti.cubierta}`, 15, 200);
-    doc.text(`Ubicación: ${coti.ubicacion}`, 15, 210);
-    doc.text(`Tipo inversor: ${coti.tipoInversor}`, 15, 220);
-    doc.text(` IP: ${coti.ip}`, 15, 230);
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(18);
+    doc.text("REDSOL COLOMBIA S.A.S.", 105, 15, { align: "center" });
 
-    doc.save(`Cotizacion_${coti.nombre || "cliente"}_${coti.id}.pdf`);
+    doc.setFontSize(12);
+    doc.text("Soluciones Fotovoltaicas", 105, 25, { align: "center" });
+
+    // ===========================
+    // 2. TÍTULO DEL DOCUMENTO
+    // ===========================
+    doc.setTextColor(40, 40, 40);
+    doc.setFontSize(16);
+    doc.text(" Comprobante de Gestión Comercial", 105, 50, { align: "center" });
+
+    doc.setFontSize(11);
+    doc.setTextColor(100, 100, 100);
+    doc.text("Documento interno para cobro de comisión", 105, 58, {
+      align: "center",
+    });
+
+    // ===========================
+    // 3. TABLA CON INFORMACIÓN
+    // ===========================
+    doc.autoTable({
+      startY: 70,
+      theme: "striped",
+      head: [["Campo", "Detalle"]],
+      body: [
+        ["Fecha", fecha],
+        ["Cliente", coti.nombre || "N/D"],
+        ["Email", coti.email || "N/D"],
+        ["Municipio", coti.municipio || "N/D"],
+        ["Dirección", coti.direccion || "N/D"],
+        ["Estrato", coti.estrato || "N/D"],
+        ["Potencia", `${coti.potencia_kwp} kWp`],
+        ["Paneles", coti.numero_paneles || "N/D"],
+        ["Inversor", coti.inversor || "N/D"],
+        ["Estructura", coti.estructura || "N/D"],
+        ["Cubierta", coti.cubierta || "N/D"],
+        ["Ubicación", coti.ubicacion || "N/D"],
+        [
+          "Valor del proyecto",
+          precio.toLocaleString("es-CO", {
+            style: "currency",
+            currency: "COP",
+            minimumFractionDigits: 0,
+          }),
+        ],
+        [
+          "Comisión aproximada (5%)",
+          comision.toLocaleString("es-CO", {
+            style: "currency",
+            currency: "COP",
+            minimumFractionDigits: 0,
+          }),
+        ],
+      ],
+      headStyles: { fillColor: [13, 110, 253], halign: "center" },
+      bodyStyles: { textColor: [50, 50, 50] },
+      alternateRowStyles: { fillColor: [245, 245, 245] },
+    });
+
+    // ===========================
+    // 4. FIRMA
+    // ===========================
+    const finalY = doc.lastAutoTable.finalY + 25;
+    doc.setFontSize(11);
+    doc.setTextColor(50, 50, 50);
+    doc.text("_________________________", 20, finalY);
+    doc.text("Firma del gestor", 20, finalY + 10);
+
+    // ===========================
+    // 5. PIE DE PÁGINA FIJO
+    // ===========================
+    const pageHeight = doc.internal.pageSize.height;
+    doc.setFillColor(240, 240, 240);
+    doc.rect(0, pageHeight - 25, 210, 25, "F");
+
+    doc.setFontSize(9);
+    doc.setTextColor(80, 80, 80);
+    doc.text(" Av. Las Américas #50-03, Pereira, Colombia", 105, pageHeight - 15, {
+      align: "center",
+    });
+    doc.text(" +57 300 123 4567 |  contacto@redsol.com", 105, pageHeight - 8, {
+      align: "center",
+    });
+
+    // Guardar
+    doc.save(`Comprobante_${coti.nombre || "cliente"}_${coti.id}.pdf`);
   };
 
   return (
-    <div className="container py-5">
+    <div className="container py-5 dashboard-container">
       <h2 className="text-center text-primary fw-bold mb-4">Dashboard</h2>
       <p className="text-center mb-4">
         Hola, <strong>{auth.currentUser?.email}</strong>
@@ -110,61 +160,61 @@ const Dashboard = () => {
         {cotizaciones.length === 0 ? (
           <p className="text-muted">Aún no has guardado cotizaciones.</p>
         ) : (
-          <div className="list-group">
-            {cotizaciones.map((coti) => (
-              <div
-                key={coti.id}
-                className="list-group-item list-group-item-action mb-3 border rounded shadow-sm"
-              >
-                <p className="mb-1">
-                  <strong>📅 Fecha:</strong>{" "}
-                  {coti.fecha?.toDate
-                    ? coti.fecha.toDate().toLocaleString("es-CO")
-                    : "Sin fecha"}
-                </p>
-                <ul className="list-unstyled mb-0">
-                  <li>👤 <strong>Nombre:</strong> {coti.nombre}</li>
-                  <li>📧 <strong>Email:</strong> {coti.email}</li>
-                  <li>🏠 <strong>Dirección:</strong> {coti.direccion}</li>
-                  <li>📍 <strong>Municipio:</strong> {coti.municipio}</li>
-                  <li>📶 <strong>Estrato:</strong> {coti.estrato}</li>
-                  <li>🔌 <strong>Tipo servicio:</strong> {coti.tipo_servicio}</li>
-                  <li>⚡ <strong>Consumo mensual:</strong> {coti.consumo_kwh} kWh</li>
-                  <li>🔋 <strong>Potencia:</strong> {coti.potencia_kwp} kWp</li>
-                  <li>📋 <strong>Paneles:</strong> {coti.numero_paneles}</li>
-                  <li>⚙️ <strong>Inversor:</strong> {coti.inversor}</li>
-                  <li>💰 <strong>Precio:</strong>{" "}
-                    {coti.precio_total?.toLocaleString("es-CO", {
-                      style: "currency",
-                      currency: "COP",
-                      minimumFractionDigits: 0,
-                    })}
-                  </li>
-                  <li>💸 <strong>Costo energía anual:</strong> 
-                    {coti.costo_energia?.toLocaleString("es-CO", {
-                      style: "currency",
-                      currency: "COP",
-                      minimumFractionDigits: 0,
-                    })}
-                  </li>
-                  <li>🔆 <strong>Generación anual:</strong>{" "}
-                    {coti.generacion_mensual_min && coti.generacion_mensual_max
-                      ? `${(coti.generacion_mensual_min * 12).toFixed(0)} – ${(coti.generacion_mensual_max * 12).toFixed(0)} kWh`
-                      : "N/D"}
-                  </li>
-                  <li>🏗️ <strong>Estructura:</strong> {coti.estructura}</li>
-                  <li>🪟 <strong>Cubierta:</strong> {coti.cubierta}</li>
-                  <li>🌎 <strong>Ubicación:</strong> {coti.ubicacion}</li>
-                  <li>🔧 <strong>Tipo inversor:</strong> {coti.tipoInversor}</li>
-                  <li>🌍 <strong>IP:</strong> {coti.ip}</li>
-                </ul>
-                <div className="mt-3 text-end">
+          <div className="accordion" id="accordionCotizaciones">
+            {cotizaciones.map((coti, index) => (
+              <div className="accordion-item mb-3" key={coti.id}>
+                <h2 className="accordion-header" id={`heading-${index}`}>
                   <button
-                    className="btn btn-sm btn-outline-primary"
-                    onClick={() => exportarPDF(coti)}
+                    className="accordion-button collapsed custom-accordion-btn"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target={`#collapse-${index}`}
+                    aria-expanded="false"
+                    aria-controls={`collapse-${index}`}
                   >
-                    📄 Exportar PDF
+                     {coti.nombre} –{" "}
+                    {coti.fecha?.toDate
+                      ? coti.fecha.toDate().toLocaleDateString("es-CO")
+                      : "Sin fecha"}
                   </button>
+                </h2>
+                <div
+                  id={`collapse-${index}`}
+                  className="accordion-collapse collapse"
+                  aria-labelledby={`heading-${index}`}
+                  data-bs-parent="#accordionCotizaciones"
+                >
+                  <div className="accordion-body">
+                    <div className="row">
+                      <div className="col-md-6">
+                        <p><strong>Email:</strong> {coti.email}</p>
+                        <p><strong>Dirección:</strong> {coti.direccion}</p>
+                        <p><strong>Municipio:</strong> {coti.municipio}</p>
+                        <p><strong>Estrato:</strong> {coti.estrato}</p>
+                      </div>
+                      <div className="col-md-6">
+                        <p><strong>Consumo:</strong> {coti.consumo_kwh} kWh</p>
+                        <p><strong>Potencia:</strong> {coti.potencia_kwp} kWp</p>
+                        <p><strong>Paneles:</strong> {coti.numero_paneles}</p>
+                        <p>
+                          <strong>Precio:</strong>{" "}
+                          {coti.precio_total?.toLocaleString("es-CO", {
+                            style: "currency",
+                            currency: "COP",
+                          })}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="text-end mt-3">
+                      <button
+                        className="btn btn-sm btn-outline-success custom-pdf-btn"
+                        onClick={() => exportarComprobante(coti)}
+                      >
+                         Descargar comprobante
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
             ))}
@@ -173,7 +223,7 @@ const Dashboard = () => {
       </div>
 
       <div className="text-center">
-        <button className="btn btn-danger" onClick={handleLogout}>
+        <button className="btn btn-danger custom-logout-btn" onClick={handleLogout}>
           Cerrar Sesión
         </button>
       </div>
