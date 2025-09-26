@@ -424,7 +424,7 @@ La presente presentación constituye un estudio preliminar... (texto igual a tu 
           name="consumo_kwh"
           type="number"
           min="0"
-          step="100"
+          step="1"
           value={manual.consumo_kwh}
           onChange={handleManualChange}
           required={modo === "datos"}
@@ -437,7 +437,7 @@ La presente presentación constituye un estudio preliminar... (texto igual a tu 
           name="valor_kwh"
           type="number"
           min="0"
-          step="50"
+          step="1"
           value={manual.valor_kwh}
           onChange={handleManualChange}
         />
