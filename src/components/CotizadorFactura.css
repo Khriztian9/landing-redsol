@@ -157,3 +157,72 @@ form.card:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 15px rgba(32, 201, 151, 0.4);
 }
+
+/* === Toggle Cotizador: Factura / Datos === */
+.toggle-cotizador{
+  --toggle-bg: #f5f7ff;
+  --toggle-text: #000000;
+  --toggle-grad-1: #39ff14;    /* azul Bootstrap */
+  --toggle-grad-2: #39ff14;    /* verde teal */
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 500px;
+  padding: 6px;
+  background: var(--toggle-bg);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.7),
+    0 6px 10px rgba(13,110,253,.12);
+}
+
+/* Indicador deslizante (pista) */
+.toggle-cotizador::before{
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  width: calc(50% - 6px);
+  height: calc(100% - 12px);
+  border-radius: 500px;
+  background: linear-gradient(135deg, var(--toggle-grad-1), var(--toggle-grad-2));
+  box-shadow: 0 8px 10px #ffffff;
+  transition: transform .35s cubic-bezier(.2,.8,.2,1);
+  will-change: transform;
+  z-index: 1;
+}
+
+/* Mueve el indicador cuando está seleccionado "Datos" */
+.toggle-cotizador:has(#btnDatos:checked)::before{
+  transform: translateX(101%);
+}
+
+/* Botones (labels) */
+.toggle-cotizador .btn{
+  position: relative;
+  z-index: 2;                 /* por encima del indicador */
+  border: 0 !important;
+  background: transparent;
+  color: var(--toggle-text);
+  font-weight: 600;
+  letter-spacing: .2px;
+  padding: 10px 18px;
+  border-radius: 500px !important;
+  transition: filter .2s ease, transform .06s ease;
+}
+
+.toggle-cotizador .btn:hover{
+  filter: brightness(.96);
+}
+
+.toggle-cotizador .btn:active{
+  transform: translateY(1px);
+}
+
+
+/* Accesibilidad: foco visible */
+.toggle-cotizador .btn:focus-visible{
+  outline: 3px solid #0099ff;
+  outline-offset: 2px;
+}
+
+
