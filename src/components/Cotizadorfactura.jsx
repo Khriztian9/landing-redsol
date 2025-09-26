@@ -298,7 +298,21 @@ const CotizadorFactura = () => {
     doc.setFontSize(9).setTextColor(71, 75, 78);
     let textoNaturaleza = `
 1. Naturaleza de la propuesta
-La presente presentación constituye un estudio preliminar... (texto igual a tu versión actual)
+La presente presentación constituye un estudio preliminar de potencial fotovoltaico desarrollado a partir de la información pública y datos de referencia técnica. No
+corresponde a una oferta comercial vinculante, ni a una cotización formal, factura proforma o contrato.
+2. Valores estimados
+Todos los valores expresados en esta propuesta son simulados y referenciales, calculados con base en precios promedio del mercado y condiciones técnicas generales.
+Pueden variar dependiendo de factores como: condiciones reales del sitio, análisis estructural, disponibilidad de red, especificaciones técnicas del operador de red (OR),
+entre otros.
+3. Generación estimada
+La promesa de generación energética es una proyección basada en herramientas de simulación estándar. La cifra de GENERACIÓN kWh/año es estimativa y puede variar
+dependiendo del comportamiento climático, mantenimientos, orientación del sistema y sombreados.
+4. Obtención de una oferta comercial
+Para acceder a una oferta formal, con cotización detallada, factura proforma o propuesta comercial vinculante, se requiere LA FIRMA DEL CONTRATO DE MANDATO PARA
+ADELANTAR LOS TRÁMITES Y ESTUDIOS NECESARIOS ADEMÁS DE UNA VISITA DE INSPECCIÓN AL SITIO.
+5. Limitación de responsabilidad
+RED SOL no asume responsabilidad por decisiones que el cliente tome con base en esta propuesta preliminar. Toda decisión de inversión deberá tomarse con base en la
+oferta formal y posterior firma de contrato.
 `;
     let splitText = doc.splitTextToSize(textoNaturaleza, 260);
     doc.text(splitText, 15, doc.lastAutoTable.finalY + 5);
