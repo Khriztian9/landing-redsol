@@ -170,9 +170,7 @@ function App() {
                 <div className="carousel-item" data-aos="zoom-in" data-aos-delay="300">
                   <img src="/proyecto5.jpg" className="d-block w-100" alt="Proyecto 5" />
                 </div>
-                <div className="carousel-item" data-aos="zoom-in" data-aos-delay="300">
-                  <img src="/proyecto6.jpg" className="d-block w-100" alt="Proyecto 6" />
-                </div>
+               
               </div>
               <button className="carousel-control-prev" type="button" data-bs-target="#carouselProyectos" data-bs-slide="prev">
                 <span className="carousel-control-prev-icon" aria-hidden="true"></span>
