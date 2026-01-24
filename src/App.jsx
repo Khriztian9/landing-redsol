@@ -165,9 +165,6 @@ function App() {
                   <img src="/proyecto3.jpg" className="d-block w-100" alt="Proyecto 3" />
                 </div>
                 <div className="carousel-item" data-aos="zoom-in" data-aos-delay="300">
-                  <img src="/proyecto4.jpg" className="d-block w-100" alt="Proyecto 4" />
-                </div>
-                <div className="carousel-item" data-aos="zoom-in" data-aos-delay="300">
                   <img src="/proyecto5.jpg" className="d-block w-100" alt="Proyecto 5" />
                 </div>
                
