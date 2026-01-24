@@ -164,6 +164,15 @@ function App() {
                 <div className="carousel-item" data-aos="zoom-in" data-aos-delay="500">
                   <img src="/proyecto3.jpg" className="d-block w-100" alt="Proyecto 3" />
                 </div>
+                <div className="carousel-item" data-aos="zoom-in" data-aos-delay="500">
+                  <img src="/proyecto4.jpg" className="d-block w-100" alt="Proyecto 3" />
+                </div>
+                <div className="carousel-item" data-aos="zoom-in" data-aos-delay="500">
+                  <img src="/proyecto5.jpg" className="d-block w-100" alt="Proyecto 3" />
+                </div>
+                <div className="carousel-item" data-aos="zoom-in" data-aos-delay="500">
+                  <img src="/proyecto6.jpg" className="d-block w-100" alt="Proyecto 3" />
+                </div>
               </div>
               <button className="carousel-control-prev" type="button" data-bs-target="#carouselProyectos" data-bs-slide="prev">
                 <span className="carousel-control-prev-icon" aria-hidden="true"></span>
