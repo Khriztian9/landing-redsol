@@ -170,7 +170,7 @@ const CotizadorFactura = () => {
         formData.append("porcentajeGeneracion", porcentajeGeneracion);
 
         res = await axios.post(
-          "http://127.0.0.1:8000/procesar-factura",
+          "https://cash-48v3.onrender.com/procesar-factura",
           formData
         );
       } else {
