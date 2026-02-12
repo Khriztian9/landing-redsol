@@ -340,7 +340,7 @@ const Simulador = () => {
     try {
       if ((Number(formData.horizonte_anios) || 0) < 1) throw new Error("El horizonte debe ser mínimo 1 año.");
 
-      const res = await fetch('http://127.0.0.1:8000/calcular', {
+      const res = await fetch('https://cash-48v3.onrender.com/calcular', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
