@@ -19,12 +19,12 @@ const CotizadorFactura = () => {
   const [cubierta, setCubierta] = useState("fibrocemento");
   const [ubicacion, setUbicacion] = useState("risaralda");
   const [tipoInversor, setTipoInversor] = useState("ongrid");
-  const [porcentajeGeneracion, setPorcentajeGeneracion] = useState(100); // NUEVO
+  const [porcentajeGeneracion, setPorcentajeGeneracion] = useState(100);
   const [resultado, setResultado] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  // === NUEVO: modo Factura/Datos y formulario manual ===
+  // === modo Factura/Datos y formulario manual ===
   const [modo, setModo] = useState("factura"); // "factura" | "datos"
   const [manual, setManual] = useState({
     nombre: "",
@@ -35,13 +35,15 @@ const CotizadorFactura = () => {
     consumo_kwh: "",
     valor_kwh: "" // tarifa base SIN contribución
   });
+
   const esResidencial = manual.tipo_servicio === "Residencial";
   useEffect(() => {
-    if (!esResidencial) setManual(prev => ({ ...prev, estrato: "" }));
+    if (!esResidencial) setManual((prev) => ({ ...prev, estrato: "" }));
   }, [esResidencial]);
+
   const handleManualChange = (e) => {
     const { name, value } = e.target;
-    setManual(prev => ({ ...prev, [name]: value }));
+    setManual((prev) => ({ ...prev, [name]: value }));
   };
 
   useEffect(() => {
@@ -75,6 +77,73 @@ const CotizadorFactura = () => {
     }
   };
 
+  // ✅ SessionId persistente para cotizaciones anónimas
+  const getSessionId = () => {
+    const key = "redsol_session_id";
+    let id = localStorage.getItem(key);
+    if (!id) {
+      id =
+        crypto?.randomUUID?.() ||
+        `sess_${Date.now()}_${Math.random().toString(16).slice(2)}`;
+      localStorage.setItem(key, id);
+    }
+    return id;
+  };
+
+  // ✅ Guardar cotización con o sin usuario
+  const guardarCotizacion = async (resData) => {
+    const userIp = await getUserIP();
+    const sessionId = getSessionId();
+
+    const docData = {
+      // lo que devuelve el backend
+      ...resData,
+
+      // parámetros y selección del usuario
+      estructura,
+      cubierta,
+      ubicacion,
+      tipoInversor,
+      porcentajeGeneracion,
+      modo,
+
+      // trazabilidad
+      ip: userIp,
+      sessionId,
+      userId: auth.currentUser?.uid || null,
+      email: auth.currentUser?.email || null,
+      fecha: serverTimestamp(),
+
+      // ✅ guardar lo que el usuario escribió (solo en modo "datos")
+      manual:
+        modo === "datos"
+          ? {
+              nombre: manual.nombre || "No disponible",
+              direccion: manual.direccion || "No disponible",
+              municipio: manual.municipio || "No disponible",
+              estrato: manual.estrato || "0",
+              tipo_servicio: manual.tipo_servicio || "Residencial",
+              consumo_kwh: Number(manual.consumo_kwh || 0),
+              valor_kwh: manual.valor_kwh ? Number(manual.valor_kwh) : null,
+            }
+          : null,
+
+      // ✅ guardar info del archivo (por si luego quieres enlazarlo a Storage)
+      fileInfo:
+        modo === "factura" && file
+          ? { name: file.name, size: file.size, type: file.type }
+          : null,
+    };
+
+    // ✅ Si hay usuario: guardas donde ya guardabas
+    if (auth.currentUser) {
+      await addDoc(collection(db, "cotizaciones"), docData);
+    } else {
+      // ✅ Si NO hay usuario: guardas anónima
+      await addDoc(collection(db, "cotizaciones_publicas"), docData);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -83,7 +152,15 @@ const CotizadorFactura = () => {
 
     try {
       let res;
+
       if (modo === "factura") {
+        // ✅ validación: si estás en modo factura, exige archivo
+        if (!file) {
+          setError("Debes seleccionar un PDF para procesar la factura.");
+          setLoading(false);
+          return;
+        }
+
         const formData = new FormData();
         formData.append("file", file);
         formData.append("estructura", estructura);
@@ -91,7 +168,11 @@ const CotizadorFactura = () => {
         formData.append("ubicacion", ubicacion);
         formData.append("tipoInversor", tipoInversor);
         formData.append("porcentajeGeneracion", porcentajeGeneracion);
-        res = await axios.post("https://cash-48v3.onrender.com/procesar-factura", formData);
+
+        res = await axios.post(
+          "http://127.0.0.1:8000/procesar-factura",
+          formData
+        );
       } else {
         const payload = {
           nombre: manual.nombre || "No disponible",
@@ -105,38 +186,34 @@ const CotizadorFactura = () => {
           cubierta,
           ubicacion,
           tipoInversor,
-          porcentajeGeneracion
+          porcentajeGeneracion,
         };
-        res = await axios.post("https://cash-48v3.onrender.com/procesar-datos", payload);
+
+        res = await axios.post(
+          "https://cash-48v3.onrender.com/procesar-datos",
+          payload
+        );
       }
 
       if (!res?.data) throw new Error("El servidor no devolvió resultados");
+
       setResultado(res.data);
 
-      if (auth.currentUser) {
-        const userIp = await getUserIP();
-        await addDoc(collection(db, "cotizaciones"), {
-          userId: auth.currentUser.uid,
-          email: auth.currentUser.email,
-          ...res.data,
-          estructura,
-          cubierta,
-          ubicacion,
-          tipoInversor,
-          porcentajeGeneracion,
-          modo,
-          ip: userIp,
-          fecha: serverTimestamp(),
-        });
-      }
+      // ✅ Guardar SIEMPRE (con usuario o anónima)
+      await guardarCotizacion(res.data);
+
     } catch (err) {
       console.error("❌ Error en CotizadorFactura:", err);
-      setError("No se pudo procesar la solicitud. Verifica la información e inténtalo nuevamente.");
+      setError(
+        "No se pudo procesar la solicitud. Verifica la información e inténtalo nuevamente."
+      );
       setResultado(null);
     } finally {
       setLoading(false);
     }
   };
+
+  // 🔹 Exportar PDF (IGUAL QUE TU VERSIÓN ACTUAL)
 
   // 🔹 Exportar PDF (IGUAL QUE TU VERSIÓN ACTUAL)
   const exportarPDF = () => {
