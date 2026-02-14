@@ -74,11 +74,13 @@ function App() {
 
   return (
     <>
+      <a href="#contenido-principal" className="visually-hidden-focusable position-absolute top-0 start-0 m-2 p-2 bg-white text-dark rounded">Saltar al contenido principal</a>
       <div style={{ position: 'relative', zIndex: 1 }}>
 
         {/* ✅ NAVBAR */}
         <nav
           id="mainNavbar"
+          aria-label="Navegación principal"
           className={`navbar navbar-expand-lg fixed-top transition-navbar ${
             user ? "bg-white border-bottom" : "navbar-transparent"
           }`}
@@ -107,7 +109,12 @@ function App() {
                     <li className="nav-item">
                       <a className="nav-link fw-medium text-secondary link-hover" href="#proyectos">Proyectos</a>
                     </li>
-                    
+                    <li className="nav-item">
+                      <a className="nav-link fw-medium text-secondary link-hover" href="#cobertura">Cobertura</a>
+                    </li>
+                    <li className="nav-item">
+                      <a className="nav-link fw-medium text-secondary link-hover" href="#faq-solar">FAQ</a>
+                    </li>
                     <li className="nav-item">
                       <a className="nav-link fw-medium text-secondary link-hover" href="#contacto">Contacto</a>
                     </li>
@@ -162,13 +169,13 @@ function App() {
 
         {/* ✅ CONTENIDO: Landing solo si NO hay sesión */}
         {!user && (
-          <>
+          <main id="contenido-principal">
             {/* HERO */}
             <header className="hero-section text-white text-center d-flex align-items-center justify-content-center"
               data-aos="fade-down" data-aos-delay="100" data-aos-duration="1000">
               <div className="bg-overlay p-5 rounded">
                 <h1 className="display-4 fw-bold">Energía solar a tu alcance</h1>
-                <p className="lead">Soluciones fotovoltaicas integrales en Colombia</p>
+                <p className="lead">Soluciones fotovoltaicas en el Eje Cafetero: Pereira, Manizales y Armenia</p>
                 <a href="#contacto" className="btn btn-outline-light btn-lg mt-3">Solicita una cotización</a>
               </div>
             </header>
@@ -179,6 +186,7 @@ function App() {
                 <div className="responsive-video">
                   <iframe
                     src="https://www.youtube.com/embed/bNO_ha_oO20"
+                    loading="lazy"
                     title="Video de LIVOLTEK"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowFullScreen
@@ -232,20 +240,20 @@ function App() {
             {/* PROYECTOS */}
             <section id="proyectos" className="py-5 bg-white" data-aos="slide-up" data-aos-delay="100">
               <div className="container">
-                <h2 className="mb-5 text-center text-primary fw-bold">Proyectos</h2>
+                <h2 className="mb-5 text-center text-primary fw-bold">Proyectos de energía solar</h2>
                 <div id="carouselProyectos" className="carousel slide shadow-sm rounded overflow-hidden" data-bs-ride="carousel">
                   <div className="carousel-inner">
                     <div className="carousel-item active" data-aos="zoom-in" data-aos-delay="300">
-                      <img src="/proyecto1.jpg" className="d-block w-100" alt="Proyecto 1" />
+                      <img src="/proyecto1.jpg" className="d-block w-100" alt="Instalación de paneles solares proyecto 1 en Colombia" loading="lazy" />
                     </div>
                     <div className="carousel-item" data-aos="zoom-in" data-aos-delay="300">
-                      <img src="/proyecto2.jpg" className="d-block w-100" alt="Proyecto 2" />
+                      <img src="/proyecto2.jpg" className="d-block w-100" alt="Sistema fotovoltaico residencial proyecto 2" loading="lazy" />
                     </div>
                     <div className="carousel-item" data-aos="zoom-in" data-aos-delay="300">
-                      <img src="/proyecto3.jpg" className="d-block w-100" alt="Proyecto 3" />
+                      <img src="/proyecto3.jpg" className="d-block w-100" alt="Proyecto solar comercial 3 de Red Sol" loading="lazy" />
                     </div>
                     <div className="carousel-item" data-aos="zoom-in" data-aos-delay="300">
-                      <img src="/proyecto5.jpg" className="d-block w-100" alt="Proyecto 5" />
+                      <img src="/proyecto5.jpg" className="d-block w-100" alt="Montaje de inversores y paneles proyecto 5" loading="lazy" />
                     </div>
                   </div>
                   <button className="carousel-control-prev" type="button" data-bs-target="#carouselProyectos" data-bs-slide="prev">
@@ -258,10 +266,45 @@ function App() {
               </div>
             </section>
 
+
+            {/* COBERTURA LOCAL */}
+            <section id="cobertura" className="py-5 bg-light" data-aos="fade-up" data-aos-delay="120">
+              <div className="container">
+                <h2 className="text-center fw-bold text-primary mb-3">Cobertura en el Eje Cafetero</h2>
+                <p className="text-center text-muted mb-4">
+                  Atendemos proyectos de energía solar residencial, comercial e industrial en Pereira, Manizales, Armenia y municipios cercanos.
+                </p>
+                <div className="row g-3 justify-content-center">
+                  <div className="col-md-3 col-6"><div className="border rounded p-3 text-center bg-white">Pereira</div></div>
+                  <div className="col-md-3 col-6"><div className="border rounded p-3 text-center bg-white">Manizales</div></div>
+                  <div className="col-md-3 col-6"><div className="border rounded p-3 text-center bg-white">Armenia</div></div>
+                  <div className="col-md-3 col-6"><div className="border rounded p-3 text-center bg-white">Dosquebradas</div></div>
+                </div>
+              </div>
+            </section>
+
+            {/* FAQ SEO */}
+            <section id="faq-solar" className="py-5 bg-white" data-aos="fade-up" data-aos-delay="100">
+              <div className="container" style={{ maxWidth: 900 }}>
+                <h2 className="text-center fw-bold text-primary mb-4">Preguntas frecuentes sobre energía solar en el Eje Cafetero</h2>
+                <div className="mb-3">
+                  <h3 className="h5 fw-semibold">¿En qué ciudades instalan paneles solares?</h3>
+                  <p className="text-muted mb-0">Instalamos en Pereira, Manizales, Armenia y municipios cercanos del Eje Cafetero.</p>
+                </div>
+                <div className="mb-3">
+                  <h3 className="h5 fw-semibold">¿Cuánto tarda una instalación fotovoltaica?</h3>
+                  <p className="text-muted mb-0">Según el tamaño del proyecto, una instalación residencial suele completarse en pocos días tras la ingeniería y aprobaciones.</p>
+                </div>
+                <div>
+                  <h3 className="h5 fw-semibold">¿También apoyan la legalización del sistema solar?</h3>
+                  <p className="text-muted mb-0">Sí. Te acompañamos con el proceso de diseño, instalación y legalización ante el operador de red correspondiente.</p>
+                </div>
+              </div>
+            </section>
             {/* CONTACTO */}
             <section id="contacto" className="py-5 bg-light text-center" data-aos="fade-up" data-aos-delay="150">
               <div className="container">
-                <h2 className="mb-5 fw-bold text-primary">Contáctanos</h2>
+                <h2 className="mb-5 fw-bold text-primary">Contáctanos para tu proyecto solar en el Eje Cafetero</h2>
                 <form className="mx-auto text-start" style={{ maxWidth: 500 }} action="https://formspree.io/f/xwpbbnqv" method="POST">
                   <div className="mb-3">
                     <label className="form-label">Nombre</label>
@@ -298,7 +341,7 @@ function App() {
             >
               💬
             </a>
-          </>
+          </main>
         )}
 
         {/* ✅ SI HAY SESIÓN: aquí NO renderizamos landing (porque entrarás por rutas /dashboard o /app) */}
