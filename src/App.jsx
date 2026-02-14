@@ -74,11 +74,13 @@ function App() {
 
   return (
     <>
+      <a href="#contenido-principal" className="visually-hidden-focusable position-absolute top-0 start-0 m-2 p-2 bg-white text-dark rounded">Saltar al contenido principal</a>
       <div style={{ position: 'relative', zIndex: 1 }}>
 
         {/* ✅ NAVBAR */}
         <nav
           id="mainNavbar"
+          aria-label="Navegación principal"
           className={`navbar navbar-expand-lg fixed-top transition-navbar ${
             user ? "bg-white border-bottom" : "navbar-transparent"
           }`}
@@ -162,7 +164,7 @@ function App() {
 
         {/* ✅ CONTENIDO: Landing solo si NO hay sesión */}
         {!user && (
-          <>
+          <main id="contenido-principal">
             {/* HERO */}
             <header className="hero-section text-white text-center d-flex align-items-center justify-content-center"
               data-aos="fade-down" data-aos-delay="100" data-aos-duration="1000">
@@ -179,6 +181,7 @@ function App() {
                 <div className="responsive-video">
                   <iframe
                     src="https://www.youtube.com/embed/bNO_ha_oO20"
+                    loading="lazy"
                     title="Video de LIVOLTEK"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowFullScreen
@@ -232,20 +235,20 @@ function App() {
             {/* PROYECTOS */}
             <section id="proyectos" className="py-5 bg-white" data-aos="slide-up" data-aos-delay="100">
               <div className="container">
-                <h2 className="mb-5 text-center text-primary fw-bold">Proyectos</h2>
+                <h2 className="mb-5 text-center text-primary fw-bold">Proyectos de energía solar</h2>
                 <div id="carouselProyectos" className="carousel slide shadow-sm rounded overflow-hidden" data-bs-ride="carousel">
                   <div className="carousel-inner">
                     <div className="carousel-item active" data-aos="zoom-in" data-aos-delay="300">
-                      <img src="/proyecto1.jpg" className="d-block w-100" alt="Proyecto 1" />
+                      <img src="/proyecto1.jpg" className="d-block w-100" alt="Instalación de paneles solares proyecto 1 en Colombia" loading="lazy" />
                     </div>
                     <div className="carousel-item" data-aos="zoom-in" data-aos-delay="300">
-                      <img src="/proyecto2.jpg" className="d-block w-100" alt="Proyecto 2" />
+                      <img src="/proyecto2.jpg" className="d-block w-100" alt="Sistema fotovoltaico residencial proyecto 2" loading="lazy" />
                     </div>
                     <div className="carousel-item" data-aos="zoom-in" data-aos-delay="300">
-                      <img src="/proyecto3.jpg" className="d-block w-100" alt="Proyecto 3" />
+                      <img src="/proyecto3.jpg" className="d-block w-100" alt="Proyecto solar comercial 3 de Red Sol" loading="lazy" />
                     </div>
                     <div className="carousel-item" data-aos="zoom-in" data-aos-delay="300">
-                      <img src="/proyecto5.jpg" className="d-block w-100" alt="Proyecto 5" />
+                      <img src="/proyecto5.jpg" className="d-block w-100" alt="Montaje de inversores y paneles proyecto 5" loading="lazy" />
                     </div>
                   </div>
                   <button className="carousel-control-prev" type="button" data-bs-target="#carouselProyectos" data-bs-slide="prev">
@@ -298,7 +301,7 @@ function App() {
             >
               💬
             </a>
-          </>
+          </main>
         )}
 
         {/* ✅ SI HAY SESIÓN: aquí NO renderizamos landing (porque entrarás por rutas /dashboard o /app) */}
