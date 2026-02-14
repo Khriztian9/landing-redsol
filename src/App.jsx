@@ -136,7 +136,7 @@ function App() {
                           `nav-link fw-medium ${isActive ? "text-primary fw-bold" : "text-secondary"}`
                         }
                       >
-                        Base de datos
+                        Historial
                       </NavLink>
                     </li>
 
@@ -147,7 +147,7 @@ function App() {
                           `nav-link fw-medium ${isActive ? "text-primary fw-bold" : "text-secondary"}`
                         }
                       >
-                        App
+                        Calculadora
                       </NavLink>
                     </li>
 
@@ -277,8 +277,8 @@ function App() {
                 <div className="row g-3 justify-content-center">
                   <div className="col-md-3 col-6"><div className="border rounded p-3 text-center bg-white">RISARALDA</div></div>
                   <div className="col-md-3 col-6"><div className="border rounded p-3 text-center bg-white">CALDAS</div></div>
-                  <div className="col-md-3 col-6"><div className="border rounded p-3 text-center bg-white">Quindio</div></div>
-                  <div className="col-md-3 col-6"><div className="border rounded p-3 text-center bg-white">Valle del Cauca</div></div>
+                  <div className="col-md-3 col-6"><div className="border rounded p-3 text-center bg-white">QUINDIO</div></div>
+                  <div className="col-md-3 col-6"><div className="border rounded p-3 text-center bg-white">VALLE</div></div>
                 </div>
               </div>
             </section>
@@ -304,7 +304,7 @@ function App() {
             {/* CONTACTO */}
             <section id="contacto" className="py-5 bg-light text-center" data-aos="fade-up" data-aos-delay="150">
               <div className="container">
-                <h2 className="mb-5 fw-bold text-primary">Contáctanos para tu proyecto solar en el Eje Cafetero</h2>
+                <h2 className="mb-5 fw-bold text-primary">Contáctanos para tu proyecto solar</h2>
                 <form className="mx-auto text-start" style={{ maxWidth: 500 }} action="https://formspree.io/f/xwpbbnqv" method="POST">
                   <div className="mb-3">
                     <label className="form-label">Nombre</label>
