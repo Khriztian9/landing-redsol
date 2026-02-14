@@ -87,7 +87,7 @@ function App() {
         >
           <div className="container py-2">
             <a className="navbar-brand text-primary fw-bold fs-4" href={user ? "/dashboard" : "#"}>
-              RED SOL
+              REDSOL
             </a>
 
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
@@ -349,7 +349,7 @@ function App() {
           <div style={{ paddingTop: 90 }} className="container">
             {/* Mensaje opcional para que no quede "vacío" si el usuario entra a "/" logueado */}
             <div className="alert alert-info">
-              Sesión activa. Ve a <Link to="/dashboard">Base de datos</Link> o <Link to="/app">App</Link>.
+              Sesión activa. Ve a <Link to="/dashboard">Historial</Link> o <Link to="/app">Calculadora</Link>.
             </div>
           </div>
         )}
