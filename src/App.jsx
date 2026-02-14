@@ -175,7 +175,7 @@ function App() {
               data-aos="fade-down" data-aos-delay="100" data-aos-duration="1000">
               <div className="bg-overlay p-5 rounded">
                 <h1 className="display-4 fw-bold">Energía solar a tu alcance</h1>
-                <p className="lead">Soluciones fotovoltaicas en el Eje Cafetero: Pereira, Manizales y Armenia</p>
+                <p className="lead">Soluciones fotovoltaicas integrales en Colombia</p>
                 <a href="#contacto" className="btn btn-outline-light btn-lg mt-3">Solicita una cotización</a>
               </div>
             </header>
