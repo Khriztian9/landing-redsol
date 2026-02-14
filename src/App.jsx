@@ -244,16 +244,16 @@ function App() {
                 <div id="carouselProyectos" className="carousel slide shadow-sm rounded overflow-hidden" data-bs-ride="carousel">
                   <div className="carousel-inner">
                     <div className="carousel-item active" data-aos="zoom-in" data-aos-delay="300">
-                      <img src="/proyecto1.jpg" className="d-block w-100" alt="Instalación de paneles solares proyecto 1 en Colombia" loading="lazy" />
+                      <img src="/proyecto1.jpg" className="d-block w-100" alt="Instalación de 12 paneles solares residenciales" loading="lazy" />
                     </div>
                     <div className="carousel-item" data-aos="zoom-in" data-aos-delay="300">
-                      <img src="/proyecto2.jpg" className="d-block w-100" alt="Sistema fotovoltaico residencial proyecto 2" loading="lazy" />
+                      <img src="/proyecto2.jpg" className="d-block w-100" alt="Sistema fotovoltaico residencial " loading="lazy" />
                     </div>
                     <div className="carousel-item" data-aos="zoom-in" data-aos-delay="300">
-                      <img src="/proyecto3.jpg" className="d-block w-100" alt="Proyecto solar comercial 3 de Red Sol" loading="lazy" />
+                      <img src="/proyecto3.jpg" className="d-block w-100" alt="Instalación de 48 paneles solares residenciales" loading="lazy" />
                     </div>
                     <div className="carousel-item" data-aos="zoom-in" data-aos-delay="300">
-                      <img src="/proyecto5.jpg" className="d-block w-100" alt="Montaje de inversores y paneles proyecto 5" loading="lazy" />
+                      <img src="/proyecto5.jpg" className="d-block w-100" alt="energía solar industrial" loading="lazy" />
                     </div>
                   </div>
                   <button className="carousel-control-prev" type="button" data-bs-target="#carouselProyectos" data-bs-slide="prev">
@@ -272,13 +272,13 @@ function App() {
               <div className="container">
                 <h2 className="text-center fw-bold text-primary mb-3">Cobertura en el Eje Cafetero</h2>
                 <p className="text-center text-muted mb-4">
-                  Atendemos proyectos de energía solar residencial, comercial e industrial en Pereira, Manizales, Armenia y municipios cercanos.
+                  Atendemos proyectos de energía solar residencial, comercial e industrial en Risaralda, Caldas, Quindio y el norte del Valle.
                 </p>
                 <div className="row g-3 justify-content-center">
-                  <div className="col-md-3 col-6"><div className="border rounded p-3 text-center bg-white">Pereira</div></div>
-                  <div className="col-md-3 col-6"><div className="border rounded p-3 text-center bg-white">Manizales</div></div>
-                  <div className="col-md-3 col-6"><div className="border rounded p-3 text-center bg-white">Armenia</div></div>
-                  <div className="col-md-3 col-6"><div className="border rounded p-3 text-center bg-white">Dosquebradas</div></div>
+                  <div className="col-md-3 col-6"><div className="border rounded p-3 text-center bg-white">RISARALDA</div></div>
+                  <div className="col-md-3 col-6"><div className="border rounded p-3 text-center bg-white">CALDAS</div></div>
+                  <div className="col-md-3 col-6"><div className="border rounded p-3 text-center bg-white">Quindio</div></div>
+                  <div className="col-md-3 col-6"><div className="border rounded p-3 text-center bg-white">Valle del Cauca</div></div>
                 </div>
               </div>
             </section>
@@ -286,10 +286,10 @@ function App() {
             {/* FAQ SEO */}
             <section id="faq-solar" className="py-5 bg-white" data-aos="fade-up" data-aos-delay="100">
               <div className="container" style={{ maxWidth: 900 }}>
-                <h2 className="text-center fw-bold text-primary mb-4">Preguntas frecuentes sobre energía solar en el Eje Cafetero</h2>
+                <h2 className="text-center fw-bold text-primary mb-4">Preguntas frecuentes sobre energía solar </h2>
                 <div className="mb-3">
                   <h3 className="h5 fw-semibold">¿En qué ciudades instalan paneles solares?</h3>
-                  <p className="text-muted mb-0">Instalamos en Pereira, Manizales, Armenia y municipios cercanos del Eje Cafetero.</p>
+                  <p className="text-muted mb-0">Instalamos en Pereira, Manizales, Armenia y municipios cercanos.</p>
                 </div>
                 <div className="mb-3">
                   <h3 className="h5 fw-semibold">¿Cuánto tarda una instalación fotovoltaica?</h3>
