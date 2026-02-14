@@ -244,16 +244,16 @@ function App() {
                 <div id="carouselProyectos" className="carousel slide shadow-sm rounded overflow-hidden" data-bs-ride="carousel">
                   <div className="carousel-inner">
                     <div className="carousel-item active" data-aos="zoom-in" data-aos-delay="300">
-                      <img src="/proyecto1.jpg" className="d-block w-100" alt="Instalación de 12 paneles solares residenciales" loading="lazy" />
+                      <img src="/proyecto1.jpg" className="d-block w-100" alt="Instalación de paneles solares proyecto 1 en Colombia" loading="lazy" />
                     </div>
                     <div className="carousel-item" data-aos="zoom-in" data-aos-delay="300">
-                      <img src="/proyecto2.jpg" className="d-block w-100" alt="Sistema fotovoltaico residencial " loading="lazy" />
+                      <img src="/proyecto2.jpg" className="d-block w-100" alt="Sistema fotovoltaico residencial proyecto 2" loading="lazy" />
                     </div>
                     <div className="carousel-item" data-aos="zoom-in" data-aos-delay="300">
-                      <img src="/proyecto3.jpg" className="d-block w-100" alt="Instalación de 48 paneles solares residenciales" loading="lazy" />
+                      <img src="/proyecto3.jpg" className="d-block w-100" alt="Proyecto solar comercial 3 de Red Sol" loading="lazy" />
                     </div>
                     <div className="carousel-item" data-aos="zoom-in" data-aos-delay="300">
-                      <img src="/proyecto5.jpg" className="d-block w-100" alt="energía solar industrial" loading="lazy" />
+                      <img src="/proyecto5.jpg" className="d-block w-100" alt="Montaje de inversores y paneles proyecto 5" loading="lazy" />
                     </div>
                   </div>
                   <button className="carousel-control-prev" type="button" data-bs-target="#carouselProyectos" data-bs-slide="prev">
