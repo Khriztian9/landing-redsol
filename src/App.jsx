@@ -109,7 +109,12 @@ function App() {
                     <li className="nav-item">
                       <a className="nav-link fw-medium text-secondary link-hover" href="#proyectos">Proyectos</a>
                     </li>
-                    
+                    <li className="nav-item">
+                      <a className="nav-link fw-medium text-secondary link-hover" href="#cobertura">Cobertura</a>
+                    </li>
+                    <li className="nav-item">
+                      <a className="nav-link fw-medium text-secondary link-hover" href="#faq-solar">FAQ</a>
+                    </li>
                     <li className="nav-item">
                       <a className="nav-link fw-medium text-secondary link-hover" href="#contacto">Contacto</a>
                     </li>
@@ -261,10 +266,45 @@ function App() {
               </div>
             </section>
 
+
+            {/* COBERTURA LOCAL */}
+            <section id="cobertura" className="py-5 bg-light" data-aos="fade-up" data-aos-delay="120">
+              <div className="container">
+                <h2 className="text-center fw-bold text-primary mb-3">Cobertura en el Eje Cafetero</h2>
+                <p className="text-center text-muted mb-4">
+                  Atendemos proyectos de energía solar residencial, comercial e industrial en Risaralda, Caldas, Quindio y el norte del Valle.
+                </p>
+                <div className="row g-3 justify-content-center">
+                  <div className="col-md-3 col-6"><div className="border rounded p-3 text-center bg-white">RISARALDA</div></div>
+                  <div className="col-md-3 col-6"><div className="border rounded p-3 text-center bg-white">CALDAS</div></div>
+                  <div className="col-md-3 col-6"><div className="border rounded p-3 text-center bg-white">Quindio</div></div>
+                  <div className="col-md-3 col-6"><div className="border rounded p-3 text-center bg-white">Valle del Cauca</div></div>
+                </div>
+              </div>
+            </section>
+
+            {/* FAQ SEO */}
+            <section id="faq-solar" className="py-5 bg-white" data-aos="fade-up" data-aos-delay="100">
+              <div className="container" style={{ maxWidth: 900 }}>
+                <h2 className="text-center fw-bold text-primary mb-4">Preguntas frecuentes sobre energía solar </h2>
+                <div className="mb-3">
+                  <h3 className="h5 fw-semibold">¿En qué ciudades instalan paneles solares?</h3>
+                  <p className="text-muted mb-0">Instalamos en Pereira, Manizales, Armenia y municipios cercanos.</p>
+                </div>
+                <div className="mb-3">
+                  <h3 className="h5 fw-semibold">¿Cuánto tarda una instalación fotovoltaica?</h3>
+                  <p className="text-muted mb-0">Según el tamaño del proyecto, una instalación residencial suele completarse en pocos días tras la ingeniería y aprobaciones.</p>
+                </div>
+                <div>
+                  <h3 className="h5 fw-semibold">¿También apoyan la legalización del sistema solar?</h3>
+                  <p className="text-muted mb-0">Sí. Te acompañamos con el proceso de diseño, instalación y legalización ante el operador de red correspondiente.</p>
+                </div>
+              </div>
+            </section>
             {/* CONTACTO */}
             <section id="contacto" className="py-5 bg-light text-center" data-aos="fade-up" data-aos-delay="150">
               <div className="container">
-                <h2 className="mb-5 fw-bold text-primary">Contáctanos</h2>
+                <h2 className="mb-5 fw-bold text-primary">Contáctanos para tu proyecto solar en el Eje Cafetero</h2>
                 <form className="mx-auto text-start" style={{ maxWidth: 500 }} action="https://formspree.io/f/xwpbbnqv" method="POST">
                   <div className="mb-3">
                     <label className="form-label">Nombre</label>
