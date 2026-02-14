@@ -270,7 +270,7 @@ function App() {
             {/* COBERTURA LOCAL */}
             <section id="cobertura" className="py-5 bg-light" data-aos="fade-up" data-aos-delay="120">
               <div className="container">
-                <h2 className="text-center fw-bold text-primary mb-3">Cobertura en el Eje Cafetero</h2>
+                <h2 className="text-center fw-bold text-primary mb-3">Cobertura </h2>
                 <p className="text-center text-muted mb-4">
                   Atendemos proyectos de energía solar residencial, comercial e industrial en Risaralda, Caldas, Quindio y el norte del Valle.
                 </p>
@@ -329,7 +329,7 @@ function App() {
 
             {/* FOOTER */}
             <footer className="text-center py-4 bg-dark text-white" data-aos="fade-in" data-aos-delay="300">
-              © {new Date().getFullYear()} Red Sol Colombia. Todos los derechos reservados.
+              © {new Date().getFullYear()} Redsol Colombia. Todos los derechos reservados.
             </footer>
 
             {/* BOTÓN WHATSAPP */}
