@@ -151,43 +151,8 @@ function LandingContent() {
         </div>
       </section>
 
-      <footer className="py-5 text-white" style={{ background: 'linear-gradient(135deg, #0b1f4d 0%, #0d6efd 100%)' }} data-aos="fade-in" data-aos-delay="300">
-        <div className="container">
-          <div className="row g-4 align-items-center">
-            <div className="col-md-6 text-center text-md-start">
-              <h3 className="h4 fw-bold mb-2">REDSOL COLOMBIA</h3>
-              <p className="mb-0" style={{ color: 'rgba(255,255,255,0.9)' }}>
-                Soluciones fotovoltaicas para hogares, comercios e industria.
-              </p>
-            </div>
-
-            <div className="col-md-6">
-              <div className="d-flex flex-column gap-2 align-items-center align-items-md-end">
-                <a
-                  href="https://www.instagram.com/redsolcolombia"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-white text-decoration-none fw-semibold"
-                >
-                  <i className="bi bi-instagram me-2"></i>@redsolcolombia
-                </a>
-                <a
-                  href="https://wa.me/573183464183"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-white text-decoration-none fw-semibold"
-                >
-                  <i className="bi bi-whatsapp me-2"></i>WhatsApp: +57 318 346 4183
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <hr className="my-4" style={{ borderColor: 'rgba(255,255,255,0.35)' }} />
-          <p className="text-center mb-0" style={{ color: 'rgba(255,255,255,0.9)' }}>
-            © {new Date().getFullYear()} Redsol Colombia. Todos los derechos reservados.
-          </p>
-        </div>
+      <footer className="text-center py-4 bg-dark text-white" data-aos="fade-in" data-aos-delay="300">
+        © {new Date().getFullYear()} Redsol Colombia. Todos los derechos reservados.
       </footer>
 
       <a
