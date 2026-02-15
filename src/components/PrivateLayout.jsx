@@ -57,7 +57,7 @@ export default function PrivateLayout() {
                     `nav-link fw-medium ${isActive ? "text-primary fw-bold" : "text-secondary"}`
                   }
                 >
-                  Base de datos
+                  Historial
                 </NavLink>
               </li>
 
@@ -68,7 +68,7 @@ export default function PrivateLayout() {
                     `nav-link fw-medium ${isActive ? "text-primary fw-bold" : "text-secondary"}`
                   }
                 >
-                  App
+                  Calculadora
                 </NavLink>
               </li>
 
