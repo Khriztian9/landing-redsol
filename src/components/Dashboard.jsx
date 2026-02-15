@@ -52,7 +52,7 @@ const Dashboard = () => {
 
     try {
       doc.addImage(logoUrl, "PNG", 15, 5, 25, 25);
-    } catch (e) {
+    } catch {
       console.warn("Logo no encontrado, asegúrate de poner /public/logo.png");
     }
 
