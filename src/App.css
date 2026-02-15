@@ -144,3 +144,8 @@
   height: 100%;
   border: none;
 }
+
+footer a.text-white-50:hover {
+  color: #ffffff !important;
+  text-decoration: underline !important;
+}

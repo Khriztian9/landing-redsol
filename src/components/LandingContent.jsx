@@ -8,7 +8,7 @@ function LandingContent() {
         <div className="bg-overlay p-5 rounded">
           <h1 className="display-4 fw-bold">Energía solar a tu alcance</h1>
           <p className="lead">Soluciones fotovoltaicas integrales en Colombia</p>
-          <a href="#contacto" className="btn btn-outline-light btn-lg mt-3">Solicita una cotización</a>
+          <a href="#cotizador-factura" className="btn btn-outline-light btn-lg mt-3">Solicita una cotización</a>
         </div>
       </header>
 
@@ -151,9 +151,142 @@ function LandingContent() {
         </div>
       </section>
 
-      <footer className="text-center py-4 bg-dark text-white" data-aos="fade-in" data-aos-delay="300">
+    <footer className="bg-dark text-white pt-5 pb-3" data-aos="fade-in" data-aos-delay="300">
+  <div className="container">
+    <div className="row gy-4 align-items-start text-center text-lg-start">
+
+      {/* 1) Marca */}
+      <div className="col-12 col-lg-4">
+        <div className="d-flex flex-column flex-lg-row align-items-center align-items-lg-start gap-3 mb-2">
+          {/* Mini “logo” */}
+          <div
+            className="d-inline-flex align-items-center justify-content-center fw-bold"
+            style={{
+              width: 44,
+              height: 44,
+              borderRadius: 12,
+              background: "rgba(13,110,253,.15)",
+              border: "1px solid rgba(13,110,253,.35)",
+              letterSpacing: 1
+            }}
+          >
+            RS
+          </div>
+
+          <div>
+            <h5 className="fw-bold mb-1">Redsol Colombia</h5>
+            <div className="text-white-50 small">
+              Energía solar • Ingeniería • Seguridad
+            </div>
+          </div>
+        </div>
+
+        <p className="text-white-50 mb-3 mx-auto mx-lg-0" style={{ maxWidth: 420 }}>
+          Diseñamos, instalamos y te acompañamos en todo el proceso de tu sistema fotovoltaico.
+        </p>
+
+        
+      </div>
+
+      {/* 2) Enlaces */}
+      <div className="col-12 col-md-6 col-lg-4">
+        <h6 className="fw-bold mb-3">Explorar</h6>
+        <ul className="list-unstyled mb-0">
+          <li className="mb-2">
+            <a className="text-white-50 text-decoration-none" href="#servicios">Servicios</a>
+          </li>
+          <li className="mb-2">
+            <a className="text-white-50 text-decoration-none" href="#proyectos">Proyectos</a>
+          </li>
+          <li className="mb-2">
+            <a className="text-white-50 text-decoration-none" href="#cotizador-factura">Cotización</a>
+          </li>
+          <li className="mb-2">
+            <a className="text-white-50 text-decoration-none" href="#faq-solar">Preguntas frecuentes</a>
+          </li>
+        </ul>
+      </div>
+
+      {/* 3) Contacto */}
+      <div className="col-12 col-md-6 col-lg-4">
+        <h6 className="fw-bold mb-3">Contacto</h6>
+
+        <div className="text-white-50">
+          <div className="mb-2">
+            <span className="text-white fw-semibold">WhatsApp:</span>{" "}
+            <a
+              className="text-white text-decoration-none"
+              href="https://wa.me/573183464183"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              +57 318 346 4183
+            </a>
+          </div>
+
+          <div className="mb-3">
+            <span className="text-white fw-semibold">Correo:</span>{" "}
+            <a className="text-white-50 text-decoration-none" href="mailto:info@redsolcolombia.com">
+              info@redsolcolombia.com
+            </a>
+          </div>
+
+          <div className="d-flex justify-content-center justify-content-lg-start gap-2 flex-wrap">
+          <a
+            href="https://instagram.com/redsolcolombia"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-outline-light btn-sm fw-semibold d-inline-flex align-items-center gap-2"
+            style={{ borderRadius: 12 }}
+          >
+            {/* Instagram icon (SVG) */}
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Z" stroke="currentColor" strokeWidth="2"/>
+              <path d="M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" stroke="currentColor" strokeWidth="2"/>
+              <path d="M17.5 6.5h.01" stroke="currentColor" strokeWidth="3" strokeLinecap="round"/>
+            </svg>
+            @redsolcolombia
+          </a>
+
+          <a
+            href="https://wa.me/573183464183"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-success btn-sm fw-semibold d-inline-flex align-items-center gap-2"
+            style={{ borderRadius: 12 }}
+          >
+            {/* WhatsApp icon (SVG) */}
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M20 11.5a8.5 8.5 0 0 1-12.8 7.4L4 20l1.2-3.1A8.5 8.5 0 1 1 20 11.5Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/>
+              <path d="M9 10.2c.3 2 2.8 4.5 4.8 4.8.4.1.8-.1 1.1-.3l1-.7c.3-.2.6-.2.9 0l1.2.7c.3.2.4.6.2.9-.6 1-1.7 1.5-2.8 1.3-3-.5-6.5-4-7-7-.2-1.1.3-2.2 1.3-2.8.3-.2.7-.1.9.2l.7 1.2c.2.3.2.6 0 .9l-.7 1c-.2.3-.3.7-.3 1.1Z" fill="currentColor" opacity=".9"/>
+            </svg>
+            +57 318 346 4183
+          </a>
+        </div>
+
+          <div className="small text-white-50 mt-3">
+            Respuesta rápida en horario laboral.
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <hr className="border-secondary my-4" />
+
+    <div className="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2 text-center">
+      <small className="text-white-50">
         © {new Date().getFullYear()} Redsol Colombia. Todos los derechos reservados.
-      </footer>
+      </small>
+
+      <small className="text-white-50">
+        Hecho con <span className="text-white">ingeniería</span> y <span className="text-white">transparencia</span>.
+      </small>
+    </div>
+  </div>
+</footer>
+
+
 
       <a
         href="https://wa.me/573183464183"
