@@ -323,6 +323,13 @@ const CotizadorFactura = () => {
         ["Consumo mensual", `${resultado.consumo_kwh} kWh`],
         ["Potencia requerida", `${resultado.potencia_kwp} kWp`],
         ["Número de paneles", `${resultado.numero_paneles}`],
+        [
+          "Área necesaria",
+          `${(Number(resultado.numero_paneles || 0) * 2.6).toLocaleString("es-CO", {
+            minimumFractionDigits: 1,
+            maximumFractionDigits: 1,
+          })} m²`,
+        ],
         ["Inversor", `${resultado.inversor_utilizado}`],
         [
           "Generación mensual",
@@ -620,6 +627,15 @@ oferta formal y posterior firma de contrato.
                 <tr><td>🔌 Tipo de servicio</td><td>{resultado.tipo_servicio}</td></tr>
                 <tr><td>⚡ Consumo mensual</td><td>{Number(resultado.consumo_kwh).toFixed(0)} kWh</td></tr>
                 <tr className="table-success"><td>📦 Número de paneles</td><td>{resultado.numero_paneles}</td></tr>
+                <tr className="table-success">
+                  <td>📐 Área necesaria</td>
+                  <td>
+                    {(Number(resultado.numero_paneles || 0) * 2.6).toLocaleString("es-CO", {
+                      minimumFractionDigits: 1,
+                      maximumFractionDigits: 1,
+                    })} m²
+                  </td>
+                </tr>
                 <tr className="table-success"><td>⚙️ Inversor</td><td>{resultado.inversor_utilizado}</td></tr>
                 <tr className="table-success">
                   <td>💰 Precio estimado</td>
