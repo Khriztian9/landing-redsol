@@ -30,16 +30,16 @@ const formatNumber = (value) => {
 const clamp = (n, min, max) => Math.min(Math.max(n, min), max);
 
 const DEFAULTS = {
-  generacion_anual_kwh: 7500,
-  porcentaje_autoconsumo: 0.2,
-  consumo_anual_usuario: 6000,
-  precio_compra_kwh: 950,
+  generacion_anual_kwh: 36000,
+  porcentaje_autoconsumo: 0.25,
+  consumo_anual_usuario: 30000,
+  precio_compra_kwh: 830,
   crecimiento_energia: 0.08,
   precio_bolsa: 400,
   crecimiento_bolsa: 0.08,
-  componente_comercializacion: 60,
-  capex: 22000000,
-  opex_anual: 1000000,
+  componente_comercializacion: 100,
+  capex: 83000000,
+  opex_anual: 2000000,
   horizonte_anios: 25,
   tasa_descuento: 0.10,
   anios_deduccion_renta: 3,
