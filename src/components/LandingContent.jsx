@@ -55,17 +55,17 @@ const featuredProjects = [
 const serviceHighlights = [
   {
     icon: 'bi-diagram-3',
-    title: 'Diseno solar',
+    title: 'Diseño solar',
     text: 'Dimensionamos el sistema segun consumo, area disponible y objetivo de ahorro.',
   },
   {
     icon: 'bi-file-earmark-check',
-    title: 'Legalizacion',
+    title: 'Legalización',
     text: 'Te acompanamos con tramites, documentacion y relacion con el operador de red.',
   },
   {
     icon: 'bi-tools',
-    title: 'Instalacion',
+    title: 'Instalación',
     text: 'Montaje, puesta en marcha y soporte para sistemas residenciales, comerciales e industriales.',
   },
 ];
@@ -146,7 +146,7 @@ function LandingContent() {
           <div className="intro-video-grid">
             <div>
               <span className="section-kicker">Como trabajamos</span>
-              <h2>Ingenieria solar con criterio, estetica y respaldo</h2>
+              <h2>Ingenieria solar con criterio y respaldo</h2>
               <p>
                 Antes de instalar, revisamos consumo, espacio, retorno y proceso de conexion. Asi cada proyecto se siente ordenado desde el diagnostico hasta la entrega.
               </p>
@@ -192,11 +192,7 @@ function LandingContent() {
         <div className="container">
           <div className="project-showcase-header">
             <span className="section-kicker">Casos reales </span>
-            <h2>Proyectos solares REDSOL</h2>
-            <p>
-              Tres tipos de energia solar en accion: residencial, comercial e industrial.
-              Cada caso muestra como disenamos soluciones eficientes segun el consumo, el espacio y la operacion.
-            </p>
+            <h2>Proyectos  REDSOL</h2>
           </div>
 
           <div className="project-showcase-list">
