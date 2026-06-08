@@ -9,9 +9,9 @@ function MainNavbar({ user, onLoginClick, onLogout }) {
         user ? 'bg-white border-bottom' : 'navbar-transparent'
       }`}
     >
-      <div className="container py-2">
-        <a className="navbar-brand text-primary fw-bold fs-4" href={user ? '/dashboard' : '#'}>
-          REDSOL
+      <div className="container py-2 redsol-navbar-inner">
+        <a className="navbar-brand redsol-brand" href={user ? '/dashboard' : '#'} aria-label="RedSol Colombia">
+          <img src="/REDSOL_logotipo_transparente.png" alt="RedSol" className="redsol-brand-logo" />
         </a>
 
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
@@ -25,7 +25,6 @@ function MainNavbar({ user, onLoginClick, onLogout }) {
                 <li className="nav-item"><a className="nav-link fw-medium text-secondary link-hover" href="#cotizador-factura">Cotizador</a></li>
                 <li className="nav-item"><a className="nav-link fw-medium text-secondary link-hover" href="#servicios">Servicios</a></li>
                 <li className="nav-item"><a className="nav-link fw-medium text-secondary link-hover" href="#proyectos">Proyectos</a></li>
-                <li className="nav-item"><a className="nav-link fw-medium text-secondary link-hover" href="#cobertura">Cobertura</a></li>
                 <li className="nav-item"><a className="nav-link fw-medium text-secondary link-hover" href="#faq-solar">FAQ</a></li>
                 <li className="nav-item"><a className="nav-link fw-medium text-secondary link-hover" href="#contacto">Contacto</a></li>
                 <li className="nav-item">

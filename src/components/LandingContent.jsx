@@ -1,135 +1,327 @@
+import { useState } from 'react';
 import CotizadorFactura from './Cotizadorfactura';
+
+const featuredProjects = [
+  {
+    category: 'Residencial',
+    name: 'Familia Fortich',
+    location: 'Vivienda familiar',
+    poster: '/FORTICH0.JPG',
+    photos: ['/FORTICH0.JPG', '/FORTICH1.jpg', '/FORTICH2.jpg'],
+    icon: 'bi-house-heart',
+    summary:
+      'Un sistema solar pensado para bajar el consumo mensual y darle independencia energetica a una familia que queria una solucion limpia, silenciosa y durable.',
+    stats: [
+      { value: '6.9 kWp', label: '12 paneles' },
+      { value: '5kW', label: 'inversor' },
+      { value: '100%', label: 'ahorro' },
+    ],
+    details: ['Diseño segun curva de consumo', 'Instalacion limpia y estética', 'Acompanamiento técnico RedSol'],
+  },
+  {
+    category: 'Comercial',
+    name: 'Clinica Sonreir',
+    location: 'consultorio odontológico',
+    poster: '/SONREIR0.png',
+    photos: ['/SONREIR0.png', '/SONREIR1.JPG', '/SONREIR2.png'],
+    icon: 'bi-building-check',
+    summary:
+      'Energia solar para una operacion comercial que necesita continuidad, control de costos y una imagen sostenible frente a sus pacientes y visitantes.',
+    stats: [
+      { value: '7.8kWp', label: '12 paneles' },
+      { value: '6kW', label: 'inversor' },
+      { value: '100%', label: 'ahorro' },
+    ],
+    details: ['Alto autoconsumo', 'Reduccion de gasto energetico', 'independencia energética'],
+  },
+  {
+    category: 'Industrial',
+    name: 'GYTE',
+    location: 'Industria metalmecánica',
+    poster: '/GYTE0.JPG',
+    photos: ['/GYTE0.JPG', '/GYTE1.jpg', '/GYTE2.JPG'],
+    icon: 'bi-lightning-charge',
+    summary:
+      'Una solucion fotovoltaica robusta para industria, enfocada en alto desempeno, seguridad electrica y respaldo a procesos de consumo exigente.',
+    stats: [
+      { value: '31.2kWp', label: '48 paneles' },
+      { value: '25kW', label: 'inversor' },
+      { value: '130%', label: 'ahorro' },
+    ],
+    details: ['Ingenieria para grandes superficies', 'Instalacion con criterios de seguridad', 'Monitoreo y soporte especializado'],
+  },
+];
+
+const serviceHighlights = [
+  {
+    icon: 'bi-diagram-3',
+    title: 'Diseno solar',
+    text: 'Dimensionamos el sistema segun consumo, area disponible y objetivo de ahorro.',
+  },
+  {
+    icon: 'bi-file-earmark-check',
+    title: 'Legalizacion',
+    text: 'Te acompanamos con tramites, documentacion y relacion con el operador de red.',
+  },
+  {
+    icon: 'bi-tools',
+    title: 'Instalacion',
+    text: 'Montaje, puesta en marcha y soporte para sistemas residenciales, comerciales e industriales.',
+  },
+];
+
+function ProjectMedia({ project }) {
+  const [activePhoto, setActivePhoto] = useState(0);
+  const projectPhotos = project.photos?.length ? project.photos : [project.poster];
+
+  const showPhoto = (direction) => {
+    setActivePhoto((current) => (current + direction + projectPhotos.length) % projectPhotos.length);
+  };
+
+  return (
+    <div className="project-media-panel">
+      <div className="project-photo-frame">
+        <button
+          className="project-photo-hitarea"
+          type="button"
+          aria-label={`Ver siguiente foto de ${project.name}`}
+          onClick={() => showPhoto(1)}
+        >
+          <img
+            className="project-project-photo"
+            src={projectPhotos[activePhoto]}
+            alt={`Foto ${activePhoto + 1} del proyecto solar ${project.name}`}
+            loading="lazy"
+          />
+        </button>
+
+        <div className="project-photo-controls" aria-label={`Galeria de fotos de ${project.name}`}>
+          <button
+            className="project-photo-control"
+            type="button"
+            aria-label={`Foto anterior de ${project.name}`}
+            onClick={() => showPhoto(-1)}
+          >
+            <i className="bi bi-chevron-left" aria-hidden="true"></i>
+          </button>
+          <div className="project-photo-dots">
+            {projectPhotos.map((photo, index) => (
+              <button
+                className={`project-photo-dot ${index === activePhoto ? 'active' : ''}`}
+                type="button"
+                aria-label={`Ver foto ${index + 1} de ${project.name}`}
+                aria-current={index === activePhoto ? 'true' : undefined}
+                key={photo}
+                onClick={() => setActivePhoto(index)}
+              ></button>
+            ))}
+          </div>
+          <button
+            className="project-photo-control"
+            type="button"
+            aria-label={`Siguiente foto de ${project.name}`}
+            onClick={() => showPhoto(1)}
+          >
+            <i className="bi bi-chevron-right" aria-hidden="true"></i>
+          </button>
+          <span className="project-photo-count">{activePhoto + 1}/{projectPhotos.length}</span>
+        </div>
+      </div>
+
+      <div className="project-media-shade"></div>
+      <div className="project-media-badge">
+        <i className={`bi ${project.icon}`} aria-hidden="true"></i>
+        <span>{project.category}</span>
+      </div>
+    </div>
+  );
+}
 
 function LandingContent() {
   return (
     <main id="contenido-principal">
-      <header className="hero-section text-white text-center d-flex align-items-center justify-content-center"
-        data-aos="fade-down" data-aos-delay="100" data-aos-duration="1000">
-        <div className="bg-overlay p-5 rounded">
-          <h1 className="display-4 fw-bold">Energía solar a tu alcance</h1>
-          <p className="lead">Soluciones fotovoltaicas integrales en Colombia</p>
-          <a href="#cotizador-factura" className="btn btn-outline-light btn-lg mt-3">Solicita una cotización</a>
-        </div>
-      </header>
 
-      <section className="video-section text-center" data-aos="fade-right" data-aos-delay="200">
-        <div className="video-container">
-          <div className="responsive-video">
-            <iframe
-              src="https://www.youtube.com/embed/bNO_ha_oO20"
-              loading="lazy"
-              title="Video de LIVOLTEK"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-            ></iframe>
+      <section className="intro-video-section" data-aos="fade-up" data-aos-delay="150">
+        <div className="container">
+          <div className="intro-video-grid">
+            <div>
+              <span className="section-kicker">Como trabajamos</span>
+              <h2>Ingenieria solar con criterio, estetica y respaldo</h2>
+              <p>
+                Antes de instalar, revisamos consumo, espacio, retorno y proceso de conexion. Asi cada proyecto se siente ordenado desde el diagnostico hasta la entrega.
+              </p>
+            </div>
+            <div className="responsive-video">
+              <iframe
+                src="https://www.youtube.com/embed/bNO_ha_oO20"
+                loading="lazy"
+                title="Video de LIVOLTEK"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              ></iframe>
+            </div>
           </div>
         </div>
       </section>
 
-      <section id="cotizador-factura" className="py-5 bg-white" data-aos="fade-up-right" data-aos-delay="100">
+      <section id="servicios" className="services-section" data-aos="fade-up" data-aos-delay="100">
+        <div className="container">
+          <div className="section-heading">
+            <span className="section-kicker">Servicios</span>
+            <h2>Todo el proceso en una sola ruta</h2>
+            <p>Disenamos, legalizamos e instalamos con foco en ahorro real y operacion segura.</p>
+          </div>
+
+          <div className="services-grid">
+            {serviceHighlights.map((service) => (
+              <article className="service-card-redsol" key={service.title}>
+                <i className={`bi ${service.icon}`} aria-hidden="true"></i>
+                <h3>{service.title}</h3>
+                <p>{service.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="cotizador-factura" className="quote-section" data-aos="fade-up-right" data-aos-delay="100">
         <CotizadorFactura />
       </section>
 
-      <section id="servicios" className="py-5 bg-light text-center" data-aos="flip-left" data-aos-delay="100">
+      <section id="proyectos" className="project-showcase-section" data-aos="slide-up" data-aos-delay="100">
         <div className="container">
-          <h2 className="mb-5 fw-bold text-primary">Servicios</h2>
-          <div className="row g-4">
-            <div className="col-md-4" data-aos="zoom-in" data-aos-delay="200">
-              <div className="card h-100 border-0 shadow-sm service-card">
-                <div className="card-body py-5">
-                  <i className="bi bi-diagram-3 fs-1 text-primary mb-3"></i>
-                  <h5 className="card-title fw-semibold mb-2">Diseño solar</h5>
-                  <p className="text-muted">Estudios y dimensionamiento profesional para cada tipo de usuario.</p>
+          <div className="project-showcase-header">
+            <span className="section-kicker">Casos reales </span>
+            <h2>Proyectos solares REDSOL</h2>
+            <p>
+              Tres tipos de energia solar en accion: residencial, comercial e industrial.
+              Cada caso muestra como disenamos soluciones eficientes segun el consumo, el espacio y la operacion.
+            </p>
+          </div>
+
+          <div className="project-showcase-list">
+            {featuredProjects.map((project, index) => (
+              <article
+                className={`project-feature ${index % 2 === 1 ? 'project-feature-reverse' : ''}`}
+                key={project.name}
+                data-aos="fade-up"
+                data-aos-delay={150 + index * 100}
+              >
+                <ProjectMedia project={project} />
+
+                <div className="project-info-panel">
+                  <span className="project-sector">{project.category}</span>
+                  <h3>{project.name}</h3>
+                  <p className="project-location">
+                    <i className="bi bi-geo-alt" aria-hidden="true"></i>
+                    {project.location}
+                  </p>
+                  <p className="project-summary">{project.summary}</p>
+
+                  <div className="project-stats" aria-label={`Indicadores del proyecto ${project.name}`}>
+                    {project.stats.map((stat) => (
+                      <div className="project-stat" key={`${project.name}-${stat.label}`}>
+                        <strong>{stat.value}</strong>
+                        <span>{stat.label}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <ul className="project-details">
+                    {project.details.map((detail) => (
+                      <li key={`${project.name}-${detail}`}>
+                        <i className="bi bi-check2-circle" aria-hidden="true"></i>
+                        {detail}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <a className="project-cta" href="#contacto">
+                    Quiero un proyecto similar
+                    <i className="bi bi-arrow-right" aria-hidden="true"></i>
+                  </a>
                 </div>
-              </div>
-            </div>
-            <div className="col-md-4" data-aos="zoom-in" data-aos-delay="300">
-              <div className="card h-100 border-0 shadow-sm service-card">
-                <div className="card-body py-5">
-                  <i className="bi bi-file-earmark-check fs-1 text-primary mb-3"></i>
-                  <h5 className="card-title fw-semibold mb-2">Legalización</h5>
-                  <p className="text-muted">Asesoría completa ante UPME, CREG y operadores de red de todo el país.</p>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-4" data-aos="zoom-in" data-aos-delay="400">
-              <div className="card h-100 border-0 shadow-sm service-card">
-                <div className="card-body py-5">
-                  <i className="bi bi-tools fs-1 text-primary mb-3"></i>
-                  <h5 className="card-title fw-semibold mb-2">Instalación</h5>
-                  <p className="text-muted">Montaje y puesta en marcha de sistemas solares de cualquier escala.</p>
-                </div>
-              </div>
-            </div>
+              </article>
+            ))}
           </div>
         </div>
       </section>
 
-      <section id="proyectos" className="py-5 bg-white" data-aos="slide-up" data-aos-delay="100">
-        <div className="container">
-          <h2 className="mb-5 text-center text-primary fw-bold">Proyectos de energía solar</h2>
-          <div id="carouselProyectos" className="carousel slide shadow-sm rounded overflow-hidden" data-bs-ride="carousel">
-            <div className="carousel-inner">
-              <div className="carousel-item active" data-aos="zoom-in" data-aos-delay="300">
-                <img src="/proyecto1.jpg" className="d-block w-100" alt="Instalación de paneles solares proyecto 1 en Colombia" loading="lazy" />
-              </div>
-              <div className="carousel-item" data-aos="zoom-in" data-aos-delay="300">
-                <img src="/proyecto2.jpg" className="d-block w-100" alt="Sistema fotovoltaico residencial proyecto 2" loading="lazy" />
-              </div>
-              <div className="carousel-item" data-aos="zoom-in" data-aos-delay="300">
-                <img src="/proyecto3.jpg" className="d-block w-100" alt="Proyecto solar comercial 3 de Red Sol" loading="lazy" />
-              </div>
-              <div className="carousel-item" data-aos="zoom-in" data-aos-delay="300">
-                <img src="/proyecto5.jpg" className="d-block w-100" alt="Montaje de inversores y paneles proyecto 5" loading="lazy" />
-              </div>
-            </div>
-            <button className="carousel-control-prev" type="button" data-bs-target="#carouselProyectos" data-bs-slide="prev">
-              <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-            </button>
-            <button className="carousel-control-next" type="button" data-bs-target="#carouselProyectos" data-bs-slide="next">
-              <span className="carousel-control-next-icon" aria-hidden="true"></span>
-            </button>
+      <section id="faq-solar" className="faq-section" data-aos="fade-up" data-aos-delay="100">
+        <div className="container faq-grid">
+          <div className="faq-intro">
+            <span className="section-kicker">Preguntas frecuentes</span>
+            <h2>Lo importante antes de decidir</h2>
+            <p>
+              Energia solar no deberia sentirse confusa. Aqui resolvemos las preguntas clave para entender ahorro, proceso y alcance.
+            </p>
+            <a className="faq-cta" href="#contacto">
+              Tengo otra pregunta
+              <i className="bi bi-arrow-right" aria-hidden="true"></i>
+            </a>
+          </div>
+          <div className="faq-list">
+            <details className="faq-item" open>
+              <summary>
+                <span>Como se si mi proyecto solar es viable?</span>
+                <i className="bi bi-plus-lg" aria-hidden="true"></i>
+              </summary>
+              <p>Revisamos tu factura, horario de consumo, area disponible y condiciones de conexion. Con eso definimos tamano, retorno y alcance tecnico.</p>
+            </details>
+            <details className="faq-item">
+              <summary>
+                <span>Cuanto tarda una instalacion fotovoltaica?</span>
+                <i className="bi bi-plus-lg" aria-hidden="true"></i>
+              </summary>
+              <p>Depende del tamano y los permisos. Un sistema residencial suele instalarse en pocos dias despues de la ingenieria y aprobaciones.</p>
+            </details>
+            <details className="faq-item">
+              <summary>
+                <span>RedSol tambien hace la legalizacion?</span>
+                <i className="bi bi-plus-lg" aria-hidden="true"></i>
+              </summary>
+              <p>Si. Te acompanamos con diseno, documentacion, instalacion y proceso ante el operador de red correspondiente.</p>
+            </details>
+            <details className="faq-item">
+              <summary>
+                <span>El sistema funciona cuando se va la energia?</span>
+                <i className="bi bi-plus-lg" aria-hidden="true"></i>
+              </summary>
+              <p>Un sistema conectado a red normalmente se apaga por seguridad durante cortes. Si necesitas respaldo, se evalua una solucion con baterias o configuracion hibrida.</p>
+            </details>
+            <details className="faq-item">
+              <summary>
+                <span>Que mantenimiento necesita?</span>
+                <i className="bi bi-plus-lg" aria-hidden="true"></i>
+              </summary>
+              <p>Recomendamos limpieza periodica, revision electrica y seguimiento de produccion. La frecuencia depende del polvo, sombra y condiciones del lugar.</p>
+            </details>
+            <details className="faq-item">
+              <summary>
+                <span>Instalan proyectos residenciales, comerciales e industriales?</span>
+                <i className="bi bi-plus-lg" aria-hidden="true"></i>
+              </summary>
+              <p>Si. Dimensionamos cada sistema segun consumo, espacio, tipo de operacion y objetivo de ahorro.</p>
+            </details>
           </div>
         </div>
       </section>
 
-      <section id="cobertura" className="py-5 bg-light" data-aos="fade-up" data-aos-delay="120">
-        <div className="container">
-          <h2 className="text-center fw-bold text-primary mb-3">Cobertura </h2>
-          <p className="text-center text-muted mb-4">
-            Atendemos proyectos de energía solar residencial, comercial e industrial en Risaralda, Caldas, Quindio y el norte del Valle.
-          </p>
-          <div className="row g-3 justify-content-center">
-            <div className="col-md-3 col-6"><div className="border rounded p-3 text-center bg-white">RISARALDA</div></div>
-            <div className="col-md-3 col-6"><div className="border rounded p-3 text-center bg-white">CALDAS</div></div>
-            <div className="col-md-3 col-6"><div className="border rounded p-3 text-center bg-white">QUINDIO</div></div>
-            <div className="col-md-3 col-6"><div className="border rounded p-3 text-center bg-white">VALLE</div></div>
+      <section id="contacto" className="contact-section" data-aos="fade-up" data-aos-delay="150">
+        <div className="container contact-grid">
+          <div className="contact-copy">
+            <span className="section-kicker">Contacto</span>
+            <h2>Cuentanos sobre tu proyecto solar</h2>
+            <p>
+              Con tu factura o una idea de consumo podemos orientarte mejor. Te respondemos con una ruta clara para cotizar, disenar e instalar.
+            </p>
+            <a className="contact-whatsapp" href="https://wa.me/573183464183" target="_blank" rel="noopener noreferrer">
+              <i className="bi bi-whatsapp" aria-hidden="true"></i>
+              Hablar por WhatsApp
+            </a>
           </div>
-        </div>
-      </section>
 
-      <section id="faq-solar" className="py-5 bg-white" data-aos="fade-up" data-aos-delay="100">
-        <div className="container" style={{ maxWidth: 900 }}>
-          <h2 className="text-center fw-bold text-primary mb-4">Preguntas frecuentes sobre energía solar </h2>
-          <div className="mb-3">
-            <h3 className="h5 fw-semibold">¿En qué ciudades instalan paneles solares?</h3>
-            <p className="text-muted mb-0">Instalamos en Pereira, Manizales, Armenia y municipios cercanos.</p>
-          </div>
-          <div className="mb-3">
-            <h3 className="h5 fw-semibold">¿Cuánto tarda una instalación fotovoltaica?</h3>
-            <p className="text-muted mb-0">Según el tamaño del proyecto, una instalación residencial suele completarse en pocos días tras la ingeniería y aprobaciones.</p>
-          </div>
-          <div>
-            <h3 className="h5 fw-semibold">¿También apoyan la legalización del sistema solar?</h3>
-            <p className="text-muted mb-0">Sí. Te acompañamos con el proceso de diseño, instalación y legalización ante el operador de red correspondiente.</p>
-          </div>
-        </div>
-      </section>
-
-      <section id="contacto" className="py-5 bg-light text-center" data-aos="fade-up" data-aos-delay="150">
-        <div className="container">
-          <h2 className="mb-5 fw-bold text-primary">Contáctanos para tu proyecto solar</h2>
-          <form className="mx-auto text-start" style={{ maxWidth: 500 }} action="https://formspree.io/f/xwpbbnqv" method="POST">
+          <form className="contact-form" action="https://formspree.io/f/xwpbbnqv" method="POST">
             <div className="mb-3">
               <label className="form-label">Nombre</label>
               <input type="text" name="nombre" className="form-control" required placeholder=" " />
@@ -144,9 +336,9 @@ function LandingContent() {
             </div>
             <div className="mb-3">
               <label className="form-label">Mensaje</label>
-              <textarea name="mensaje" className="form-control" rows="4" required placeholder="Cuéntanos sobre tu necesidad" />
+              <textarea name="mensaje" className="form-control" rows="4" required placeholder="Cuentanos sobre tu necesidad" />
             </div>
-            <button type="submit" className="btn btn-primary w-100">Enviar</button>
+            <button type="submit" className="btn btn-redsol-primary w-100">Enviar solicitud</button>
           </form>
         </div>
       </section>
@@ -157,28 +349,8 @@ function LandingContent() {
 
       {/* 1) Marca */}
       <div className="col-12 col-lg-4">
-        <div className="d-flex flex-column flex-lg-row align-items-center align-items-lg-start gap-3 mb-2">
-          {/* Mini “logo” */}
-          <div
-            className="d-inline-flex align-items-center justify-content-center fw-bold"
-            style={{
-              width: 44,
-              height: 44,
-              borderRadius: 12,
-              background: "rgba(13,110,253,.15)",
-              border: "1px solid rgba(13,110,253,.35)",
-              letterSpacing: 1
-            }}
-          >
-            RS
-          </div>
-
-          <div>
-            <h5 className="fw-bold mb-1">Redsol Colombia</h5>
-            <div className="text-white-50 small">
-              Energía solar • Ingeniería • Seguridad
-            </div>
-          </div>
+        <div className="footer-brand mb-3">
+          <img src="/REDSOL_logo_completo_fondo_blanco.png" alt="RedSol Colombia" />
         </div>
 
         <p className="text-white-50 mb-3 mx-auto mx-lg-0" style={{ maxWidth: 420 }}>
