@@ -58,7 +58,7 @@ const Dashboard = () => {
 
     doc.setTextColor(255, 255, 255);
     doc.setFontSize(18);
-    doc.text("REDSOL COLOMBIA S.A.S.", 105, 15, { align: "center" });
+    doc.text("REDSOLAR S.A.S.", 105, 15, { align: "center" });
 
     doc.setFontSize(12);
     doc.text("Soluciones Fotovoltaicas", 105, 25, { align: "center" });
@@ -139,7 +139,7 @@ const Dashboard = () => {
     doc.text(" Av. Las Américas #50-03, Pereira, Colombia", 105, pageHeight - 15, {
       align: "center",
     });
-    doc.text(" +57 300 123 4567 |  contacto@redsol.com", 105, pageHeight - 8, {
+    doc.text(" +57 318 346 4183 | info@redsolarenergy.com", 105, pageHeight - 8, {
       align: "center",
     });
 

@@ -79,7 +79,7 @@ const CotizadorFactura = () => {
 
   // ✅ SessionId persistente para cotizaciones anónimas
   const getSessionId = () => {
-    const key = "redsol_session_id";
+    const key = "redsolar_session_id";
     let id = localStorage.getItem(key);
     if (!id) {
       id =
@@ -222,10 +222,10 @@ const CotizadorFactura = () => {
   const doc = new jsPDF({ unit: "mm", format: "a4", orientation: "landscape" });
 
   const COMPANY = {
-    name: "REDSOL COLOMBIA S.A.S.",
+    name: "REDSOLAR S.A.S.",
     phone: "+57 318 346 4183",
-    email: "info@redsolcolombia.com",
-    website: "www.redsolcolombia.com",
+    email: "info@redsolarenergy.com",
+    website: "www.redsolarenergy.com",
     address: "Av. Las Américas #50-03, Pereira, Risaralda",
     slogan: "Energía solar a tu alcance",
   };

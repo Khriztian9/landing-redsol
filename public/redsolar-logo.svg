@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 150" role="img" aria-labelledby="title desc">
+  <title id="title">REDSOLAR</title>
+  <desc id="desc">Logotipo de REDSOLAR en azul y verde</desc>
+  <defs>
+    <linearGradient id="solar" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#a8ef00"/>
+      <stop offset="1" stop-color="#67c900"/>
+    </linearGradient>
+  </defs>
+  <text x="12" y="108" fill="#07326f" font-family="Montserrat, Arial, sans-serif" font-size="104" font-weight="800" letter-spacing="-5">REDS</text>
+  <circle cx="330" cy="72" r="42" fill="none" stroke="url(#solar)" stroke-width="18"/>
+  <text x="380" y="108" fill="#07326f" font-family="Montserrat, Arial, sans-serif" font-size="104" font-weight="800" letter-spacing="-5">LAR</text>
+  <g stroke="#8ddd00" stroke-width="6" stroke-linecap="round">
+    <path d="M330 10V2M330 142v-8M268 72h-8M400 72h-8M286 28l-6-6M380 122l-6-6M374 28l6-6M280 122l6-6"/>
+  </g>
+</svg>

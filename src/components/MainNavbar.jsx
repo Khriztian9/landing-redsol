@@ -9,9 +9,9 @@ function MainNavbar({ user, onLoginClick, onLogout }) {
         user ? 'bg-white border-bottom' : 'navbar-transparent'
       }`}
     >
-      <div className="container py-2 redsol-navbar-inner">
-        <a className="navbar-brand redsol-brand" href={user ? '/dashboard' : '#'} aria-label="RedSol Colombia">
-          <img src="/REDSOL_logotipo_transparente.png" alt="RedSol" className="redsol-brand-logo" />
+      <div className="container py-2 redsolar-navbar-inner">
+        <a className="navbar-brand redsolar-brand" href={user ? '/dashboard' : '#'} aria-label="REDSOLAR">
+          <img src="/redsolar-logo.svg" alt="REDSOLAR" className="redsolar-brand-logo" />
         </a>
 
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">

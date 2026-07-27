@@ -16,7 +16,7 @@ const featuredProjects = [
       { value: '5kW', label: 'inversor' },
       { value: '100%', label: 'ahorro' },
     ],
-    details: ['Diseño segun curva de consumo', 'Instalacion limpia y estética', 'Acompanamiento técnico RedSol'],
+    details: ['Diseño segun curva de consumo', 'Instalacion limpia y estética', 'Acompanamiento técnico REDSOLAR'],
   },
   {
     category: 'Comercial',
@@ -174,7 +174,7 @@ function LandingContent() {
 
           <div className="services-grid">
             {serviceHighlights.map((service) => (
-              <article className="service-card-redsol" key={service.title}>
+              <article className="service-card-redsolar" key={service.title}>
                 <i className={`bi ${service.icon}`} aria-hidden="true"></i>
                 <h3>{service.title}</h3>
                 <p>{service.text}</p>
@@ -192,7 +192,7 @@ function LandingContent() {
         <div className="container">
           <div className="project-showcase-header">
             <span className="section-kicker">Casos reales </span>
-            <h2>Proyectos  REDSOL</h2>
+            <h2>Proyectos REDSOLAR</h2>
           </div>
 
           <div className="project-showcase-list">
@@ -273,7 +273,7 @@ function LandingContent() {
             </details>
             <details className="faq-item">
               <summary>
-                <span>RedSol tambien hace la legalizacion?</span>
+                <span>¿REDSOLAR también hace la legalización?</span>
                 <i className="bi bi-plus-lg" aria-hidden="true"></i>
               </summary>
               <p>Si. Te acompanamos con diseno, documentacion, instalacion y proceso ante el operador de red correspondiente.</p>
@@ -334,7 +334,7 @@ function LandingContent() {
               <label className="form-label">Mensaje</label>
               <textarea name="mensaje" className="form-control" rows="4" required placeholder="Cuentanos sobre tu necesidad" />
             </div>
-            <button type="submit" className="btn btn-redsol-primary w-100">Enviar solicitud</button>
+            <button type="submit" className="btn btn-redsolar-primary w-100">Enviar solicitud</button>
           </form>
         </div>
       </section>
@@ -346,7 +346,7 @@ function LandingContent() {
       {/* 1) Marca */}
       <div className="col-12 col-lg-4">
         <div className="footer-brand mb-3">
-          <img src="/REDSOL_logo_completo_fondo_blanco.png" alt="RedSol Colombia" />
+          <img src="/redsolar-logo.svg" alt="REDSOLAR" />
         </div>
 
         <p className="text-white-50 mb-3 mx-auto mx-lg-0" style={{ maxWidth: 420 }}>
@@ -394,14 +394,14 @@ function LandingContent() {
 
           <div className="mb-3">
             <span className="text-white fw-semibold">Correo:</span>{" "}
-            <a className="text-white-50 text-decoration-none" href="mailto:info@redsolcolombia.com">
-              info@redsolcolombia.com
+            <a className="text-white-50 text-decoration-none" href="mailto:info@redsolarenergy.com">
+              info@redsolarenergy.com
             </a>
           </div>
 
           <div className="d-flex justify-content-center justify-content-lg-start gap-2 flex-wrap">
           <a
-            href="https://instagram.com/redsolcolombia"
+            href="https://instagram.com/redsolarenergy"
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-outline-light btn-sm fw-semibold d-inline-flex align-items-center gap-2"
@@ -413,7 +413,7 @@ function LandingContent() {
               <path d="M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" stroke="currentColor" strokeWidth="2"/>
               <path d="M17.5 6.5h.01" stroke="currentColor" strokeWidth="3" strokeLinecap="round"/>
             </svg>
-            @redsolcolombia
+            @redsolarenergy
           </a>
 
           <a
@@ -444,7 +444,7 @@ function LandingContent() {
 
     <div className="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2 text-center">
       <small className="text-white-50">
-        © {new Date().getFullYear()} Redsol Colombia. Todos los derechos reservados.
+        © {new Date().getFullYear()} REDSOLAR. Todos los derechos reservados.
       </small>
 
       <small className="text-white-50">
