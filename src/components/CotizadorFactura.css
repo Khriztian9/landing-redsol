@@ -158,6 +158,18 @@ form.card:hover {
   box-shadow: 0 6px 15px rgba(32, 201, 151, 0.4);
 }
 
+.card .btn-primary:disabled {
+  background: #54728f;
+  cursor: wait;
+  opacity: 0.8;
+}
+
+.pdf-download-hint {
+  color: #687989 !important;
+  display: block !important;
+  font-size: 0.82rem !important;
+}
+
 /* === Toggle Cotizador: Factura / Datos === */
 .toggle-cotizador{
   --toggle-bg: #f5f7ff;
@@ -224,5 +236,4 @@ form.card:hover {
   outline: 3px solid #0099ff;
   outline-offset: 2px;
 }
-
 
