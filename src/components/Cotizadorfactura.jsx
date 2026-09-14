@@ -9,9 +9,7 @@ import "./CotizadorFactura.css";
 import { db, auth } from "../firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
-// PDF
-import jsPDF from "jspdf";
-import autoTable from "jspdf-autotable";
+import { generateQuotePdf } from "../utils/generateQuotePdf";
 
 const CotizadorFactura = () => {
   const [file, setFile] = useState(null);
@@ -23,6 +21,7 @@ const CotizadorFactura = () => {
   const [resultado, setResultado] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [generandoPDF, setGenerandoPDF] = useState(false);
 
   // === modo Factura/Datos y formulario manual ===
   const [modo, setModo] = useState("factura"); // "factura" | "datos"
@@ -213,210 +212,23 @@ const CotizadorFactura = () => {
     }
   };
 
-  // 🔹 Exportar PDF (IGUAL QUE TU VERSIÓN ACTUAL)
-
-  // 🔹 Exportar PDF (IGUAL QUE TU VERSIÓN ACTUAL)
-  const exportarPDF = () => {
-  if (!resultado) return;
-
-  const doc = new jsPDF({ unit: "mm", format: "a4", orientation: "landscape" });
-
-  const COMPANY = {
-    name: "REDSOLAR S.A.S.",
-    phone: "+57 318 346 4183",
-    email: "info@redsolarenergy.com",
-    website: "www.redsolarenergy.com",
-    address: "Av. Las Américas #50-03, Pereira, Risaralda",
-    slogan: "Energía solar a tu alcance",
-  };
-
-  const COLORS = {
-    primary: [13, 110, 253],
-    accent: [32, 201, 151],
-    dark: [33, 37, 41],
-    gray: [108, 117, 125],
-  };
-
-  const fecha = new Date().toLocaleDateString("es-CO", {
-    year: "numeric",
-    month: "long",
-    day: "2-digit",
-  });
-
-  const formatCOP = (n) =>
-    (n ?? 0).toLocaleString("es-CO", {
-      style: "currency",
-      currency: "COP",
-      minimumFractionDigits: 0,
-    });
-
-  const banner = new Image();
-  banner.src = "/solar-bg.jpg";
-
-  banner.onload = () => {
-    doc.setFillColor(...COLORS.primary);
-    doc.rect(0, 0, 297, 22, "F");
-    doc.setTextColor(255);
-    doc.setFontSize(14);
-    doc.setFont("helvetica", "bold");
-    doc.text(COMPANY.name, 12, 14);
-
-    doc.addImage(banner, "JPEG", 0, 22, 297, 100);
-
-    doc.setTextColor(...COLORS.dark);
-    doc.setFontSize(22);
-    doc.text("Propuesta Técnico–Económica", 15, 140);
-    doc.setFontSize(14);
-    doc.setTextColor(...COLORS.gray);
-    doc.text(COMPANY.slogan, 15, 150);
-
-    doc.setFontSize(11);
-    doc.setTextColor(...COLORS.dark);
-    doc.text(`Cliente: ${resultado.nombre || "N/D"}`, 15, 170);
-    doc.text(`Fecha: ${fecha}`, 15, 178);
-    doc.text(`Asesor: ${auth?.currentUser?.email || "—"}`, 15, 186);
-
-    // Página 2
-    doc.addPage("a4", "landscape");
-    doc.setFillColor(...COLORS.primary);
-    doc.rect(0, 0, 297, 12, "F");
-    doc.setTextColor(255);
-    doc.setFontSize(11);
-    doc.text("Cotización Solar FV", 12, 8);
-
-    doc.setTextColor(...COLORS.dark);
-    doc.setFont("helvetica", "bold");
-
-    doc.setFontSize(13);
-    doc.setTextColor(...COLORS.dark);
-    doc.text("Datos del Cliente", 15, 22);
-    autoTable(doc, {
-      startY: 28,
-      margin: { left: 15, right: 15 },
-      tableWidth: "auto",
-      theme: "grid",
-      headStyles: { fillColor: COLORS.primary, textColor: 255, fontStyle: "bold" },
-      styles: { fontSize: 9, cellPadding: 3, fillColor: [250, 250, 250] },
-      alternateRowStyles: { fillColor: [245, 245, 245] },
-      head: [["Campo", "Valor"]],
-      body: [
-        ["Nombre", resultado.nombre || "N/D"],
-        ["Dirección", resultado.direccion || "N/D"],
-        ["Municipio", resultado.municipio || "N/D"],
-        ["Estrato", resultado.estrato || "N/D"],
-        ["Tipo servicio", resultado.tipo_servicio || "N/D"],
-      ],
-    });
-
-    doc.text("Resultados Técnicos", 15, doc.lastAutoTable.finalY + 15);
-    doc.setTextColor(...COLORS.dark);
-    autoTable(doc, {
-      startY: doc.lastAutoTable.finalY + 20,
-      margin: { left: 15, right: 15 },
-      tableWidth: "auto",
-      theme: "grid",
-      headStyles: { fillColor: COLORS.primary, textColor: 255, fontStyle: "bold" },
-      styles: { fontSize: 9, cellPadding: 3, fillColor: [250, 250, 250] },
-      alternateRowStyles: { fillColor: [245, 245, 245] },
-      head: [["Parámetro", "Valor"]],
-      body: [
-        ["Consumo mensual", `${resultado.consumo_kwh} kWh`],
-        ["Potencia requerida", `${resultado.potencia_kwp} kWp`],
-        ["Número de paneles", `${resultado.numero_paneles}`],
-        ["Inversor", `${resultado.inversor_utilizado}`],
-        [
-          "Generación mensual",
-          `${resultado.generacion_mensual_min.toFixed(2)} - ${resultado.generacion_mensual_max.toFixed(2)} kWh`,
-        ],
-        ["Porcentaje de cobertura", `${resultado.porcentaje_generacion ?? porcentajeGeneracion}%`],
-      ],
-    });
-
-    // Página 3
-    doc.addPage("a4", "landscape");
-    doc.setTextColor(...COLORS.dark);
-    doc.setFontSize(14);
-    doc.text("Inversión", 15, 15);
-
-    autoTable(doc, {
-      startY: 25,
-      margin: { left: 15, right: 15 },
-      tableWidth: "auto",
-      theme: "grid",
-      headStyles: { fillColor: COLORS.primary, textColor: 255 },
-      styles: { fontSize: 9, cellPadding: 3 },
-      head: [["Concepto", "Valor"]],
-      body: [
-        ["Precio estimado del sistema", formatCOP(resultado.precio_total)],
-        ["Costo energía anual (referencial)", formatCOP(resultado.costo_energia)],
-      ],
-    });
-
-    doc.setFontSize(14);
-    doc.text("Condiciones del Proyecto", 15, doc.lastAutoTable.finalY + 10);
-    doc.setTextColor(...COLORS.dark);
-
-    autoTable(doc, {
-      startY: doc.lastAutoTable.finalY + 14,
-      margin: { left: 15, right: 15 },
-      tableWidth: "auto",
-      theme: "grid",
-      headStyles: { fillColor: COLORS.primary, textColor: 255 },
-      styles: { fontSize: 9, cellPadding: 3 },
-      head: [["Parámetro", "Valor"]],
-      body: [
-        ["Estructura", estructura],
-        ["Cubierta", cubierta],
-        ["Ubicación", ubicacion],
-        ["Tipo inversor", tipoInversor],
-      ],
-    });
-
-    doc.setFontSize(9).setTextColor(71, 75, 78);
-    let textoNaturaleza = `
-1. Naturaleza de la propuesta
-La presente presentación constituye un estudio preliminar de potencial fotovoltaico desarrollado a partir de la información pública y datos de referencia técnica. No
-corresponde a una oferta comercial vinculante, ni a una cotización formal, factura proforma o contrato.
-2. Valores estimados
-Todos los valores expresados en esta propuesta son simulados y referenciales, calculados con base en precios promedio del mercado y condiciones técnicas generales.
-Pueden variar dependiendo de factores como: condiciones reales del sitio, análisis estructural, disponibilidad de red, especificaciones técnicas del operador de red (OR),
-entre otros.
-3. Generación estimada
-La promesa de generación energética es una proyección basada en herramientas de simulación estándar. La cifra de GENERACIÓN kWh/año es estimativa y puede variar
-dependiendo del comportamiento climático, mantenimientos, orientación del sistema y sombreados.
-4. Obtención de una oferta comercial
-Para acceder a una oferta formal, con cotización detallada, factura proforma o propuesta comercial vinculante, se requiere LA FIRMA DEL CONTRATO DE MANDATO PARA
-ADELANTAR LOS TRÁMITES Y ESTUDIOS NECESARIOS ADEMÁS DE UNA VISITA DE INSPECCIÓN AL SITIO.
-5. Limitación de responsabilidad
-RED SOL no asume responsabilidad por decisiones que el cliente tome con base en esta propuesta preliminar. Toda decisión de inversión deberá tomarse con base en la
-oferta formal y posterior firma de contrato.
-`;
-    let splitText = doc.splitTextToSize(textoNaturaleza, 260);
-    doc.text(splitText, 15, doc.lastAutoTable.finalY + 5);
-
-    const pageCount = doc.internal.getNumberOfPages();
-    for (let i = 1; i <= pageCount; i++) {
-      doc.setPage(i);
-      doc.setFontSize(9);
-      doc.setTextColor(150);
-      doc.text(
-        `${COMPANY.website} · ${COMPANY.email} · ${COMPANY.phone}`,
-        148,
-        200,
-        { align: "center" }
-      );
-      doc.text(`Página ${i} de ${pageCount}`, 280, 200, { align: "right" });
+  const exportarPDF = async () => {
+    if (!resultado || generandoPDF) return;
+    setGenerandoPDF(true);
+    setError(null);
+    try {
+      await generateQuotePdf({
+        resultado,
+        configuracion: { estructura, cubierta, ubicacion, tipoInversor, porcentajeGeneracion },
+        advisorEmail: auth.currentUser?.email,
+      });
+    } catch (pdfError) {
+      console.error("Error al generar el PDF:", pdfError);
+      setError("No fue posible generar el PDF. Inténtalo nuevamente.");
+    } finally {
+      setGenerandoPDF(false);
     }
-
-    doc.save(`Cotizacion_${resultado.nombre || "cliente"}.pdf`);
   };
-
-  // Si la imagen falla → genera sin banner
-  banner.onerror = () => {
-    console.warn("⚠️ No se pudo cargar el banner, generando PDF sin imagen.");
-    doc.save(`Cotizacion_${resultado.nombre || "cliente"}.pdf`);
-  };
-};
 
   return (
     <div className="container py-4">
@@ -644,9 +456,12 @@ oferta formal y posterior firma de contrato.
           </div>
 
           <div className="text-center mt-4">
-            <button className="btn btn-primary px-4 shadow-sm" onClick={exportarPDF}>
-              📄 Descargar PDF
+            <button className="btn btn-primary px-4 shadow-sm" onClick={exportarPDF} disabled={generandoPDF}>
+              {generandoPDF ? "Preparando propuesta..." : "📄 Descargar propuesta PDF"}
             </button>
+            <p className="pdf-download-hint mt-2 mb-0">
+              Incluye resumen ejecutivo, detalle técnico, inversión y próximos pasos.
+            </p>
           </div>
         </div>
       )}
