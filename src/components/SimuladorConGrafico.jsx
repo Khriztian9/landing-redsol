@@ -6,9 +6,8 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import Chart from 'chart.js/auto';
 import annotationPlugin from 'chartjs-plugin-annotation';
-import jsPDF from 'jspdf';
-import autoTable from 'jspdf-autotable';
 import { saveAs } from 'file-saver';
+import { generateAnalysisPdf } from '../utils/generateAnalysisPdf';
 import './Simulador.css';
 
 Chart.register(annotationPlugin);
@@ -497,75 +496,14 @@ const Simulador = () => {
   }, [resultado, verConBeneficios, verLeasing]);
 
   // ====== Exportar PDF ======
-  const exportPDF = () => {
-    const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
-
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(18);
-    doc.setTextColor(40, 60, 120);
-    doc.text('Informe Financiero Proyecto FV', 14, 15);
-
-    doc.setFontSize(10);
-    doc.setTextColor(100);
-    doc.text('Generado automáticamente - ' + new Date().toLocaleDateString('es-CO'), 14, 22);
-
-    const canvas = chartRef.current;
-    if (canvas) {
-      const scale = 3;
-      const tmpCanvas = document.createElement('canvas');
-      tmpCanvas.width = canvas.width * scale;
-      tmpCanvas.height = canvas.height * scale;
-
-      const tmpCtx = tmpCanvas.getContext('2d');
-      tmpCtx.scale(scale, scale);
-      tmpCtx.drawImage(canvas, 0, 0);
-
-      const imgData = tmpCanvas.toDataURL('image/png', 1.0);
-      const imgProps = doc.getImageProperties(imgData);
-
-      const pdfWidth = doc.internal.pageSize.getWidth() - 30;
-      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-
-      doc.setFontSize(14);
-      doc.setTextColor(40, 60, 120);
-      doc.text('Evolución del Flujo de Caja Anual', 14, 35);
-
-      doc.addImage(imgData, 'PNG', 15, 40, pdfWidth, pdfHeight, '', 'FAST');
-    }
-
-    doc.addPage();
-    doc.setFontSize(14);
-    doc.setTextColor(40, 60, 120);
-    doc.text('Resultados Detallados por Año', 14, 20);
-
-    const tabla = getTablaDinamica();
-    autoTable(doc, {
-      startY: 25,
-      head: [Object.keys(tabla[0] || {})],
-      body: tabla.map((row) =>
-        Object.entries(row).map(([col, val]) =>
-          typeof val === 'number' && col !== 'Año' && col !== 'Generación (kWh)'
-            ? formatCOP(val)
-            : val
-        )
-      ),
-      theme: 'striped',
-      headStyles: { fillColor: [40, 60, 120], textColor: [255, 255, 255], fontSize: 9 },
-      bodyStyles: { fontSize: 8 },
-      alternateRowStyles: { fillColor: [240, 240, 240] },
-    });
-
-    const pageCount = doc.internal.getNumberOfPages();
-    for (let i = 1; i <= pageCount; i++) {
-      doc.setPage(i);
-      doc.setFontSize(8);
-      doc.setTextColor(150);
-      doc.text(`Página ${i} de ${pageCount}`, 260, 200);
-      doc.text('© 2025 RED SOL Colombia', 14, 200);
-    }
-
-    doc.save('Informe_FV.pdf');
-  };
+  const exportPDF = () => generateAnalysisPdf({
+    chartCanvas: chartRef.current,
+    formData,
+    indicators: indicadores,
+    table: getTablaDinamica(),
+    withBenefits: verConBeneficios,
+    withLeasing: verLeasing,
+  });
 
   // ====== Exportar CSV ======
   const exportCSV = () => {
@@ -841,7 +779,7 @@ const Simulador = () => {
 
             <div className="rs-actions">
               <button onClick={exportPDF} className="btn btn-danger me-2">
-                Exportar PDF
+                Descargar informe PDF
               </button>
               <button onClick={exportCSV} className="btn btn-success">
                 Exportar CSV
