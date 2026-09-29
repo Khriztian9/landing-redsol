@@ -104,9 +104,13 @@ button:focus-visible {
 /* Paleta corporativa única: aplica también a utilidades y componentes Bootstrap. */
 :root {
   --redsolar-red: #ED1C24;
+  --redsolar-red-dark: #9F1016;
+  --redsolar-red-soft: #FFF0F1;
   --redsolar-black: #070809;
   --redsolar-white: #FFFFFF;
   --redsolar-charcoal: #24272B;
+  --redsolar-slate: #50565D;
+  --redsolar-mist: #F4F5F6;
   --redsolar-deep-red: #B61219;
   --redsolar-silver: #BDC3C9;
   --bs-primary: #ED1C24;
@@ -135,13 +139,13 @@ button:focus-visible {
 .btn-primary,
 .btn-success {
   --bs-btn-color: #FFFFFF;
-  --bs-btn-bg: #ED1C24;
-  --bs-btn-border-color: #ED1C24;
+  --bs-btn-bg: #9F1016;
+  --bs-btn-border-color: #9F1016;
   --bs-btn-hover-color: #FFFFFF;
-  --bs-btn-hover-bg: #B61219;
-  --bs-btn-hover-border-color: #B61219;
-  --bs-btn-active-bg: #B61219;
-  --bs-btn-active-border-color: #B61219;
+  --bs-btn-hover-bg: #7F0D12;
+  --bs-btn-hover-border-color: #7F0D12;
+  --bs-btn-active-bg: #700B10;
+  --bs-btn-active-border-color: #700B10;
   --bs-btn-disabled-bg: #BDC3C9;
   --bs-btn-disabled-border-color: #BDC3C9;
 }
