@@ -2,14 +2,14 @@ import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 
 const COLORS = {
-  navy: [7, 39, 74],
-  blue: [0, 153, 255],
-  green: [70, 190, 72],
-  ink: [31, 45, 61],
-  muted: [99, 115, 129],
-  paleBlue: [237, 247, 255],
-  paleGreen: [239, 250, 239],
-  line: [220, 228, 235],
+  navy: [7, 8, 9],
+  blue: [237, 28, 36],
+  green: [182, 18, 25],
+  ink: [36, 39, 43],
+  muted: [189, 195, 201],
+  line: [189, 195, 201],
+  paleBlue: [255, 255, 255],
+  paleGreen: [255, 255, 255],
 };
 
 const COMPANY = {
@@ -128,7 +128,7 @@ const addTable = (doc, startY, body, options = {}) => {
       0: { fontStyle: "bold", textColor: COLORS.navy, cellWidth: options.firstColumnWidth || 62 },
       1: { halign: options.valueAlign || "left" },
     },
-    alternateRowStyles: { fillColor: [248, 250, 252] },
+    alternateRowStyles: { fillColor: [255, 255, 255] },
     ...options.tableOptions,
   });
   return doc.lastAutoTable.finalY;
@@ -149,7 +149,7 @@ const addPageChrome = (doc, pageNumber, pageCount, reference, logo) => {
   }
   doc.setFont("helvetica", "normal");
   doc.setFontSize(7.5);
-  doc.setTextColor(220, 232, 243);
+  doc.setTextColor(189, 195, 201);
   doc.text(`Propuesta preliminar · ${reference}`, width - 15, 8.5, { align: "right" });
 
   doc.setDrawColor(...COLORS.line);
@@ -163,7 +163,7 @@ const addPageChrome = (doc, pageNumber, pageCount, reference, logo) => {
 export const generateQuotePdf = async ({ resultado, configuracion, advisorEmail }) => {
   const doc = new jsPDF({ unit: "mm", format: "a4", orientation: "portrait" });
   const [logo, hero] = await Promise.all([
-    loadImage("/REDSOL_logo_completo_transparente.png"),
+    Promise.resolve(null),
     loadImage("/solar-bg.jpg"),
   ]);
   const today = new Date();

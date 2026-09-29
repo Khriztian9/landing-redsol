@@ -2,11 +2,11 @@
 /* 🎨 VARIABLES PERSONALIZADAS */
 /* ---------------------- */
 :root {
-  --primary-color: #39FF14;      /* Verde neón brillante para énfasis principal */
-  --secondary-color: #000000;    /* Segundo color (igual aquí, pero puedes cambiarlo) */
-  --accent-color: #39FF14;       /* Color acento para detalles interactivos */
-  --text-color: #0099ff;         /* Color principal del texto */
-  --background-color: #ffffff;   /* Color de fondo base */
+  --primary-color: #ED1C24;      /* Rojo corporativo para énfasis principal */
+  --secondary-color: #070809;    /* Segundo color (igual aquí, pero puedes cambiarlo) */
+  --accent-color: #B61219;       /* Color acento para detalles interactivos */
+  --text-color: #24272B;         /* Color principal del texto */
+  --background-color: #FFFFFF;   /* Color de fondo base */
 
   /* Fuente global y estilo de texto */
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -14,7 +14,7 @@
   font-weight: 400;                          /* Peso de fuente estándar */
 
   /* Ajustes de renderizado */
-  color-scheme: light dark;                 /* Soporte para modo oscuro */
+  color-scheme: light;                      /* Mantiene controles nativos en la paleta clara */
   color: var(--text-color);                 /* Aplica color de texto personalizado */
   background-color: var(--background-color);/* Fondo general de la app */
 
@@ -41,7 +41,7 @@ a {
 }
 
 a:hover {
-  color: var(--accent-color);               /* Cambia de color al hacer hover */
+  color: var(--accent-color);               /* Rojo profundo al pasar el cursor */
 }
 
 /* Estilo base para el <body> */
@@ -89,7 +89,7 @@ button:focus-visible {
 @media (prefers-color-scheme: light) {
   :root {
     color: var(--secondary-color);         /* Texto más oscuro para fondo claro */
-    background-color: #ffffff;             /* Fondo blanco */
+    background-color: #FFFFFF;             /* Fondo blanco */
   }
 
   a:hover {
@@ -97,6 +97,77 @@ button:focus-visible {
   }
 
   button {
-    background-color: #f9f9f9;             /* Fondo claro para botones en modo claro */
+    background-color: #FFFFFF;             /* Fondo claro para botones en modo claro */
   }
+}
+
+/* Paleta corporativa única: aplica también a utilidades y componentes Bootstrap. */
+:root {
+  --redsolar-red: #ED1C24;
+  --redsolar-black: #070809;
+  --redsolar-white: #FFFFFF;
+  --redsolar-charcoal: #24272B;
+  --redsolar-deep-red: #B61219;
+  --redsolar-silver: #BDC3C9;
+  --bs-primary: #ED1C24;
+  --bs-primary-rgb: 237, 28, 36;
+  --bs-secondary: #24272B;
+  --bs-secondary-rgb: 36, 39, 43;
+  --bs-success: #B61219;
+  --bs-success-rgb: 182, 18, 25;
+  --bs-danger: #B61219;
+  --bs-danger-rgb: 182, 18, 25;
+  --bs-info: #BDC3C9;
+  --bs-info-rgb: 189, 195, 201;
+  --bs-light: #FFFFFF;
+  --bs-light-rgb: 255, 255, 255;
+  --bs-dark: #070809;
+  --bs-dark-rgb: 7, 8, 9;
+  --bs-body-color: #24272B;
+  --bs-body-color-rgb: 36, 39, 43;
+  --bs-body-bg: #FFFFFF;
+  --bs-body-bg-rgb: 255, 255, 255;
+  --bs-border-color: #BDC3C9;
+  --bs-link-color: #ED1C24;
+  --bs-link-hover-color: #B61219;
+}
+
+.btn-primary,
+.btn-success {
+  --bs-btn-color: #FFFFFF;
+  --bs-btn-bg: #ED1C24;
+  --bs-btn-border-color: #ED1C24;
+  --bs-btn-hover-color: #FFFFFF;
+  --bs-btn-hover-bg: #B61219;
+  --bs-btn-hover-border-color: #B61219;
+  --bs-btn-active-bg: #B61219;
+  --bs-btn-active-border-color: #B61219;
+  --bs-btn-disabled-bg: #BDC3C9;
+  --bs-btn-disabled-border-color: #BDC3C9;
+}
+
+.btn-danger,
+.btn-outline-danger,
+.btn-outline-primary,
+.btn-outline-success {
+  --bs-btn-color: #B61219;
+  --bs-btn-border-color: #B61219;
+  --bs-btn-hover-color: #FFFFFF;
+  --bs-btn-hover-bg: #B61219;
+  --bs-btn-hover-border-color: #B61219;
+  --bs-btn-active-color: #FFFFFF;
+  --bs-btn-active-bg: #ED1C24;
+  --bs-btn-active-border-color: #ED1C24;
+}
+
+.alert-info,
+.alert-danger,
+.table-primary,
+.table-success {
+  --bs-alert-color: #24272B;
+  --bs-alert-bg: #FFFFFF;
+  --bs-alert-border-color: #BDC3C9;
+  --bs-table-color: #24272B;
+  --bs-table-bg: #FFFFFF;
+  --bs-table-border-color: #BDC3C9;
 }

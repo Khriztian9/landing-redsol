@@ -1,6 +1,6 @@
 function LoginModal({ email, password, error, onClose, onSubmit, onEmailChange, onPasswordChange }) {
   return (
-    <div className="modal d-block" tabIndex="-1" style={{ background: 'rgba(0,0,0,0.5)' }}>
+    <div className="modal d-block" tabIndex="-1" style={{ background: 'rgba(7, 8, 9, 0.5)' }}>
       <div className="modal-dialog">
         <div className="modal-content p-4">
           <h5 className="mb-3">Iniciar Sesión</h5>

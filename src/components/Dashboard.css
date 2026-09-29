@@ -1,27 +1,27 @@
 /* Contenedor principal */
 .dashboard-container {
-  background: #f9fafc;
+  background: #FFFFFF;
 }
 
 /* Botón del acordeón */
 .custom-accordion-btn {
-  background: #0d6efd;
-  color: #fff;
+  background: #ED1C24;
+  color: #FFFFFF;
   font-weight: 500;
   transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .custom-accordion-btn:hover {
-  background: #084298;
+  background: #B61219;
   transform: scale(1.02);
 }
 
 /* Panel interno */
 .accordion-body {
-  background: #ffffff;
+  background: #FFFFFF;
   border-radius: 8px;
   padding: 20px;
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 0 6px rgba(7, 8, 9, 0.05);
 }
 
 /* Botón PDF */
@@ -30,13 +30,13 @@
   padding: 6px 16px;
   font-size: 0.9rem;
   font-weight: 500;
-  border: 2px solid #198754;
+  border: 2px solid #B61219;
   transition: all 0.3s ease;
 }
 
 .custom-pdf-btn:hover {
-  background: #198754;
-  color: #fff;
+  background: #B61219;
+  color: #FFFFFF;
   transform: translateY(-2px);
 }
 
@@ -50,6 +50,6 @@
 }
 
 .custom-logout-btn:hover {
-  background: #bb2d3b;
+  background: #ED1C24;
   transform: translateY(-2px);
 }
