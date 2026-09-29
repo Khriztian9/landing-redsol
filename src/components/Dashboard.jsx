@@ -46,15 +46,8 @@ const Dashboard = () => {
     // ===========================
     // 1. ENCABEZADO
     // ===========================
-    const logoUrl = "/logo.png"; // coloca tu logo en /public/logo.png
-    doc.setFillColor(13, 110, 253); // Azul corporativo
+    doc.setFillColor(7, 8, 9); // Negro principal
     doc.rect(0, 0, 210, 35, "F");
-
-    try {
-      doc.addImage(logoUrl, "PNG", 15, 5, 25, 25);
-    } catch {
-      console.warn("Logo no encontrado, asegúrate de poner /public/logo.png");
-    }
 
     doc.setTextColor(255, 255, 255);
     doc.setFontSize(18);
@@ -66,12 +59,12 @@ const Dashboard = () => {
     // ===========================
     // 2. TÍTULO DEL DOCUMENTO
     // ===========================
-    doc.setTextColor(40, 40, 40);
+    doc.setTextColor(36, 39, 43);
     doc.setFontSize(16);
     doc.text(" Comprobante de Gestión Comercial", 105, 50, { align: "center" });
 
     doc.setFontSize(11);
-    doc.setTextColor(100, 100, 100);
+    doc.setTextColor(189, 195, 201);
     doc.text("Documento interno para cobro de comisión", 105, 58, {
       align: "center",
     });
@@ -113,9 +106,9 @@ const Dashboard = () => {
           }),
         ],
       ],
-      headStyles: { fillColor: [13, 110, 253], halign: "center" },
-      bodyStyles: { textColor: [50, 50, 50] },
-      alternateRowStyles: { fillColor: [245, 245, 245] },
+      headStyles: { fillColor: [237, 28, 36], halign: "center" },
+      bodyStyles: { textColor: [36, 39, 43] },
+      alternateRowStyles: { fillColor: [255, 255, 255] },
     });
 
     // ===========================
@@ -123,7 +116,7 @@ const Dashboard = () => {
     // ===========================
     const finalY = doc.lastAutoTable.finalY + 25;
     doc.setFontSize(11);
-    doc.setTextColor(50, 50, 50);
+    doc.setTextColor(36, 39, 43);
     doc.text("_________________________", 20, finalY);
     doc.text("Firma del gestor", 20, finalY + 10);
 
@@ -131,11 +124,11 @@ const Dashboard = () => {
     // 5. PIE DE PÁGINA FIJO
     // ===========================
     const pageHeight = doc.internal.pageSize.height;
-    doc.setFillColor(240, 240, 240);
+    doc.setFillColor(189, 195, 201);
     doc.rect(0, pageHeight - 25, 210, 25, "F");
 
     doc.setFontSize(9);
-    doc.setTextColor(80, 80, 80);
+    doc.setTextColor(36, 39, 43);
     doc.text(" Av. Las Américas #50-03, Pereira, Colombia", 105, pageHeight - 15, {
       align: "center",
     });

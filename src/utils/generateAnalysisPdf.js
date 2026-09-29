@@ -2,22 +2,15 @@ import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 
 const COLORS = {
-  navy: [7, 39, 74],
-  blue: [0, 153, 255],
-  green: [70, 190, 72],
-  ink: [31, 45, 61],
-  muted: [99, 115, 129],
-  line: [220, 228, 235],
-  paleBlue: [237, 247, 255],
-  paleGreen: [239, 250, 239],
+  navy: [7, 8, 9],
+  blue: [237, 28, 36],
+  green: [182, 18, 25],
+  ink: [36, 39, 43],
+  muted: [189, 195, 201],
+  line: [189, 195, 201],
+  paleBlue: [255, 255, 255],
+  paleGreen: [255, 255, 255],
 };
-
-const loadImage = (src) => new Promise((resolve) => {
-  const image = new Image();
-  image.onload = () => resolve(image);
-  image.onerror = () => resolve(null);
-  image.src = src;
-});
 
 const number = (value) => {
   const parsed = Number(value);
@@ -82,7 +75,7 @@ const scenarioName = ({ withBenefits, withLeasing }) => {
 
 export const generateAnalysisPdf = async ({ chartCanvas, formData, indicators, table, withBenefits, withLeasing }) => {
   const doc = new jsPDF({ orientation: "landscape", unit: "mm", format: "a4" });
-  const logo = await loadImage("/REDSOL_logo_completo_transparente.png");
+  const logo = null;
   const today = new Date();
   const date = today.toLocaleDateString("es-CO", { year: "numeric", month: "long", day: "numeric" });
   const reference = `AF-${today.toISOString().slice(0, 10).replaceAll("-", "")}-${String(today.getTime()).slice(-4)}`;
@@ -104,7 +97,7 @@ export const generateAnalysisPdf = async ({ chartCanvas, formData, indicators, t
   doc.text("Análisis financiero fotovoltaico", 282, 17, { align: "right" });
   doc.setFont("helvetica", "normal");
   doc.setFontSize(8.5);
-  doc.setTextColor(220, 232, 243);
+  doc.setTextColor(189, 195, 201);
   doc.text(`${scenario}  ·  ${date}  ·  Ref. ${reference}`, 282, 27, { align: "right" });
 
   sectionTitle(doc, "Resumen ejecutivo", "Indicadores del escenario seleccionado al momento de descargar.", 45);
@@ -138,7 +131,7 @@ export const generateAnalysisPdf = async ({ chartCanvas, formData, indicators, t
     ],
     styles: { font: "helvetica", fontSize: 8.5, cellPadding: 3.1, textColor: COLORS.ink, lineColor: COLORS.line, lineWidth: 0.2 },
     columnStyles: { 0: { fontStyle: "bold", textColor: COLORS.navy }, 2: { fontStyle: "bold", textColor: COLORS.navy }, 4: { fontStyle: "bold", textColor: COLORS.navy } },
-    alternateRowStyles: { fillColor: [248, 250, 252] },
+    alternateRowStyles: { fillColor: [255, 255, 255] },
   });
 
   // Gráfica y metodología
@@ -195,7 +188,7 @@ export const generateAnalysisPdf = async ({ chartCanvas, formData, indicators, t
     theme: "striped",
     styles: { font: "helvetica", fontSize: 6.2, cellPadding: 1.8, overflow: "linebreak", textColor: COLORS.ink, lineColor: COLORS.line, lineWidth: 0.1, halign: "right" },
     headStyles: { fillColor: COLORS.navy, textColor: [255, 255, 255], fontStyle: "bold", halign: "center", fontSize: 6.2 },
-    alternateRowStyles: { fillColor: [246, 249, 251] },
+    alternateRowStyles: { fillColor: [255, 255, 255] },
     columnStyles: { 0: { halign: "center", cellWidth: 11 } },
   });
 

@@ -13,8 +13,8 @@
 }
 
 .navbar-scrolled {
-  background-color: white !important;
-  box-shadow: 0 0 15px #39FF14; /* Sombra verde al hacer scroll */
+  background-color: #FFFFFF !important;
+  box-shadow: 0 0 15px #ED1C24; /* Sombra verde al hacer scroll */
 }
 
 
@@ -58,7 +58,7 @@
 
 /* Clase auxiliar para texto de documentación */
 .read-the-docs {
-  color: #39FF14;                /* Verde neón para destacar */
+  color: #ED1C24;                /* Verde neón para destacar */
 }
 
 /* Sección hero principal */
@@ -77,8 +77,8 @@
 }
 
 .link-hover:hover {
-  color: #39FF14;                /* Cambia a verde en hover */
-  border-bottom: 4px solid #39FF14; /* Subraya en verde */
+  color: #ED1C24;                /* Cambia a verde en hover */
+  border-bottom: 4px solid #ED1C24; /* Subraya en verde */
 }
 
 /* Tarjetas de servicios con efecto flotante */
@@ -88,7 +88,7 @@
 
 .service-card:hover {
   transform: translateY(-20px);   /* Eleva ligeramente la tarjeta */
-  box-shadow: 0 0.5rem 1rem rgb(103, 255, 2); /* Sombra para profundidad */
+  box-shadow: 0 0.5rem 1rem rgb(237, 28, 36); /* Sombra para profundidad */
 }
 
 /* Título del carrusel más grueso */
@@ -123,7 +123,7 @@
 }
 
 footer a.text-white-50:hover {
-  color: #ffffff !important;
+  color: #FFFFFF !important;
   text-decoration: underline !important;
 }
 
@@ -133,9 +133,9 @@ footer a.text-white-50:hover {
   padding: 6rem 0;
   scroll-margin-top: 88px;
   background:
-    linear-gradient(135deg, rgba(0, 0, 0, 0.96), rgba(4, 25, 18, 0.94)),
-    radial-gradient(circle at top left, rgba(57, 255, 20, 0.16), transparent 34%);
-  color: #ffffff;
+    linear-gradient(135deg, rgba(7, 8, 9, 0.96), rgba(7, 8, 9, 0.94)),
+    radial-gradient(circle at top left, rgba(237, 28, 36, 0.16), transparent 34%);
+  color: #FFFFFF;
 }
 
 .project-showcase-section::before {
@@ -146,7 +146,7 @@ footer a.text-white-50:hover {
     linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
   background-size: 72px 72px;
-  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), transparent 84%);
+  mask-image: linear-gradient(to bottom, rgba(7, 8, 9, 0.9), transparent 84%);
   pointer-events: none;
 }
 
@@ -166,11 +166,11 @@ footer a.text-white-50:hover {
   display: inline-flex;
   align-items: center;
   width: fit-content;
-  border: 1px solid rgba(57, 255, 20, 0.36);
+  border: 1px solid rgba(237, 28, 36, 0.36);
   border-radius: 999px;
   padding: 0.42rem 0.9rem;
-  background: rgba(57, 255, 20, 0.1);
-  color: #39ff14;
+  background: rgba(237, 28, 36, 0.1);
+  color: #ED1C24;
   font-size: 0.76rem;
   font-weight: 800;
   letter-spacing: 0.12em;
@@ -179,7 +179,7 @@ footer a.text-white-50:hover {
 
 .project-showcase-header h2 {
   margin: 1rem 0;
-  color: #ffffff;
+  color: #FFFFFF;
   font-size: clamp(2rem, 4vw, 3.8rem);
   font-weight: 900;
   line-height: 1;
@@ -219,21 +219,21 @@ footer a.text-white-50:hover {
 .project-info-panel {
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 8px;
-  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.34);
+  box-shadow: 0 24px 70px rgba(7, 8, 9, 0.34);
 }
 
 .project-media-panel {
   position: relative;
   min-height: 440px;
   overflow: hidden;
-  background: #050806;
+  background: #070809;
   isolation: isolate;
 }
 
 .project-photo-frame {
   position: absolute;
   overflow: hidden;
-  background: #050806;
+  background: #070809;
 }
 
 .project-photo-frame {
@@ -252,7 +252,7 @@ footer a.text-white-50:hover {
 }
 
 .project-photo-hitarea:focus-visible {
-  outline: 3px solid #39ff14;
+  outline: 3px solid #ED1C24;
   outline-offset: -6px;
 }
 
@@ -261,7 +261,7 @@ footer a.text-white-50:hover {
   height: 100%;
   display: block;
   object-fit: cover;
-  background-color: #050806;
+  background-color: #070809;
 }
 
 .project-project-photo {
@@ -279,7 +279,7 @@ footer a.text-white-50:hover {
   border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 999px;
   padding: 0.4rem;
-  background: rgba(0, 0, 0, 0.56);
+  background: rgba(7, 8, 9, 0.56);
   backdrop-filter: blur(14px);
 }
 
@@ -293,13 +293,13 @@ footer a.text-white-50:hover {
   border-radius: 999px;
   padding: 0;
   background: rgba(255, 255, 255, 0.08);
-  color: #ffffff;
+  color: #FFFFFF;
   font-size: 1rem;
 }
 
 .project-photo-control:hover {
-  border-color: rgba(57, 255, 20, 0.7);
-  color: #39ff14;
+  border-color: rgba(237, 28, 36, 0.7);
+  color: #ED1C24;
 }
 
 .project-photo-dots {
@@ -319,7 +319,7 @@ footer a.text-white-50:hover {
 
 .project-photo-dot.active {
   width: 1.35rem;
-  background: #39ff14;
+  background: #ED1C24;
 }
 
 .project-photo-count {
@@ -334,8 +334,8 @@ footer a.text-white-50:hover {
   inset: 0;
   z-index: 3;
   background:
-    linear-gradient(to top, rgba(0, 0, 0, 0.76), transparent 52%),
-    linear-gradient(120deg, rgba(0, 0, 0, 0.46), transparent 44%);
+    linear-gradient(to top, rgba(7, 8, 9, 0.76), transparent 52%),
+    linear-gradient(120deg, rgba(7, 8, 9, 0.46), transparent 44%);
   pointer-events: none;
 }
 
@@ -354,14 +354,14 @@ footer a.text-white-50:hover {
   border: 1px solid rgba(255, 255, 255, 0.22);
   border-radius: 999px;
   padding: 0.52rem 0.9rem;
-  background: rgba(0, 0, 0, 0.58);
-  color: #ffffff;
+  background: rgba(7, 8, 9, 0.58);
+  color: #FFFFFF;
   font-weight: 800;
   backdrop-filter: blur(14px);
 }
 
 .project-media-badge i {
-  color: #39ff14;
+  color: #ED1C24;
   font-size: 1rem;
 }
 
@@ -383,7 +383,7 @@ footer a.text-white-50:hover {
 
 .project-media-caption strong {
   display: block;
-  color: #ffffff;
+  color: #FFFFFF;
   font-size: clamp(1.8rem, 3vw, 3.2rem);
   line-height: 1;
 }
@@ -395,13 +395,13 @@ footer a.text-white-50:hover {
   padding: clamp(1.4rem, 3vw, 2.5rem);
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.035)),
-    rgba(9, 15, 14, 0.88);
+    rgba(7, 8, 9, 0.88);
   text-align: left;
 }
 
 .project-info-panel h3 {
   margin: 0.9rem 0 0.35rem;
-  color: #ffffff;
+  color: #FFFFFF;
   font-size: clamp(2rem, 3vw, 3.3rem);
   font-weight: 900;
   line-height: 1;
@@ -417,7 +417,7 @@ footer a.text-white-50:hover {
 }
 
 .project-location i {
-  color: #39ff14;
+  color: #ED1C24;
 }
 
 .project-summary {
@@ -434,15 +434,15 @@ footer a.text-white-50:hover {
 
 .project-stat {
   min-height: 82px;
-  border: 1px solid rgba(57, 255, 20, 0.2);
+  border: 1px solid rgba(237, 28, 36, 0.2);
   border-radius: 8px;
   padding: 0.85rem;
-  background: rgba(57, 255, 20, 0.07);
+  background: rgba(237, 28, 36, 0.07);
 }
 
 .project-stat strong {
   display: block;
-  color: #39ff14;
+  color: #ED1C24;
   font-size: clamp(1.05rem, 2vw, 1.35rem);
   line-height: 1.1;
 }
@@ -472,7 +472,7 @@ footer a.text-white-50:hover {
 }
 
 .project-details i {
-  color: #39ff14;
+  color: #ED1C24;
   margin-top: 0.08rem;
 }
 
@@ -485,15 +485,15 @@ footer a.text-white-50:hover {
   margin-top: 1.6rem;
   border-radius: 8px;
   padding: 0.85rem 1rem;
-  background: #39ff14;
-  color: #050806;
+  background: #ED1C24;
+  color: #070809;
   font-weight: 900;
   text-decoration: none;
-  box-shadow: 0 12px 28px rgba(57, 255, 20, 0.2);
+  box-shadow: 0 12px 28px rgba(237, 28, 36, 0.2);
 }
 
 .project-cta:hover {
-  color: #050806;
+  color: #070809;
   transform: translateY(-1px);
 }
 
@@ -555,8 +555,8 @@ html {
 }
 
 body {
-  background: #f5f7f4;
-  color: #142018;
+  background: #FFFFFF;
+  color: #24272B;
 }
 
 #root {
@@ -571,12 +571,12 @@ body {
 
 .navbar-transparent {
   background: rgba(255, 255, 255, 0.9) !important;
-  border-bottom: 1px solid rgba(20, 32, 24, 0.08);
+  border-bottom: 1px solid rgba(36, 39, 43, 0.08);
 }
 
 .navbar-scrolled {
   background: rgba(255, 255, 255, 0.96) !important;
-  box-shadow: 0 12px 40px rgba(11, 20, 14, 0.1);
+  box-shadow: 0 12px 40px rgba(7, 8, 9, 0.1);
 }
 
 .redsolar-brand {
@@ -602,7 +602,7 @@ body {
 }
 
 .link-hover:hover {
-  border-bottom: 2px solid #39ff14;
+  border-bottom: 2px solid #ED1C24;
 }
 
 .btn-redsolar-primary,
@@ -619,27 +619,27 @@ body {
 }
 
 .btn-redsolar-primary {
-  border: 1px solid #39ff14;
-  background: #39ff14;
-  color: #061006;
-  box-shadow: 0 16px 34px rgba(57, 255, 20, 0.22);
+  border: 1px solid #ED1C24;
+  background: #ED1C24;
+  color: #070809;
+  box-shadow: 0 16px 34px rgba(237, 28, 36, 0.22);
 }
 
 .btn-redsolar-primary:hover,
 .contact-whatsapp:hover {
-  color: #061006;
+  color: #070809;
   transform: translateY(-1px);
 }
 
 .btn-redsolar-outline {
   border: 1px solid rgba(255, 255, 255, 0.34);
   background: rgba(255, 255, 255, 0.08);
-  color: #ffffff;
+  color: #FFFFFF;
 }
 
 .btn-redsolar-outline:hover {
-  border-color: #39ff14;
-  color: #39ff14;
+  border-color: #ED1C24;
+  color: #ED1C24;
 }
 
 .section-heading {
@@ -653,7 +653,7 @@ body {
 .faq-grid h2,
 .contact-copy h2 {
   margin: 0.85rem 0;
-  color: #101812;
+  color: #070809;
   font-size: clamp(2rem, 3.4vw, 3rem);
   font-weight: 900;
   line-height: 1;
@@ -664,7 +664,7 @@ body {
 .faq-intro p,
 .contact-copy p {
   margin: 0;
-  color: #56635b;
+  color: #24272B;
   font-size: 1.04rem;
 }
 
@@ -673,15 +673,15 @@ body {
   height: min(92vh, 56.25vw);
   display: flex;
   align-items: center;
-  background-color: #050806;
+  background-color: #070809;
   background:
-    linear-gradient(180deg, rgba(0, 0, 0, 0.08), transparent 56%, rgba(0, 0, 0, 0.34)),
+    linear-gradient(180deg, rgba(7, 8, 9, 0.08), transparent 56%, rgba(7, 8, 9, 0.34)),
     url('/DE1-1536x864.jpg');
-  background-color: #050806;
+  background-color: #070809;
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
-  color: #ffffff;
+  color: #FFFFFF;
 }
 
 .hero-content {
@@ -698,13 +698,13 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 8px;
   padding: clamp(1rem, 2.5vw, 1.35rem);
-  background: rgba(0, 0, 0, 0.24);
+  background: rgba(7, 8, 9, 0.24);
   backdrop-filter: blur(10px);
 }
 
 .hero-copy h1 {
   margin: 0.85rem 0 0.55rem;
-  color: #ffffff;
+  color: #FFFFFF;
   font-size: clamp(2rem, 4vw, 3.65rem);
   font-weight: 950;
   line-height: 0.95;
@@ -733,7 +733,7 @@ body {
 
 .intro-video-section,
 .faq-section {
-  background: #ffffff;
+  background: #FFFFFF;
 }
 
 .intro-video-grid {
@@ -750,22 +750,22 @@ body {
   aspect-ratio: 16 / 9;
   overflow: hidden;
   border-radius: 8px;
-  box-shadow: 0 24px 60px rgba(16, 24, 18, 0.16);
+  box-shadow: 0 24px 60px rgba(7, 8, 9, 0.16);
 }
 
 .quote-section {
-  background: linear-gradient(180deg, #f5f7f4, #ffffff);
+  background: linear-gradient(180deg, #FFFFFF, #FFFFFF);
 }
 
 .services-section {
   background:
-    linear-gradient(135deg, rgba(0, 0, 0, 0.96), rgba(5, 18, 11, 0.96)),
-    radial-gradient(circle at top right, rgba(57, 255, 20, 0.13), transparent 32%);
-  color: #ffffff;
+    linear-gradient(135deg, rgba(7, 8, 9, 0.96), rgba(7, 8, 9, 0.96)),
+    radial-gradient(circle at top right, rgba(237, 28, 36, 0.13), transparent 32%);
+  color: #FFFFFF;
 }
 
 .services-section .section-heading h2 {
-  color: #ffffff;
+  color: #FFFFFF;
 }
 
 .services-section .section-heading p {
@@ -783,17 +783,17 @@ body {
   border-radius: 8px;
   padding: 1.4rem;
   background: rgba(255, 255, 255, 0.06);
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 18px 45px rgba(7, 8, 9, 0.2);
 }
 
 .service-card-redsolar i {
-  color: #39ff14;
+  color: #ED1C24;
   font-size: 2rem;
 }
 
 .service-card-redsolar h3 {
   margin: 1rem 0 0.55rem;
-  color: #ffffff;
+  color: #FFFFFF;
   font-size: 1.25rem;
   font-weight: 900;
 }
@@ -821,7 +821,7 @@ body {
 }
 
 .contact-copy h2 {
-  color: #ffffff;
+  color: #FFFFFF;
 }
 
 .contact-copy p {
@@ -845,22 +845,22 @@ body {
   margin-top: 1.4rem;
   border-radius: 8px;
   padding: 0.78rem 0.95rem;
-  background: #101812;
-  color: #ffffff;
+  background: #070809;
+  color: #FFFFFF;
   font-weight: 900;
   text-decoration: none;
 }
 
 .faq-cta:hover {
-  color: #39ff14;
+  color: #ED1C24;
 }
 
 .faq-item {
-  border: 1px solid rgba(16, 24, 18, 0.09);
+  border: 1px solid rgba(7, 8, 9, 0.09);
   border-radius: 8px;
   padding: 0;
-  background: #ffffff;
-  box-shadow: 0 16px 44px rgba(16, 24, 18, 0.07);
+  background: #FFFFFF;
+  box-shadow: 0 16px 44px rgba(7, 8, 9, 0.07);
   overflow: hidden;
 }
 
@@ -872,7 +872,7 @@ body {
   padding: 1.1rem 1.2rem;
   cursor: pointer;
   list-style: none;
-  color: #101812;
+  color: #070809;
   font-size: 1.05rem;
   font-weight: 900;
 }
@@ -889,13 +889,13 @@ body {
   width: 2rem;
   height: 2rem;
   border-radius: 999px;
-  background: rgba(57, 255, 20, 0.13);
-  color: #183018;
+  background: rgba(237, 28, 36, 0.13);
+  color: #B61219;
   transition: transform 0.2s ease;
 }
 
 .faq-item[open] {
-  border-color: rgba(57, 255, 20, 0.45);
+  border-color: rgba(237, 28, 36, 0.45);
 }
 
 .faq-item[open] summary i {
@@ -904,17 +904,17 @@ body {
 
 .faq-item p {
   margin: -0.15rem 1.2rem 1.15rem;
-  color: #5b675f;
+  color: #24272B;
   line-height: 1.65;
 }
 
 .contact-section {
   background:
-    linear-gradient(135deg, rgba(7, 12, 8, 0.96), rgba(15, 31, 20, 0.94)),
+    linear-gradient(135deg, rgba(7, 8, 9, 0.96), rgba(7, 8, 9, 0.94)),
     url('/proyecto1.jpg');
   background-size: cover;
   background-position: center;
-  color: #ffffff;
+  color: #FFFFFF;
 }
 
 .contact-form {
@@ -922,28 +922,28 @@ body {
   border-radius: 8px;
   padding: clamp(1.2rem, 3vw, 2rem);
   background: rgba(255, 255, 255, 0.95);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 24px 60px rgba(7, 8, 9, 0.22);
 }
 
 .contact-form .form-label {
-  color: #1b261e;
+  color: #24272B;
   font-weight: 800;
 }
 
 .contact-form .form-control {
   border-radius: 8px;
-  border-color: rgba(16, 24, 18, 0.16);
-  color: #101812;
+  border-color: rgba(7, 8, 9, 0.16);
+  color: #070809;
 }
 
 .contact-whatsapp {
   margin-top: 1.25rem;
-  background: #39ff14;
-  color: #061006;
+  background: #ED1C24;
+  color: #070809;
 }
 
 footer.bg-dark {
-  background: #060b08 !important;
+  background: #070809 !important;
 }
 
 .footer-brand {
@@ -952,7 +952,7 @@ footer.bg-dark {
   width: min(100%, 260px);
   border-radius: 8px;
   padding: 0.75rem;
-  background: #ffffff;
+  background: #FFFFFF;
 }
 
 .footer-brand img {
@@ -963,7 +963,7 @@ footer.bg-dark {
 
 .position-fixed.btn-success {
   border: 1px solid rgba(255, 255, 255, 0.24);
-  background: #25d366 !important;
+  background: #ED1C24 !important;
 }
 
 @media (max-width: 991.98px) {

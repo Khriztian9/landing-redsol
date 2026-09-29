@@ -427,10 +427,10 @@ const Simulador = () => {
       const ctx = chartRef.current.getContext('2d');
 
       const colorMap = {
-        base: { label: 'Sin beneficios / sin leasing', border: 'blue', bg: 'rgba(0,123,255,0.1)' },
-        beneficios: { label: 'Con beneficios', border: 'green', bg: 'rgba(40,167,69,0.1)' },
-        leasing: { label: 'Con leasing', border: 'orange', bg: 'rgba(255,165,0,0.1)' },
-        ambos: { label: 'Leasing + beneficios', border: 'purple', bg: 'rgba(128,0,128,0.1)' },
+        base: { label: 'Sin beneficios / sin leasing', border: '#ED1C24', bg: 'rgba(237, 28, 36, 0.12)' },
+        beneficios: { label: 'Con beneficios', border: '#B61219', bg: 'rgba(182, 18, 25, 0.12)' },
+        leasing: { label: 'Con leasing', border: '#24272B', bg: 'rgba(36, 39, 43, 0.12)' },
+        ambos: { label: 'Leasing + beneficios', border: '#BDC3C9', bg: 'rgba(189, 195, 201, 0.18)' },
       };
 
       let flujos, style;
@@ -471,15 +471,15 @@ const Simulador = () => {
                   xScaleID: 'x',
                   xMin: labelCruce,
                   xMax: labelCruce,
-                  borderColor: 'green',
+                  borderColor: '#B61219',
                   borderWidth: 3,
                   borderDash: [6, 6],
                   label: {
                     display: true,
                     content: '',
                     position: 'start',
-                    color: 'green',
-                    backgroundColor: 'rgba(255,255,255,0.85)',
+                    color: '#B61219',
+                    backgroundColor: 'rgba(255, 255, 255, 0.85)',
                     padding: 4,
                   },
                 },
