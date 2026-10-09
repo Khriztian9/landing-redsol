@@ -1,0 +1,9 @@
+:root {
+  --redsolar-red: #ED1C24;
+  --redsolar-ink: #101114;
+  --redsolar-white: #FFFFFF;
+  --redsolar-muted: #B7BBC5;
+  --redsolar-surface: #F4F5F7;
+}
+.redsolar-logo { display: block; width: clamp(220px, 24vw, 320px); max-width: 100%; height: auto; }
+.redsolar-body { font-family: Arial, Helvetica, sans-serif; }
