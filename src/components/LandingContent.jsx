@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import CotizadorFactura from './Cotizadorfactura';
+import BrandLogo from './BrandLogo';
 
 const featuredProjects = [
   {
@@ -10,29 +11,27 @@ const featuredProjects = [
     photos: ['/FORTICH0.JPG', '/FORTICH1.jpg', '/FORTICH2.jpg'],
     icon: 'bi-house-heart',
     summary:
-      'Un sistema solar pensado para bajar el consumo mensual y darle independencia energetica a una familia que queria una solucion limpia, silenciosa y durable.',
+      'Un sistema solar pensado para bajar el consumo mensual y darle independencia energética a una familia que quería una solución limpia, silenciosa y durable.',
     stats: [
       { value: '6.9 kWp', label: '12 paneles' },
-      { value: '5kW', label: 'inversor' },
-      { value: '100%', label: 'ahorro' },
+      { value: '5 kW', label: 'inversor' },
     ],
-    details: ['Diseño segun curva de consumo', 'Instalacion limpia y estética', 'Acompanamiento técnico REDSOLAR'],
+    details: ['Diseño según curva de consumo', 'Instalación limpia y estética', 'Acompañamiento técnico REDSOLAR'],
   },
   {
     category: 'Comercial',
-    name: 'Clinica Sonreir',
-    location: 'consultorio odontológico',
+    name: 'Clínica Sonreír',
+    location: 'Consultorio odontológico',
     poster: '/SONREIR0.png',
     photos: ['/SONREIR0.png', '/SONREIR1.JPG', '/SONREIR2.png'],
     icon: 'bi-building-check',
     summary:
-      'Energia solar para una operacion comercial que necesita continuidad, control de costos y una imagen sostenible frente a sus pacientes y visitantes.',
+      'Energía solar para una operación comercial que necesita continuidad, control de costos y una imagen sostenible frente a sus pacientes y visitantes.',
     stats: [
-      { value: '7.8kWp', label: '12 paneles' },
-      { value: '6kW', label: 'inversor' },
-      { value: '100%', label: 'ahorro' },
+      { value: '7.8 kWp', label: '12 paneles' },
+      { value: '6 kW', label: 'inversor' },
     ],
-    details: ['Alto autoconsumo', 'Reduccion de gasto energetico', 'independencia energética'],
+    details: ['Alto autoconsumo', 'Reducción de gasto energético', 'independencia energética'],
   },
   {
     category: 'Industrial',
@@ -42,13 +41,12 @@ const featuredProjects = [
     photos: ['/GYTE0.JPG', '/GYTE1.jpg', '/GYTE2.JPG'],
     icon: 'bi-lightning-charge',
     summary:
-      'Una solucion fotovoltaica robusta para industria, enfocada en alto desempeno, seguridad electrica y respaldo a procesos de consumo exigente.',
+      'Una solución fotovoltaica robusta para industria, enfocada en alto desempeño, seguridad electrica y respaldo a procesos de consumo exigente.',
     stats: [
-      { value: '31.2kWp', label: '48 paneles' },
-      { value: '25kW', label: 'inversor' },
-      { value: '130%', label: 'ahorro' },
+      { value: '31.2 kWp', label: '48 paneles' },
+      { value: '25 kW', label: 'inversor' },
     ],
-    details: ['Ingenieria para grandes superficies', 'Instalacion con criterios de seguridad', 'Monitoreo y soporte especializado'],
+    details: ['Ingeniería para grandes superficies', 'Instalación con criterios de seguridad', 'Monitoreo y soporte especializado'],
   },
 ];
 
@@ -56,12 +54,12 @@ const serviceHighlights = [
   {
     icon: 'bi-diagram-3',
     title: 'Diseño solar',
-    text: 'Dimensionamos el sistema segun consumo, area disponible y objetivo de ahorro.',
+    text: 'Dimensionamos el sistema según consumo, área disponible y objetivo de ahorro.',
   },
   {
     icon: 'bi-file-earmark-check',
     title: 'Legalización',
-    text: 'Te acompanamos con tramites, documentacion y relacion con el operador de red.',
+    text: 'Te acompañamos con trámites, documentación y relación con el operador de red.',
   },
   {
     icon: 'bi-tools',
@@ -95,7 +93,7 @@ function ProjectMedia({ project }) {
           />
         </button>
 
-        <div className="project-photo-controls" aria-label={`Galeria de fotos de ${project.name}`}>
+        <div className="project-photo-controls" aria-label={`Galería de fotos de ${project.name}`}>
           <button
             className="project-photo-control"
             type="button"
@@ -137,334 +135,123 @@ function ProjectMedia({ project }) {
   );
 }
 
+const questions = [
+  ['¿Cómo sé si mi proyecto solar es viable?', 'Revisamos tu factura, los horarios de consumo, el área disponible y las condiciones de conexión. Con esa información definimos el tamaño del sistema y su alcance técnico.'],
+  ['¿Cuánto tarda una instalación fotovoltaica?', 'Depende del tamaño y los permisos. Un sistema residencial suele instalarse en pocos días después de completar la ingeniería y las aprobaciones.'],
+  ['¿REDSOLAR también hace la legalización?', 'Sí. Te acompañamos con el diseño, la documentación y los trámites ante el operador de red correspondiente.'],
+  ['¿El sistema funciona cuando se va la energía?', 'Un sistema conectado a la red normalmente se apaga por seguridad durante los cortes. Si necesitas respaldo, evaluamos una solución con baterías o configuración híbrida.'],
+  ['¿Qué mantenimiento necesita?', 'Recomendamos limpieza periódica, revisión eléctrica y seguimiento de la producción. La frecuencia depende del polvo, las sombras y las condiciones del lugar.'],
+];
+
 function LandingContent() {
   return (
-    <main id="contenido-principal">
-
-      <section className="intro-video-section" data-aos="fade-up" data-aos-delay="150">
-        <div className="container">
-          <div className="intro-video-grid">
-            <div>
-              <span className="section-kicker">Como trabajamos</span>
-              <h2>Ingenieria solar con criterio y respaldo</h2>
-              <p>
-                Antes de instalar, revisamos consumo, espacio, retorno y proceso de conexion. Asi cada proyecto se siente ordenado desde el diagnostico hasta la entrega.
-              </p>
+    <>
+      <main id="contenido-principal">
+        <section id="inicio" className="brand-hero" aria-labelledby="hero-title">
+          <div className="container hero-grid">
+            <div className="hero-copy">
+              <span className="section-kicker"><span className="status-dot" /> Energía solar en Colombia</span>
+              <h1 id="hero-title">Tu energía.<br /><span>A tu medida.</span></h1>
+              <p>Transformamos el sol en oportunidades para tu hogar y tu empresa. Diseño, instalación y legalización en un solo equipo.</p>
+              <div className="hero-actions">
+                <a className="btn btn-redsolar-primary" href="#cotizador-factura">Cotiza tu proyecto <i className="bi bi-arrow-up-right" aria-hidden="true" /></a>
+                <a className="hero-secondary" href="#proyectos">Conoce nuestro trabajo <i className="bi bi-arrow-right" aria-hidden="true" /></a>
+              </div>
+              <div className="hero-sectors"><span>Hogares</span><span>Comercios</span><span>Industria</span></div>
             </div>
-            <div className="responsive-video">
-              <iframe
-                src="https://www.youtube.com/embed/bNO_ha_oO20"
-                loading="lazy"
-                title="Video de LIVOLTEK"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-              ></iframe>
+            <div className="hero-visual">
+              <img className="hero-project" src="/FORTICH0.JPG" alt="Instalación de paneles solares del proyecto Familia Fortich" width="1600" height="1200" fetchPriority="high" />
+              <div className="hero-photo-caption"><span><i className="bi bi-sun" aria-hidden="true" /> Ingeniería que se ve.</span><a href="#proyectos" aria-label="Ver los proyectos REDSOLAR"><i className="bi bi-arrow-up-right" aria-hidden="true" /></a></div>
+              <div className="hero-signature"><BrandLogo variant="dark" /><span>Diseñamos hoy. Generamos futuro.</span></div>
             </div>
           </div>
-        </div>
-      </section>
+          <div className="container hero-bottom"><span>Una nueva forma de vivir la energía.</span><a href="#servicios">Descubre cómo <i className="bi bi-arrow-down" aria-hidden="true" /></a></div>
+        </section>
 
-      <section id="servicios" className="services-section" data-aos="fade-up" data-aos-delay="100">
-        <div className="container">
-          <div className="section-heading">
-            <span className="section-kicker">Servicios</span>
-            <h2>Todo el proceso en una sola ruta</h2>
-            <p>Disenamos, legalizamos e instalamos con foco en ahorro real y operacion segura.</p>
+        <section id="servicios" className="services-section section-space" aria-labelledby="services-title">
+          <div className="container">
+            <div className="section-heading split-heading">
+              <div><span className="section-kicker">01 / Soluciones</span><h2 id="services-title">Del primer plano<br />al primer kilovatio.</h2></div>
+              <p>Cada proyecto empieza contigo. Entendemos tu consumo y te acompañamos en cada paso para convertirlo en energía solar.</p>
+            </div>
+            <div className="services-grid">
+              {serviceHighlights.map((service, index) => (
+                <article className="service-card-redsolar" key={service.title}>
+                  <div className="service-top"><i className={`bi ${service.icon}`} aria-hidden="true" /><span>0{index + 1}</span></div>
+                  <h3>{service.title}</h3><p>{service.text}</p>
+                  <a href="#contacto">Hablemos de tu proyecto <i className="bi bi-arrow-up-right" aria-hidden="true" /></a>
+                </article>
+              ))}
+            </div>
           </div>
+        </section>
 
-          <div className="services-grid">
-            {serviceHighlights.map((service) => (
-              <article className="service-card-redsolar" key={service.title}>
-                <i className={`bi ${service.icon}`} aria-hidden="true"></i>
-                <h3>{service.title}</h3>
-                <p>{service.text}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="cotizador-factura" className="quote-section" data-aos="fade-up-right" data-aos-delay="100">
-        <CotizadorFactura />
-      </section>
-
-      <section id="proyectos" className="project-showcase-section" data-aos="slide-up" data-aos-delay="100">
-        <div className="container">
-          <div className="project-showcase-header">
-            <span className="section-kicker">Casos reales </span>
-            <h2>Proyectos REDSOLAR</h2>
-          </div>
-
-          <div className="project-showcase-list">
-            {featuredProjects.map((project, index) => (
-              <article
-                className={`project-feature ${index % 2 === 1 ? 'project-feature-reverse' : ''}`}
-                key={project.name}
-                data-aos="fade-up"
-                data-aos-delay={150 + index * 100}
-              >
-                <ProjectMedia project={project} />
-
-                <div className="project-info-panel">
-                  <span className="project-sector">{project.category}</span>
-                  <h3>{project.name}</h3>
-                  <p className="project-location">
-                    <i className="bi bi-geo-alt" aria-hidden="true"></i>
-                    {project.location}
-                  </p>
-                  <p className="project-summary">{project.summary}</p>
-
-                  <div className="project-stats" aria-label={`Indicadores del proyecto ${project.name}`}>
-                    {project.stats.map((stat) => (
-                      <div className="project-stat" key={`${project.name}-${stat.label}`}>
-                        <strong>{stat.value}</strong>
-                        <span>{stat.label}</span>
-                      </div>
-                    ))}
+        <section id="proyectos" className="project-showcase-section section-space" aria-labelledby="projects-title">
+          <div className="container">
+            <div className="section-heading split-heading">
+              <div><span className="section-kicker">02 / Nuestro trabajo</span><h2 id="projects-title">Proyectos reales.<br />Energía en movimiento.</h2></div>
+              <p>Soluciones diferentes, un mismo compromiso: diseñar un sistema que responda a las necesidades de cada espacio.</p>
+            </div>
+            <div className="project-showcase-list">
+              {featuredProjects.map((project, index) => (
+                <article className={`project-feature ${index % 2 === 1 ? 'project-feature-reverse' : ''}`} key={project.name}>
+                  <ProjectMedia project={project} />
+                  <div className="project-info-panel">
+                    <span className="project-sector">{project.category}</span>
+                    <h3>{project.name}</h3><p className="project-location">{project.location}</p>
+                    <p className="project-summary">{project.summary}</p>
+                    <div className="project-stats" aria-label={`Características de ${project.name}`}>
+                      {project.stats.map((stat) => <div className="project-stat" key={stat.label}><strong>{stat.value}</strong><span>{stat.label}</span></div>)}
+                    </div>
+                    <ul className="project-details">{project.details.map(detail => <li key={detail}><i className="bi bi-check2" aria-hidden="true" />{detail}</li>)}</ul>
+                    <a className="project-cta" href="#cotizador-factura">Quiero un proyecto así <i className="bi bi-arrow-up-right" aria-hidden="true" /></a>
                   </div>
-
-                  <ul className="project-details">
-                    {project.details.map((detail) => (
-                      <li key={`${project.name}-${detail}`}>
-                        <i className="bi bi-check2-circle" aria-hidden="true"></i>
-                        {detail}
-                      </li>
-                    ))}
-                  </ul>
-
-                  <a className="project-cta" href="#contacto">
-                    Quiero un proyecto similar
-                    <i className="bi bi-arrow-right" aria-hidden="true"></i>
-                  </a>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="faq-solar" className="faq-section" data-aos="fade-up" data-aos-delay="100">
-        <div className="container faq-grid">
-          <div className="faq-intro">
-            <span className="section-kicker">Preguntas frecuentes</span>
-            <h2>Lo importante antes de decidir</h2>
-            <p>
-              Energia solar no deberia sentirse confusa. Aqui resolvemos las preguntas clave para entender ahorro, proceso y alcance.
-            </p>
-            <a className="faq-cta" href="#contacto">
-              Tengo otra pregunta
-              <i className="bi bi-arrow-right" aria-hidden="true"></i>
-            </a>
-          </div>
-          <div className="faq-list">
-            <details className="faq-item" open>
-              <summary>
-                <span>Como se si mi proyecto solar es viable?</span>
-                <i className="bi bi-plus-lg" aria-hidden="true"></i>
-              </summary>
-              <p>Revisamos tu factura, horario de consumo, area disponible y condiciones de conexion. Con eso definimos tamano, retorno y alcance tecnico.</p>
-            </details>
-            <details className="faq-item">
-              <summary>
-                <span>Cuanto tarda una instalacion fotovoltaica?</span>
-                <i className="bi bi-plus-lg" aria-hidden="true"></i>
-              </summary>
-              <p>Depende del tamano y los permisos. Un sistema residencial suele instalarse en pocos dias despues de la ingenieria y aprobaciones.</p>
-            </details>
-            <details className="faq-item">
-              <summary>
-                <span>¿REDSOLAR también hace la legalización?</span>
-                <i className="bi bi-plus-lg" aria-hidden="true"></i>
-              </summary>
-              <p>Si. Te acompanamos con diseno, documentacion, instalacion y proceso ante el operador de red correspondiente.</p>
-            </details>
-            <details className="faq-item">
-              <summary>
-                <span>El sistema funciona cuando se va la energia?</span>
-                <i className="bi bi-plus-lg" aria-hidden="true"></i>
-              </summary>
-              <p>Un sistema conectado a red normalmente se apaga por seguridad durante cortes. Si necesitas respaldo, se evalua una solucion con baterias o configuracion hibrida.</p>
-            </details>
-            <details className="faq-item">
-              <summary>
-                <span>Que mantenimiento necesita?</span>
-                <i className="bi bi-plus-lg" aria-hidden="true"></i>
-              </summary>
-              <p>Recomendamos limpieza periodica, revision electrica y seguimiento de produccion. La frecuencia depende del polvo, sombra y condiciones del lugar.</p>
-            </details>
-            <details className="faq-item">
-              <summary>
-                <span>Instalan proyectos residenciales, comerciales e industriales?</span>
-                <i className="bi bi-plus-lg" aria-hidden="true"></i>
-              </summary>
-              <p>Si. Dimensionamos cada sistema segun consumo, espacio, tipo de operacion y objetivo de ahorro.</p>
-            </details>
-          </div>
-        </div>
-      </section>
-
-      <section id="contacto" className="contact-section" data-aos="fade-up" data-aos-delay="150">
-        <div className="container contact-grid">
-          <div className="contact-copy">
-            <span className="section-kicker">Contacto</span>
-            <h2>Cuentanos sobre tu proyecto solar</h2>
-            <p>
-              Con tu factura o una idea de consumo podemos orientarte mejor. Te respondemos con una ruta clara para cotizar, disenar e instalar.
-            </p>
-            <a className="contact-whatsapp" href="https://wa.me/573183464183" target="_blank" rel="noopener noreferrer">
-              <i className="bi bi-whatsapp" aria-hidden="true"></i>
-              Hablar por WhatsApp
-            </a>
-          </div>
-
-          <form className="contact-form" action="https://formspree.io/f/xwpbbnqv" method="POST">
-            <div className="mb-3">
-              <label className="form-label">Nombre</label>
-              <input type="text" name="nombre" className="form-control" required placeholder=" " />
+                </article>
+              ))}
             </div>
-            <div className="mb-3">
-              <label className="form-label">Whatsapp</label>
-              <input type="text" name="telefono" className="form-control" required placeholder=" " />
-            </div>
-            <div className="mb-3">
-              <label className="form-label">Correo</label>
-              <input type="email" name="correo" className="form-control" required placeholder=" " />
-            </div>
-            <div className="mb-3">
-              <label className="form-label">Mensaje</label>
-              <textarea name="mensaje" className="form-control" rows="4" required placeholder="Cuentanos sobre tu necesidad" />
-            </div>
-            <button type="submit" className="btn btn-redsolar-primary w-100">Enviar solicitud</button>
-          </form>
-        </div>
-      </section>
-
-    <footer className="bg-dark text-white pt-5 pb-3" data-aos="fade-in" data-aos-delay="300">
-  <div className="container">
-    <div className="row gy-4 align-items-start text-center text-lg-start">
-
-      {/* 1) Marca */}
-      <div className="col-12 col-lg-4">
-        <div className="footer-brand mb-3">
-          <img src="/redsolar-logo.svg" alt="REDSOLAR" />
-        </div>
-
-        <p className="text-white-50 mb-3 mx-auto mx-lg-0" style={{ maxWidth: 420 }}>
-          Diseñamos, instalamos y te acompañamos en todo el proceso de tu sistema fotovoltaico.
-        </p>
-
-        
-      </div>
-
-      {/* 2) Enlaces */}
-      <div className="col-12 col-md-6 col-lg-4">
-        <h6 className="fw-bold mb-3">Explorar</h6>
-        <ul className="list-unstyled mb-0">
-          <li className="mb-2">
-            <a className="text-white-50 text-decoration-none" href="#servicios">Servicios</a>
-          </li>
-          <li className="mb-2">
-            <a className="text-white-50 text-decoration-none" href="#proyectos">Proyectos</a>
-          </li>
-          <li className="mb-2">
-            <a className="text-white-50 text-decoration-none" href="#cotizador-factura">Cotización</a>
-          </li>
-          <li className="mb-2">
-            <a className="text-white-50 text-decoration-none" href="#faq-solar">Preguntas frecuentes</a>
-          </li>
-        </ul>
-      </div>
-
-      {/* 3) Contacto */}
-      <div className="col-12 col-md-6 col-lg-4">
-        <h6 className="fw-bold mb-3">Contacto</h6>
-
-        <div className="text-white-50">
-          <div className="mb-2">
-            <span className="text-white fw-semibold">WhatsApp:</span>{" "}
-            <a
-              className="text-white text-decoration-none"
-              href="https://wa.me/573183464183"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              +57 318 346 4183
-            </a>
           </div>
+        </section>
 
-          <div className="mb-3">
-            <span className="text-white fw-semibold">Correo:</span>{" "}
-            <a className="text-white-50 text-decoration-none" href="mailto:info@redsolarenergy.com">
-              info@redsolarenergy.com
-            </a>
+        <section className="intro-video-section section-space" aria-labelledby="process-title">
+          <div className="container intro-video-grid">
+            <div className="process-copy"><span className="section-kicker">03 / Ingeniería con criterio</span><h2 id="process-title">El respaldo está<br />en los detalles.</h2><p>Antes de instalar, revisamos consumo, espacio, retorno y conexión. Después, acompañamos la puesta en marcha de tu sistema.</p><a className="text-link" href="#contacto">Conversemos <i className="bi bi-arrow-up-right" aria-hidden="true" /></a></div>
+            <div className="process-video"><div className="responsive-video"><iframe src="https://www.youtube.com/embed/bNO_ha_oO20" loading="lazy" title="Conoce la tecnología solar de LIVOLTEK" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen /></div><p><span>TECNOLOGÍA SOLAR</span> Conoce más sobre LIVOLTEK <i className="bi bi-play-circle" aria-hidden="true" /></p></div>
           </div>
+        </section>
 
-          <div className="d-flex justify-content-center justify-content-lg-start gap-2 flex-wrap">
-          <a
-            href="https://instagram.com/redsolarenergy"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-outline-light btn-sm fw-semibold d-inline-flex align-items-center gap-2"
-            style={{ borderRadius: 12 }}
-          >
-            {/* Instagram icon (SVG) */}
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Z" stroke="currentColor" strokeWidth="2"/>
-              <path d="M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" stroke="currentColor" strokeWidth="2"/>
-              <path d="M17.5 6.5h.01" stroke="currentColor" strokeWidth="3" strokeLinecap="round"/>
-            </svg>
-            @redsolarenergy
-          </a>
+        <section id="cotizador-factura" className="quote-section section-space" aria-label="Cotiza tu sistema solar">
+          <div className="container"><CotizadorFactura /></div>
+        </section>
 
-          <a
-            href="https://wa.me/573183464183"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-success btn-sm fw-semibold d-inline-flex align-items-center gap-2"
-            style={{ borderRadius: 12 }}
-          >
-            {/* WhatsApp icon (SVG) */}
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M20 11.5a8.5 8.5 0 0 1-12.8 7.4L4 20l1.2-3.1A8.5 8.5 0 1 1 20 11.5Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/>
-              <path d="M9 10.2c.3 2 2.8 4.5 4.8 4.8.4.1.8-.1 1.1-.3l1-.7c.3-.2.6-.2.9 0l1.2.7c.3.2.4.6.2.9-.6 1-1.7 1.5-2.8 1.3-3-.5-6.5-4-7-7-.2-1.1.3-2.2 1.3-2.8.3-.2.7-.1.9.2l.7 1.2c.2.3.2.6 0 .9l-.7 1c-.2.3-.3.7-.3 1.1Z" fill="currentColor" opacity=".9"/>
-            </svg>
-            +57 318 346 4183
-          </a>
-        </div>
-
-          <div className="small text-white-50 mt-3">
-            Respuesta rápida en horario laboral.
+        <section id="faq-solar" className="faq-section section-space" aria-labelledby="faq-title">
+          <div className="container faq-grid">
+            <div className="faq-intro"><span className="section-kicker">Antes de empezar</span><h2 id="faq-title">Resolvamos<br />tus dudas.</h2><p>Tomar una buena decisión empieza por tener información clara.</p><a className="text-link" href="#contacto">Tengo otra pregunta <i className="bi bi-arrow-up-right" aria-hidden="true" /></a></div>
+            <div className="faq-list">{questions.map(([question, answer], index) => <details className="faq-item" key={question} open={index === 0}><summary><span>{question}</span><i className="bi bi-plus-lg" aria-hidden="true" /></summary><p>{answer}</p></details>)}</div>
           </div>
+        </section>
+
+        <section id="contacto" className="contact-section section-space" aria-labelledby="contact-title">
+          <div className="container contact-grid">
+            <div className="contact-copy"><span className="section-kicker">El siguiente paso es tuyo</span><h2 id="contact-title">Hagamos espacio<br />para el sol.</h2><p>Cuéntanos qué tienes en mente. Te ayudamos a encontrar la solución que tu hogar o empresa necesita.</p><a className="contact-whatsapp" href="https://wa.me/573183464183" target="_blank" rel="noopener noreferrer"><i className="bi bi-whatsapp" aria-hidden="true" /><span>Hablemos por WhatsApp<strong>+57 318 346 4183</strong></span><i className="bi bi-arrow-up-right" aria-hidden="true" /></a><a className="contact-email" href="mailto:info@redsolarenergy.com">info@redsolarenergy.com</a></div>
+            <form className="contact-form" action="https://formspree.io/f/xwpbbnqv" method="POST">
+              <h3>Cuéntanos sobre tu proyecto</h3>
+              <div className="contact-form-row"><div><label htmlFor="contact-name">Nombre</label><input id="contact-name" type="text" name="nombre" autoComplete="name" className="form-control" required /></div><div><label htmlFor="contact-phone">WhatsApp</label><input id="contact-phone" type="tel" name="telefono" autoComplete="tel" className="form-control" required /></div></div>
+              <div><label htmlFor="contact-email">Correo electrónico</label><input id="contact-email" type="email" name="correo" autoComplete="email" className="form-control" required /></div>
+              <div><label htmlFor="contact-message">¿Qué necesitas?</label><textarea id="contact-message" name="mensaje" className="form-control" rows="3" required placeholder="Tipo de espacio, ubicación o idea de proyecto…" /></div>
+              <button type="submit" className="btn btn-redsolar-primary">Enviar solicitud <i className="bi bi-arrow-up-right" aria-hidden="true" /></button>
+            </form>
+          </div>
+        </section>
+      </main>
+
+      <footer className="brand-footer">
+        <div className="container">
+          <div className="footer-main"><div className="footer-brand"><a href="#inicio" aria-label="REDSOLAR, volver al inicio"><BrandLogo variant="dark" /></a><p>Tu energía. A tu medida.</p></div><div className="footer-links"><a href="#servicios">Soluciones</a><a href="#proyectos">Proyectos</a><a href="#cotizador-factura">Cotizador</a><a href="#faq-solar">Preguntas frecuentes</a></div><div className="footer-social"><a href="https://instagram.com/redsolarenergy" target="_blank" rel="noopener noreferrer"><i className="bi bi-instagram" aria-hidden="true" /> Instagram <i className="bi bi-arrow-up-right" aria-hidden="true" /></a><a href="https://wa.me/573183464183" target="_blank" rel="noopener noreferrer"><i className="bi bi-whatsapp" aria-hidden="true" /> WhatsApp <i className="bi bi-arrow-up-right" aria-hidden="true" /></a></div></div>
+          <div className="footer-bottom"><small>© {new Date().getFullYear()} REDSOLAR. Todos los derechos reservados.</small><span>Energía solar para Colombia.</span></div>
         </div>
-      </div>
-
-    </div>
-
-    <hr className="border-secondary my-4" />
-
-    <div className="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2 text-center">
-      <small className="text-white-50">
-        © {new Date().getFullYear()} REDSOLAR. Todos los derechos reservados.
-      </small>
-
-      <small className="text-white-50">
-        Hecho con <span className="text-white">ingeniería</span> y <span className="text-white">transparencia</span>.
-      </small>
-    </div>
-  </div>
-</footer>
-
-
-
-      <a
-        href="https://wa.me/573183464183"
-        className="btn btn-success position-fixed bottom-0 end-0 m-4 rounded-circle shadow"
-        style={{ width: 60, height: 60, fontSize: 28, display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9999 }}
-        target="_blank" rel="noopener noreferrer"
-      >
-        💬
-      </a>
-    </main>
+      </footer>
+      <a href="https://wa.me/573183464183" className="floating-contact" target="_blank" rel="noopener noreferrer" aria-label="Hablar con REDSOLAR por WhatsApp"><i className="bi bi-whatsapp" aria-hidden="true" /></a>
+    </>
   );
 }
 

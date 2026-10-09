@@ -606,6 +606,7 @@ const Simulador = () => {
             <input
               type="range"
               className="form-range rs-range"
+              aria-label={field.label}
               min={field.min}
               max={field.max}
               step={field.step}
@@ -651,8 +652,9 @@ const Simulador = () => {
     <div className="simulador-container rs-shell">
       <div className="rs-header">
         <div>
-          <h2 className="rs-title">Simulador Financiero FV</h2>
-          <p className="rs-subtitle">Explicaciones claras por campo (aparecen al enfocarlo) + métricas (VPN/TIR/Payback).</p>
+          <span className="workspace-eyebrow">REDSOLAR / Análisis de inversión</span>
+          <h1 className="rs-title">Simulador financiero solar</h1>
+          <p className="rs-subtitle">Evalúa el retorno de tu proyecto y compara los escenarios de inversión.</p>
         </div>
 
         <div className="rs-header-actions">

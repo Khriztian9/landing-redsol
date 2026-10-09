@@ -1,177 +1,80 @@
-/* ---------------------- */
-/* 🎨 VARIABLES PERSONALIZADAS */
-/* ---------------------- */
 :root {
-  --primary-color: #ED1C24;      /* Rojo corporativo para énfasis principal */
-  --secondary-color: #070809;    /* Segundo color (igual aquí, pero puedes cambiarlo) */
-  --accent-color: #B61219;       /* Color acento para detalles interactivos */
-  --text-color: #24272B;         /* Color principal del texto */
-  --background-color: #FFFFFF;   /* Color de fondo base */
-
-  /* Fuente global y estilo de texto */
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;                          /* Espaciado de líneas cómodo */
-  font-weight: 400;                          /* Peso de fuente estándar */
-
-  /* Ajustes de renderizado */
-  color-scheme: light;                      /* Mantiene controles nativos en la paleta clara */
-  color: var(--text-color);                 /* Aplica color de texto personalizado */
-  background-color: var(--background-color);/* Fondo general de la app */
-
-  font-synthesis: none;                     /* Evita que el navegador genere fuentes sintéticas */
-  text-rendering: optimizeLegibility;       /* Mejora la legibilidad del texto */
-  -webkit-font-smoothing: antialiased;      /* Mejora suavizado en WebKit */
-  -moz-osx-font-smoothing: grayscale;       /* Suavizado en macOS */
-
-  /* 🎯 Personalización del tema de Bootstrap */
-  --bs-body-color: var(--text-color);       /* Color del texto Bootstrap */
-  --bs-body-bg: var(--background-color);    /* Color de fondo Bootstrap */
-  --bs-primary: var(--primary-color);       /* Sobrescribe color primario Bootstrap */
-  --bs-secondary: var(--secondary-color);   /* Sobrescribe color secundario Bootstrap */
-  --bs-success: var(--accent-color);        /* Color éxito Bootstrap (usado en botones, alerts, etc.) */
-}
-
-/* ---------------------- */
-/* 🌐 ESTILOS GLOBALES */
-/* ---------------------- */
-a {
-  font-weight: 500;                          /* Negrita media para enlaces */
-  color: var(--primary-color);              /* Usa el color principal */
-  text-decoration: inherit;                 /* Hereda estilos de subrayado */
-}
-
-a:hover {
-  color: var(--accent-color);               /* Rojo profundo al pasar el cursor */
-}
-
-/* Estilo base para el <body> */
-body {
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
-  min-width: 320px;
-  overflow-x: hidden;
-  background-color: transparent;
-}
-
-
-/* Títulos principales */
-h1 {
-  font-size: 3.2em;                         /* Muy grande para destacar */
-  line-height: 1.1;                         /* Espaciado compacto */
-}
-
-/* Botones globales */
-button {
-  border-radius: 8px;                       /* Bordes redondeados */
-  border: 1px solid transparent;            /* Borde invisible por defecto */
-  padding: 0.6em 1.2em;                     /* Espaciado interno */
-  font-size: 1em;                           /* Tamaño estándar */
-  font-weight: 500;                         /* Negrita media */
-  font-family: inherit;                     /* Hereda la fuente general */
-  background-color: var(--secondary-color);/* Fondo según variable */
-  cursor: pointer;                          /* Cursor en forma de mano */
-  transition: border-color 0.25s;           /* Transición suave de borde */
-}
-
-button:hover {
-  border-color: var(--primary-color);       /* Borde visible en hover */
-}
-
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color; /* Aumenta accesibilidad */
-}
-
-/* ---------------------- */
-/* ☀️ MODO CLARO MANUAL (opcional) */
-/* ---------------------- */
-@media (prefers-color-scheme: light) {
-  :root {
-    color: var(--secondary-color);         /* Texto más oscuro para fondo claro */
-    background-color: #FFFFFF;             /* Fondo blanco */
-  }
-
-  a:hover {
-    color: var(--accent-color);            /* Hover mantiene acento */
-  }
-
-  button {
-    background-color: #FFFFFF;             /* Fondo claro para botones en modo claro */
-  }
-}
-
-/* Paleta corporativa única: aplica también a utilidades y componentes Bootstrap. */
-:root {
+  font-family: Arial, Helvetica, sans-serif;
+  color-scheme: light;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
   --redsolar-red: #ED1C24;
-  --redsolar-red-dark: #9F1016;
-  --redsolar-red-soft: #FFF0F1;
-  --redsolar-black: #070809;
+  --redsolar-ink: #101114;
   --redsolar-white: #FFFFFF;
+  --redsolar-muted: #626670;
+  --redsolar-surface: #F4F5F7;
+  --redsolar-border: #DDDDE2;
+  --redsolar-red-dark: #B61219;
+  --redsolar-red-soft: #FFF0F1;
+  --redsolar-black: var(--redsolar-ink);
   --redsolar-charcoal: #24272B;
   --redsolar-slate: #50565D;
-  --redsolar-mist: #F4F5F6;
-  --redsolar-deep-red: #B61219;
-  --redsolar-silver: #BDC3C9;
+  --redsolar-mist: var(--redsolar-surface);
+  --redsolar-deep-red: var(--redsolar-red-dark);
+  --redsolar-silver: #B7BBC5;
+  --primary-color: var(--redsolar-red);
+  --secondary-color: var(--redsolar-ink);
+  --accent-color: var(--redsolar-red-dark);
+  --text-color: var(--redsolar-ink);
+  --background-color: var(--redsolar-white);
+  --bs-body-font-family: Arial, Helvetica, sans-serif;
+  --bs-body-color: #101114;
+  --bs-body-bg: #FFFFFF;
   --bs-primary: #ED1C24;
   --bs-primary-rgb: 237, 28, 36;
-  --bs-secondary: #24272B;
-  --bs-secondary-rgb: 36, 39, 43;
-  --bs-success: #B61219;
-  --bs-success-rgb: 182, 18, 25;
-  --bs-danger: #B61219;
-  --bs-danger-rgb: 182, 18, 25;
-  --bs-info: #BDC3C9;
-  --bs-info-rgb: 189, 195, 201;
-  --bs-light: #FFFFFF;
-  --bs-light-rgb: 255, 255, 255;
-  --bs-dark: #070809;
-  --bs-dark-rgb: 7, 8, 9;
-  --bs-body-color: #24272B;
-  --bs-body-color-rgb: 36, 39, 43;
-  --bs-body-bg: #FFFFFF;
-  --bs-body-bg-rgb: 255, 255, 255;
-  --bs-border-color: #BDC3C9;
-  --bs-link-color: #ED1C24;
-  --bs-link-hover-color: #B61219;
+  --bs-secondary: #626670;
+  --bs-secondary-rgb: 98, 102, 112;
+  --bs-dark: #101114;
+  --bs-dark-rgb: 16, 17, 20;
+  --bs-border-color: #DDDDE2;
+  --bs-link-color: #B61219;
+  --bs-link-hover-color: #8D1016;
 }
-
-.btn-primary,
-.btn-success {
-  --bs-btn-color: #FFFFFF;
-  --bs-btn-bg: #9F1016;
-  --bs-btn-border-color: #9F1016;
-  --bs-btn-hover-color: #FFFFFF;
-  --bs-btn-hover-bg: #7F0D12;
-  --bs-btn-hover-border-color: #7F0D12;
-  --bs-btn-active-bg: #700B10;
-  --bs-btn-active-border-color: #700B10;
-  --bs-btn-disabled-bg: #BDC3C9;
-  --bs-btn-disabled-border-color: #BDC3C9;
-}
-
-.btn-danger,
-.btn-outline-danger,
-.btn-outline-primary,
-.btn-outline-success {
-  --bs-btn-color: #B61219;
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 96px; }
+body { margin: 0; min-width: 320px; font-family: Arial, Helvetica, sans-serif; color: var(--redsolar-ink); background: #fff; }
+#root { width: 100%; min-height: 100vh; }
+a { text-underline-offset: 4px; }
+button, input, select, textarea { font: inherit; }
+button, a, input, select, textarea, summary { -webkit-tap-highlight-color: transparent; }
+:focus-visible { outline: 3px solid var(--redsolar-red); outline-offset: 5px; }
+img { max-width: 100%; }
+h1, h2, h3, h4 { letter-spacing: -0.045em; font-weight: 700; }
+h2 { font-size: clamp(2rem, 3.6vw, 3.25rem); line-height: 1.08; }
+p { line-height: 1.7; }
+.container { width: min(100% - 64px, 1240px); max-width: 1240px; padding-left: 0; padding-right: 0; margin-inline: auto; }
+.brand-logo { display: block; width: 248px; max-width: 100%; height: auto; }
+.btn { font-weight: 600; border-radius: 4px; padding: .8rem 1.2rem; }
+.btn-redsolar-primary, .btn-primary {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: #B61219;
   --bs-btn-border-color: #B61219;
-  --bs-btn-hover-color: #FFFFFF;
-  --bs-btn-hover-bg: #B61219;
-  --bs-btn-hover-border-color: #B61219;
-  --bs-btn-active-color: #FFFFFF;
-  --bs-btn-active-bg: #ED1C24;
-  --bs-btn-active-border-color: #ED1C24;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #911016;
+  --bs-btn-hover-border-color: #911016;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #7D0B10;
+  --bs-btn-active-border-color: #7D0B10;
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: #777;
+  --bs-btn-disabled-border-color: #777;
 }
-
-.alert-info,
-.alert-danger,
-.table-primary,
-.table-success {
-  --bs-alert-color: #24272B;
-  --bs-alert-bg: #FFFFFF;
-  --bs-alert-border-color: #BDC3C9;
-  --bs-table-color: #24272B;
-  --bs-table-bg: #FFFFFF;
-  --bs-table-border-color: #BDC3C9;
+.btn-redsolar-primary { display: inline-flex; align-items: center; justify-content: center; gap: 20px; }
+.btn-outline-primary { --bs-btn-color: #B61219; --bs-btn-border-color: #B61219; --bs-btn-hover-bg: #B61219; --bs-btn-hover-border-color: #B61219; --bs-btn-active-bg: #911016; --bs-btn-active-border-color: #911016; }
+.btn-secondary { --bs-btn-bg: #101114; --bs-btn-border-color: #101114; --bs-btn-hover-bg: #34363B; --bs-btn-hover-border-color: #34363B; }
+.form-control, .form-select { border-color: var(--redsolar-border); border-radius: 4px; padding: .75rem .85rem; color: var(--redsolar-ink); }
+.form-control:focus, .form-select:focus { border-color: var(--redsolar-red-dark); box-shadow: 0 0 0 .2rem #ed1c2414; }
+.form-label { font-size: .88rem; font-weight: 600; }
+.form-check-input:checked { background-color: var(--redsolar-red-dark); border-color: var(--redsolar-red-dark); }
+.text-primary { color: var(--redsolar-red-dark) !important; }
+@media (max-width: 767px) { .container { width: calc(100% - 40px); } }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }

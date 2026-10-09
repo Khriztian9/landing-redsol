@@ -1,16 +1,6 @@
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
-
-const COLORS = {
-  navy: [7, 8, 9],
-  blue: [237, 28, 36],
-  green: [182, 18, 25],
-  ink: [36, 39, 43],
-  muted: [189, 195, 201],
-  line: [189, 195, 201],
-  paleBlue: [255, 255, 255],
-  paleGreen: [255, 255, 255],
-};
+import { PDF_BRAND_COLORS as COLORS, drawBrandLogo, loadBrandLogo } from "./brandPdf";
 
 const number = (value) => {
   const parsed = Number(value);
@@ -32,11 +22,11 @@ const numeric = (value, digits = 0) => {
 };
 
 const sectionTitle = (doc, title, subtitle, y) => {
-  doc.setFillColor(...COLORS.green);
+  doc.setFillColor(...COLORS.red);
   doc.roundedRect(15, y, 3, 10, 1.5, 1.5, "F");
   doc.setFont("helvetica", "bold");
   doc.setFontSize(15);
-  doc.setTextColor(...COLORS.navy);
+  doc.setTextColor(...COLORS.black);
   doc.text(title, 23, y + 5);
   if (subtitle) {
     doc.setFont("helvetica", "normal");
@@ -46,7 +36,7 @@ const sectionTitle = (doc, title, subtitle, y) => {
   }
 };
 
-const metricCard = (doc, x, label, value, detail, accent = COLORS.blue) => {
+const metricCard = (doc, x, label, value, detail, accent = COLORS.red) => {
   doc.setFillColor(255, 255, 255);
   doc.setDrawColor(...COLORS.line);
   doc.roundedRect(x, 61, 82, 31, 3, 3, "FD");
@@ -58,7 +48,7 @@ const metricCard = (doc, x, label, value, detail, accent = COLORS.blue) => {
   doc.text(label.toUpperCase(), x + 8, 69);
   doc.setFont("helvetica", "bold");
   doc.setFontSize(15);
-  doc.setTextColor(...COLORS.navy);
+  doc.setTextColor(...COLORS.black);
   doc.text(value, x + 8, 80, { maxWidth: 69 });
   doc.setFont("helvetica", "normal");
   doc.setFontSize(7.5);
@@ -75,17 +65,18 @@ const scenarioName = ({ withBenefits, withLeasing }) => {
 
 export const generateAnalysisPdf = async ({ chartCanvas, formData, indicators, table, withBenefits, withLeasing }) => {
   const doc = new jsPDF({ orientation: "landscape", unit: "mm", format: "a4" });
-  const logo = null;
+  const logo = await loadBrandLogo();
   const today = new Date();
   const date = today.toLocaleDateString("es-CO", { year: "numeric", month: "long", day: "numeric" });
   const reference = `AF-${today.toISOString().slice(0, 10).replaceAll("-", "")}-${String(today.getTime()).slice(-4)}`;
   const scenario = scenarioName({ withBenefits, withLeasing });
 
   // Resumen ejecutivo
-  doc.setFillColor(...COLORS.navy);
+  doc.setFillColor(...COLORS.black);
   doc.rect(0, 0, 297, 39, "F");
-  if (logo) doc.addImage(logo, "PNG", 15, 9, 47, 11, undefined, "FAST");
-  else {
+  doc.setFillColor(...COLORS.red);
+  doc.rect(0, 38, 297, 1, "F");
+  if (!drawBrandLogo(doc, logo, { x: 15, y: 11, width: 62 })) {
     doc.setFont("helvetica", "bold");
     doc.setFontSize(15);
     doc.setTextColor(255, 255, 255);
@@ -101,15 +92,15 @@ export const generateAnalysisPdf = async ({ chartCanvas, formData, indicators, t
   doc.text(`${scenario}  ·  ${date}  ·  Ref. ${reference}`, 282, 27, { align: "right" });
 
   sectionTitle(doc, "Resumen ejecutivo", "Indicadores del escenario seleccionado al momento de descargar.", 45);
-  metricCard(doc, 15, "Valor Presente Neto (VPN)", cop(indicators?.vpn), "Valor creado a la tasa de descuento", COLORS.blue);
-  metricCard(doc, 107.5, "Tasa Interna de Retorno (TIR)", indicators?.tir == null ? "No disponible" : `${numeric(indicators.tir, 2)}%`, "Rentabilidad anual estimada", COLORS.green);
-  metricCard(doc, 200, "Periodo de recuperación", indicators?.payback == null ? "No alcanzado" : `${numeric(indicators.payback, 2)} años`, "Primer momento con acumulado positivo", COLORS.blue);
+  metricCard(doc, 15, "Valor Presente Neto (VPN)", cop(indicators?.vpn), "Valor creado a la tasa de descuento", COLORS.red);
+  metricCard(doc, 107.5, "Tasa Interna de Retorno (TIR)", indicators?.tir == null ? "No disponible" : `${numeric(indicators.tir, 2)}%`, "Rentabilidad anual estimada", COLORS.red);
+  metricCard(doc, 200, "Periodo de recuperación", indicators?.payback == null ? "No alcanzado" : `${numeric(indicators.payback, 2)} años`, "Primer momento con acumulado positivo", COLORS.red);
 
-  doc.setFillColor(...(number(indicators?.vpn) >= 0 ? COLORS.paleGreen : COLORS.paleBlue));
+  doc.setFillColor(...(number(indicators?.vpn) >= 0 ? COLORS.subtle : COLORS.surface));
   doc.roundedRect(15, 102, 267, 24, 3, 3, "F");
   doc.setFont("helvetica", "bold");
   doc.setFontSize(10);
-  doc.setTextColor(...COLORS.navy);
+  doc.setTextColor(...COLORS.black);
   doc.text("Lectura rápida", 23, 111);
   doc.setFont("helvetica", "normal");
   doc.setFontSize(8.5);
@@ -130,7 +121,7 @@ export const generateAnalysisPdf = async ({ chartCanvas, formData, indicators, t
       ["OPEX anual", cop(formData.opex_anual), "Horizonte", `${numeric(formData.horizonte_anios)} años`, "Tasa de descuento", `${numeric(formData.tasa_descuento * 100, 1)}%`],
     ],
     styles: { font: "helvetica", fontSize: 8.5, cellPadding: 3.1, textColor: COLORS.ink, lineColor: COLORS.line, lineWidth: 0.2 },
-    columnStyles: { 0: { fontStyle: "bold", textColor: COLORS.navy }, 2: { fontStyle: "bold", textColor: COLORS.navy }, 4: { fontStyle: "bold", textColor: COLORS.navy } },
+    columnStyles: { 0: { fontStyle: "bold", textColor: COLORS.black }, 2: { fontStyle: "bold", textColor: COLORS.black }, 4: { fontStyle: "bold", textColor: COLORS.black } },
     alternateRowStyles: { fillColor: [255, 255, 255] },
   });
 
@@ -144,11 +135,11 @@ export const generateAnalysisPdf = async ({ chartCanvas, formData, indicators, t
     doc.roundedRect(15, 40, 178, 119, 3, 3, "FD");
     doc.addImage(image, "PNG", 20, 45, 168, 109, undefined, "FAST");
   }
-  doc.setFillColor(...COLORS.paleBlue);
+  doc.setFillColor(...COLORS.surface);
   doc.roundedRect(202, 40, 80, 119, 3, 3, "F");
   doc.setFont("helvetica", "bold");
   doc.setFontSize(11);
-  doc.setTextColor(...COLORS.navy);
+  doc.setTextColor(...COLORS.black);
   doc.text("Cómo leer este informe", 211, 53);
   doc.setFont("helvetica", "normal");
   doc.setFontSize(8.2);
@@ -187,7 +178,7 @@ export const generateAnalysisPdf = async ({ chartCanvas, formData, indicators, t
     margin: { left: 10, right: 10, top: 20, bottom: 18 },
     theme: "striped",
     styles: { font: "helvetica", fontSize: 6.2, cellPadding: 1.8, overflow: "linebreak", textColor: COLORS.ink, lineColor: COLORS.line, lineWidth: 0.1, halign: "right" },
-    headStyles: { fillColor: COLORS.navy, textColor: [255, 255, 255], fontStyle: "bold", halign: "center", fontSize: 6.2 },
+    headStyles: { fillColor: COLORS.black, textColor: [255, 255, 255], fontStyle: "bold", halign: "center", fontSize: 6.2 },
     alternateRowStyles: { fillColor: [255, 255, 255] },
     columnStyles: { 0: { halign: "center", cellWidth: 11 } },
   });
@@ -195,6 +186,20 @@ export const generateAnalysisPdf = async ({ chartCanvas, formData, indicators, t
   const pages = doc.internal.getNumberOfPages();
   for (let page = 1; page <= pages; page += 1) {
     doc.setPage(page);
+    if (page > 1) {
+      doc.setFillColor(...COLORS.black);
+      doc.rect(0, 0, 297, 13, "F");
+      if (!drawBrandLogo(doc, logo, { x: 15, y: 4.5, width: 45 })) {
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(9);
+        doc.setTextColor(...COLORS.white);
+        doc.text("REDSOLAR", 15, 8.5);
+      }
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(7.5);
+      doc.setTextColor(218, 221, 225);
+      doc.text(`Análisis financiero · ${reference}`, 282, 8.5, { align: "right" });
+    }
     doc.setDrawColor(...COLORS.line);
     doc.line(15, 193, 282, 193);
     doc.setFont("helvetica", "normal");

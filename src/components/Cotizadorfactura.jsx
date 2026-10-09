@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
-import AOS from "aos";
-import "aos/dist/aos.css";
 import "./CotizadorFactura.css";
 
 // Firebase
@@ -45,9 +43,6 @@ const CotizadorFactura = () => {
     setManual((prev) => ({ ...prev, [name]: value }));
   };
 
-  useEffect(() => {
-    AOS.init({ duration: 1000 });
-  }, []);
 
   // Validación archivo PDF
   const handleFileChange = (e) => {
@@ -231,239 +226,62 @@ const CotizadorFactura = () => {
   };
 
   return (
-    <div className="container py-4">
-      <h2 className="mb-4 text-center text-primary" data-aos="fade-down">
-        Cotizador Solar 
-      </h2>
-
-      {/* Toggle Factura/Datos */}
-      <div className="toggle-cotizador btn-group w-100 mb-3" role="group" aria-label="Modo de cotización">
-        <input
-          type="radio"
-          className="btn-check"
-          name="modo"
-          id="btnFactura"
-          autoComplete="off"
-          checked={modo === "factura"}
-          onChange={() => setModo("factura")}
-        />
-        <label className={`btn btn-outline-primary ${modo === "factura" ? "active" : ""}`} htmlFor="btnFactura">
-          Factura
-        </label>
-        <input
-          type="radio"
-          className="btn-check"
-          name="modo"
-          id="btnDatos"
-          autoComplete="off"
-          checked={modo === "datos"}
-          onChange={() => setModo("datos")}
-        />
-        <label className={`btn btn-outline-primary ${modo === "datos" ? "active" : ""}`} htmlFor="btnDatos">
-          Datos
-        </label>
-      </div>
-
-      <form onSubmit={handleSubmit} className="card p-4 shadow mb-4" data-aos="fade-up">
-{modo === "factura" ? (
-  <div className="mb-3">
-    <label className="form-label">Factura en PDF</label>
-    <input
-      type="file"
-      accept="application/pdf"
-      onChange={handleFileChange}
-      className="form-control"
-      required={modo === "factura"}
-    />
-  </div>
-) : (
-  <>
-    <div className="row">
-      <div className="col-md-6 mb-3">
-        <label className="form-label">Nombre</label>
-        <input className="form-control" name="nombre" value={manual.nombre} onChange={handleManualChange} />
-      </div>
-      <div className="col-md-6 mb-3">
-        <label className="form-label">Dirección</label>
-        <input className="form-control" name="direccion" value={manual.direccion} onChange={handleManualChange} />
-      </div>
-      <div className="col-md-4 mb-3">
-        <label className="form-label">Municipio</label>
-        <input className="form-control" name="municipio" value={manual.municipio} onChange={handleManualChange} />
-      </div>
-      <div className="col-md-4 mb-3">
-        <label className="form-label">Tipo de servicio</label>
-        <select
-          className="form-select"
-          name="tipo_servicio"
-          value={manual.tipo_servicio}
-          onChange={handleManualChange}
-          required={modo === "datos"}
-        >
-          <option>Residencial</option>
-          <option>Comercial</option>
-          <option>Industrial</option>
-        </select>
-      </div>
-      {esResidencial && (
-        <div className="col-md-4 mb-3">
-          <label className="form-label">Estrato </label>
-          <input
-            className="form-control"
-            name="estrato"
-            type="number"
-            min="1"
-            max="6"
-            value={manual.estrato}
-            onChange={handleManualChange}
-            required={modo === "datos" && esResidencial}
-          />
+    <div className="quote-tool">
+      <header className="quote-heading">
+        <div><span className="section-kicker">04 / Empieza tu proyecto</span><h2>Cotiza tu<br />sistema solar.</h2></div>
+        <p>Tu próxima fuente de energía empieza aquí. Comparte tu factura o los datos de tu consumo para obtener una estimación preliminar.</p>
+      </header>
+      <form onSubmit={handleSubmit} className="quote-form">
+        <div className="quote-input-section">
+          <div className="quote-step"><span>01</span><h3>Conozcamos tu consumo</h3></div>
+          <div className="toggle-cotizador" role="group" aria-label="Modo de cotización">
+            <input type="radio" className="btn-check" name="modo" id="btnFactura" autoComplete="off" checked={modo === "factura"} onChange={() => setModo("factura")} />
+            <label htmlFor="btnFactura"><i className="bi bi-file-earmark-pdf" aria-hidden="true" /> Subir factura</label>
+            <input type="radio" className="btn-check" name="modo" id="btnDatos" autoComplete="off" checked={modo === "datos"} onChange={() => setModo("datos")} />
+            <label htmlFor="btnDatos"><i className="bi bi-pencil-square" aria-hidden="true" /> Ingresar datos</label>
+          </div>
+          {modo === "factura" ? (
+            <div className="quote-upload">
+              <i className="bi bi-file-earmark-arrow-up" aria-hidden="true" />
+              <label htmlFor="quote-file">Tu factura de energía</label>
+              <p>Selecciona el documento PDF de tu factura más reciente.</p>
+              <input id="quote-file" type="file" accept="application/pdf" onChange={handleFileChange} className="form-control" required aria-describedby="quote-file-hint" />
+              <small id="quote-file-hint">Formato PDF · Máximo 5 MB</small>
+            </div>
+          ) : (
+            <div className="quote-fields">
+              <div><label className="form-label" htmlFor="quote-name">Nombre</label><input id="quote-name" className="form-control" autoComplete="name" name="nombre" value={manual.nombre} onChange={handleManualChange} /></div>
+              <div><label className="form-label" htmlFor="quote-address">Dirección</label><input id="quote-address" className="form-control" autoComplete="street-address" name="direccion" value={manual.direccion} onChange={handleManualChange} /></div>
+              <div><label className="form-label" htmlFor="quote-city">Municipio</label><input id="quote-city" className="form-control" name="municipio" value={manual.municipio} onChange={handleManualChange} /></div>
+              <div><label className="form-label" htmlFor="quote-service">Tipo de servicio</label><select id="quote-service" className="form-select" name="tipo_servicio" value={manual.tipo_servicio} onChange={handleManualChange} required><option>Residencial</option><option>Comercial</option><option>Industrial</option></select></div>
+              {esResidencial && <div><label className="form-label" htmlFor="quote-stratum">Estrato</label><input id="quote-stratum" className="form-control" name="estrato" type="number" min="1" max="6" value={manual.estrato} onChange={handleManualChange} required /></div>}
+              <div><label className="form-label" htmlFor="quote-consumption">Consumo mensual (kWh)</label><input id="quote-consumption" className="form-control" name="consumo_kwh" type="number" min="0" step="1" value={manual.consumo_kwh} onChange={handleManualChange} required /></div>
+              <div><label className="form-label" htmlFor="quote-rate">Valor kWh (COP)</label><input id="quote-rate" className="form-control" name="valor_kwh" type="number" min="0" step="1" value={manual.valor_kwh} onChange={handleManualChange} /></div>
+            </div>
+          )}
         </div>
-      )}
-      <div className="col-md-6 mb-3">
-        <label className="form-label">Consumo mensual (kWh)</label>
-        <input
-          className="form-control"
-          name="consumo_kwh"
-          type="number"
-          min="0"
-          step="1"
-          value={manual.consumo_kwh}
-          onChange={handleManualChange}
-          required={modo === "datos"}
-        />
-      </div>
-      <div className="col-md-6 mb-1">
-        <label className="form-label">Valor kWh (COP) </label>
-        <input
-          className="form-control"
-          name="valor_kwh"
-          type="number"
-          min="0"
-          step="1"
-          value={manual.valor_kwh}
-          onChange={handleManualChange}
-        />
-      </div>
-    </div>
-  </>
-)}
-
-        <div className="row">
-          <div className="col-md-6 mb-3">
-            <label className="form-label">Estructura</label>
-            <select className="form-select" value={estructura} onChange={(e) => setEstructura(e.target.value)}>
-              <option value="madera">Madera</option>
-              <option value="cercha">Cercha</option>
-              <option value="granja">Granja</option>
-              <option value="plancha">Plancha</option>
-              <option value="perfil_metalico">Perfil Metálico</option>
-            </select>
+        <div className="quote-config-section">
+          <div className="quote-step"><span>02</span><h3>Configuremos tu sistema</h3></div>
+          <div className="quote-fields">
+            <div><label className="form-label" htmlFor="quote-structure">Estructura</label><select id="quote-structure" className="form-select" value={estructura} onChange={(e) => setEstructura(e.target.value)}><option value="trapezoidal">Trapezoidal</option><option value="madera">Madera</option><option value="cercha">Cercha</option><option value="granja">Granja</option><option value="plancha">Plancha</option><option value="perfil_metalico">Perfil metálico</option></select></div>
+            <div><label className="form-label" htmlFor="quote-roof">Cubierta</label><select id="quote-roof" className="form-select" value={cubierta} onChange={(e) => setCubierta(e.target.value)}><option value="fibrocemento">Fibrocemento</option><option value="teja_colonial">Teja colonial</option><option value="trapezoidal">Trapezoidal</option></select></div>
+            <div><label className="form-label" htmlFor="quote-location">Ubicación</label><select id="quote-location" className="form-select" value={ubicacion} onChange={(e) => setUbicacion(e.target.value)}><option value="risaralda">Risaralda</option><option value="quindio">Quindío</option><option value="valle">Valle</option><option value="caldas">Caldas</option></select></div>
+            <div><label className="form-label" htmlFor="quote-system">Tipo de sistema</label><select id="quote-system" className="form-select" value={tipoInversor} onChange={(e) => setTipoInversor(e.target.value)}><option value="ongrid">On Grid</option><option value="hibrido">Híbrido</option></select></div>
           </div>
-
-          <div className="col-md-6 mb-3">
-            <label className="form-label">Cubierta</label>
-            <select className="form-select" value={cubierta} onChange={(e) => setCubierta(e.target.value)}>
-              <option value="fibrocemento">Fibrocemento</option>
-              <option value="teja_colonial">Teja Colonial</option>
-              <option value="trapezoidal">Trapezoidal</option>
-            </select>
-          </div>
-
-          <div className="col-md-6 mb-3">
-            <label className="form-label">Ubicación</label>
-            <select className="form-select" value={ubicacion} onChange={(e) => setUbicacion(e.target.value)}>
-              <option value="risaralda">Risaralda</option>
-              <option value="quindio">Quindío</option>
-              <option value="valle">Valle</option>
-              <option value="caldas">Caldas</option>
-            </select>
-          </div>
-
-          <div className="col-md-6 mb-3">
-            <label className="form-label">Tipo de sistema</label>
-            <select className="form-select" value={tipoInversor} onChange={(e) => setTipoInversor(e.target.value)}>
-              <option value="ongrid">On Grid</option>
-              <option value="hibrido">Híbrido</option>
-            </select>
-          </div>
+          <div className="quote-coverage"><label className="form-label" htmlFor="quote-coverage"><span>Cobertura de generación</span><strong>{porcentajeGeneracion}%</strong></label><input id="quote-coverage" type="range" className="form-range" min="50" max="200" step="50" value={porcentajeGeneracion} onChange={(e) => setPorcentajeGeneracion(parseInt(e.target.value, 10))} /><div className="quote-range-labels"><span>50%</span><span>100%</span><span>150%</span><span>200%</span></div></div>
+          <button type="submit" className="btn btn-redsolar-primary w-100" disabled={loading}>{loading ? <>Procesando… <span className="spinner-border spinner-border-sm" aria-hidden="true" /></> : <>Calcular mi sistema <i className="bi bi-arrow-up-right" aria-hidden="true" /></>}</button>
+          <p className="quote-note">Una estimación inicial. La propuesta definitiva se confirma con la evaluación técnica.</p>
         </div>
-
-        {/* Slider de cobertura */}
-        <div className="mb-3">
-          <label className="form-label d-flex justify-content-between">
-            <span>Cobertura de generación</span>
-            <span className="fw-bold">{porcentajeGeneracion}%</span>
-          </label>
-          <input
-            type="range"
-            className="form-range"
-            min="50"
-            max="200"
-            step="50"
-            value={porcentajeGeneracion}
-            onChange={(e) => setPorcentajeGeneracion(parseInt(e.target.value, 10))}
-          />
-          <div className="d-flex justify-content-between small text-muted mt-1">
-            <span>50%</span><span>100%</span><span>150%</span><span>200%</span>
-          </div>
-        </div>
-
-        <button type="submit" className="btn custom-cotizador-btn w-100" disabled={loading}>
-          {loading ? <>Procesando... <span className="loader"></span></> : "Calcular"}
-        </button>
       </form>
-
-      {error && <div className="alert alert-danger" data-aos="fade-right">{error}</div>}
-
+      {error && <div className="alert alert-danger mt-4" role="alert">{error}</div>}
       {resultado && (
-        <div className="card shadow-lg p-4 mt-4 border-0" data-aos="fade-up">
-          <h4 className="text-center mb-4 text-primary fw-bold">Resultados de la Cotización</h4>
-          <div className="table-responsive">
-            <table className="table table-bordered align-middle">
-              <thead className="table-primary text-center">
-                <tr><th>Parámetro</th><th>Valor</th></tr>
-              </thead>
-              <tbody>
-                <tr><td>👤 Nombre</td><td>{resultado.nombre}</td></tr>
-                <tr><td>🏠 Dirección</td><td>{resultado.direccion}</td></tr>
-                <tr><td>📍 Municipio</td><td>{resultado.municipio}</td></tr>
-                <tr><td>🏘️ Estrato</td><td>{resultado.estrato}</td></tr>
-                <tr><td>🔌 Tipo de servicio</td><td>{resultado.tipo_servicio}</td></tr>
-                <tr><td>⚡ Consumo mensual</td><td>{Number(resultado.consumo_kwh).toFixed(0)} kWh</td></tr>
-                <tr className="table-success"><td>📦 Número de paneles</td><td>{resultado.numero_paneles}</td></tr>
-                <tr className="table-success"><td>⚙️ Inversor</td><td>{resultado.inversor_utilizado}</td></tr>
-                <tr className="table-success">
-                  <td>💰 Precio estimado</td>
-                  <td>
-              {resultado.precio_total?.toLocaleString("es-CO", {
-                style: "currency",
-                currency: "COP",
-              })}
-            </td>
-          </tr>
-          <tr>
-            <td>🔆 Generación mensual</td>
-            <td>
-              {resultado.generacion_mensual_min && resultado.generacion_mensual_max
-                ? `${(resultado.generacion_mensual_min ).toFixed(0)} – ${(resultado.generacion_mensual_max ).toFixed(0)} kWh`
-                : "N/D"}
-            </td>
-          </tr>
-          <tr><td>💡 Cobertura</td><td>{resultado.porcentaje_generacion ?? porcentajeGeneracion}%</td></tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div className="text-center mt-4">
-            <button className="btn btn-primary px-4 shadow-sm" onClick={exportarPDF} disabled={generandoPDF}>
-              {generandoPDF ? "Preparando propuesta..." : "📄 Descargar propuesta PDF"}
-            </button>
-            <p className="pdf-download-hint mt-2 mb-0">
-              Incluye resumen ejecutivo, detalle técnico, inversión y próximos pasos.
-            </p>
-          </div>
-        </div>
+        <section className="quote-results" aria-labelledby="quote-result-title" aria-live="polite">
+          <span className="section-kicker">Tu proyecto, en cifras</span><h3 id="quote-result-title">Una primera mirada a tu sistema.</h3>
+          <div className="table-responsive"><table className="table align-middle"><thead><tr><th scope="col">Características</th><th scope="col">Estimación</th></tr></thead><tbody>
+            <tr><th scope="row">Nombre</th><td>{resultado.nombre}</td></tr><tr><th scope="row">Dirección</th><td>{resultado.direccion}</td></tr><tr><th scope="row">Municipio</th><td>{resultado.municipio}</td></tr><tr><th scope="row">Estrato</th><td>{resultado.estrato}</td></tr><tr><th scope="row">Tipo de servicio</th><td>{resultado.tipo_servicio}</td></tr><tr><th scope="row">Consumo mensual</th><td>{Number(resultado.consumo_kwh).toFixed(0)} kWh</td></tr><tr><th scope="row">Número de paneles</th><td>{resultado.numero_paneles}</td></tr><tr><th scope="row">Inversor</th><td>{resultado.inversor_utilizado}</td></tr><tr className="quote-price"><th scope="row">Inversión estimada</th><td>{resultado.precio_total?.toLocaleString("es-CO", { style: "currency", currency: "COP" })}</td></tr><tr><th scope="row">Generación mensual</th><td>{resultado.generacion_mensual_min && resultado.generacion_mensual_max ? `${resultado.generacion_mensual_min.toFixed(0)} – ${resultado.generacion_mensual_max.toFixed(0)} kWh` : "N/D"}</td></tr><tr><th scope="row">Cobertura</th><td>{resultado.porcentaje_generacion ?? porcentajeGeneracion}%</td></tr>
+          </tbody></table></div>
+          <div className="quote-download"><button type="button" className="btn btn-redsolar-primary" onClick={exportarPDF} disabled={generandoPDF}><i className="bi bi-file-earmark-pdf" aria-hidden="true" />{generandoPDF ? "Preparando propuesta…" : "Descargar propuesta PDF"}</button><p>Resumen, detalle técnico, inversión y próximos pasos en un solo documento.</p></div>
+        </section>
       )}
     </div>
   );

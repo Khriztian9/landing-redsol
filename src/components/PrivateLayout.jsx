@@ -3,10 +3,13 @@ import React, { useEffect, useState } from "react";
 import { Outlet, NavLink, useNavigate } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, logout } from "../firebase";
+import BrandLogo from "./BrandLogo";
+import "./Dashboard.css";
 
 export default function PrivateLayout() {
   const [checking, setChecking] = useState(true);
   const [user, setUser] = useState(null);
+  const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,37 +28,45 @@ export default function PrivateLayout() {
 
   if (checking) {
     return (
-      <div className="container py-5 text-center">
-        <div className="spinner-border" role="status" />
+      <div className="workspace-loading" role="status">
+        <BrandLogo />
+        <div className="spinner-border" aria-hidden="true" />
+        <p>Preparando tu espacio de trabajo…</p>
       </div>
     );
   }
 
+  if (!user) return null;
+
   return (
-    <>
-      <nav className="navbar navbar-expand-lg bg-white border-bottom sticky-top">
-        <div className="container py-2">
-          <NavLink to="/dashboard" className="navbar-brand text-primary fw-bold fs-4">
-            RED SOL
+    <div className="redsolar-workspace">
+      <a href="#workspace-content" className="visually-hidden-focusable workspace-skip">Saltar al contenido</a>
+      <nav className="workspace-nav" aria-label="Navegación de herramientas">
+        <div className="container workspace-nav-inner">
+          <NavLink to="/dashboard" className="workspace-brand" aria-label="REDSOLAR · Inicio">
+            <BrandLogo />
           </NavLink>
 
           <button
-            className="navbar-toggler"
+            className="workspace-menu-toggle"
             type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#privateNavbar"
+            aria-expanded={menuOpen}
+            aria-controls="privateNavbar"
+            onClick={() => setMenuOpen(!menuOpen)}
           >
-            <span className="navbar-toggler-icon"></span>
+            <i className={`bi ${menuOpen ? 'bi-x-lg' : 'bi-list'}`} aria-hidden="true" />
+            <span>{menuOpen ? 'Cerrar' : 'Menú'}</span>
           </button>
 
-          <div className="collapse navbar-collapse" id="privateNavbar">
-            <ul className="navbar-nav ms-auto gap-3 align-items-center">
+          <div className={`workspace-nav-menu ${menuOpen ? 'is-open' : ''}`} id="privateNavbar">
+            <ul className="workspace-nav-links">
               <li className="nav-item">
                 <NavLink
                   to="/dashboard"
                   className={({ isActive }) =>
-                    `nav-link fw-medium ${isActive ? "text-primary fw-bold" : "text-secondary"}`
+                    `workspace-nav-link ${isActive ? "is-active" : ""}`
                   }
+                  onClick={() => setMenuOpen(false)}
                 >
                   Historial
                 </NavLink>
@@ -65,8 +76,9 @@ export default function PrivateLayout() {
                 <NavLink
                   to="/app"
                   className={({ isActive }) =>
-                    `nav-link fw-medium ${isActive ? "text-primary fw-bold" : "text-secondary"}`
+                    `workspace-nav-link ${isActive ? "is-active" : ""}`
                   }
+                  onClick={() => setMenuOpen(false)}
                 >
                   Calculadora
                 </NavLink>
@@ -76,29 +88,36 @@ export default function PrivateLayout() {
                 <NavLink
                   to="/cotizador"
                   className={({ isActive }) =>
-                    `nav-link fw-medium ${isActive ? "text-primary fw-bold" : "text-secondary"}`
+                    `workspace-nav-link ${isActive ? "is-active" : ""}`
                   }
+                  onClick={() => setMenuOpen(false)}
                 >
                   Cotizador
                 </NavLink>
               </li>
 
-              <li className="nav-item d-flex align-items-center">
-                <span className="fw-bold text-primary me-2" style={{ fontSize: 12 }}>
-                  {user?.email}
-                </span>
-                <button className="btn btn-outline-danger btn-sm" onClick={handleLogout}>
-                  Logout
-                </button>
-              </li>
             </ul>
+            <div className="workspace-account">
+              <span className="workspace-email" title={user?.email}>{user?.email}</span>
+              <button className="workspace-logout" onClick={handleLogout}>Cerrar sesión</button>
+            </div>
           </div>
         </div>
       </nav>
 
-      <div className="container py-4">
-        <Outlet />
+      <div className="workspace-heading">
+        <div className="container">
+          <span>REDSOLAR / Herramientas</span>
+          <NavLink to="/">Ver sitio web <i className="bi bi-arrow-up-right" aria-hidden="true" /></NavLink>
+        </div>
       </div>
-    </>
+      <main id="workspace-content" className="container workspace-content" tabIndex="-1">
+        <Outlet />
+      </main>
+      <footer className="workspace-footer container">
+        <span>REDSOLAR · Soluciones fotovoltaicas</span>
+        <span>Energía solar en Colombia</span>
+      </footer>
+    </div>
   );
 }

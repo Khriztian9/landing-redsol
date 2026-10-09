@@ -1,71 +1,42 @@
+import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import BrandLogo from './BrandLogo';
 
 function MainNavbar({ user, onLoginClick, onLogout }) {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const closeMenu = () => setMenuOpen(false);
+
   return (
-    <nav
-      id="mainNavbar"
-      aria-label="Navegación principal"
-      className={`navbar navbar-expand-lg fixed-top transition-navbar ${
-        user ? 'bg-white border-bottom' : 'navbar-transparent'
-      }`}
-    >
-      <div className="container py-2 redsolar-navbar-inner">
-        <a className="navbar-brand redsolar-brand" href={user ? '/dashboard' : '#'} aria-label="REDSOLAR">
-          <img src="/redsolar-logo.svg" alt="REDSOLAR" className="redsolar-brand-logo" />
+    <nav id="mainNavbar" className="main-navbar" aria-label="Navegación principal">
+      <div className="container navbar-layout">
+        <a className="brand-home" href={user ? '/dashboard' : '#inicio'} aria-label="REDSOLAR, inicio" onClick={closeMenu}>
+          <BrandLogo />
         </a>
-
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
-          <span className="navbar-toggler-icon"></span>
+        <button className="menu-toggle" type="button" aria-controls="navbarContent" aria-expanded={menuOpen}
+          aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'} onClick={() => setMenuOpen(!menuOpen)}>
+          <i className={`bi ${menuOpen ? 'bi-x-lg' : 'bi-list'}`} aria-hidden="true" />
         </button>
-
-        <div className="collapse navbar-collapse" id="navbarContent">
-          <ul className="navbar-nav ms-auto gap-3 align-items-center">
-            {!user && (
-              <>
-                <li className="nav-item"><a className="nav-link fw-medium text-secondary link-hover" href="#cotizador-factura">Cotizador</a></li>
-                <li className="nav-item"><a className="nav-link fw-medium text-secondary link-hover" href="#servicios">Servicios</a></li>
-                <li className="nav-item"><a className="nav-link fw-medium text-secondary link-hover" href="#proyectos">Proyectos</a></li>
-                <li className="nav-item"><a className="nav-link fw-medium text-secondary link-hover" href="#faq-solar">FAQ</a></li>
-                <li className="nav-item"><a className="nav-link fw-medium text-secondary link-hover" href="#contacto">Contacto</a></li>
-                <li className="nav-item">
-                  <button className="btn btn-outline-primary btn-sm" onClick={onLoginClick}>
-                    Login
-                  </button>
-                </li>
-              </>
-            )}
-
-            {user && (
-              <>
-                <li className="nav-item">
-                  <NavLink
-                    to="/dashboard"
-                    className={({ isActive }) => `nav-link fw-medium ${isActive ? 'text-primary fw-bold' : 'text-secondary'}`}
-                  >
-                    Historial
-                  </NavLink>
-                </li>
-
-                <li className="nav-item">
-                  <NavLink
-                    to="/app"
-                    className={({ isActive }) => `nav-link fw-medium ${isActive ? 'text-primary fw-bold' : 'text-secondary'}`}
-                  >
-                    Calculadora
-                  </NavLink>
-                </li>
-
-                <li className="nav-item d-flex align-items-center">
-                  <span className="fw-bold text-primary me-2" style={{ fontSize: 12 }}>
-                    {user.email}
-                  </span>
-                  <button className="btn btn-outline-danger btn-sm" onClick={onLogout}>
-                    Logout
-                  </button>
-                </li>
-              </>
-            )}
-          </ul>
+        <div id="navbarContent" className={`main-menu ${menuOpen ? 'is-open' : ''}`}>
+          {!user ? (
+            <>
+              <a href="#servicios" onClick={closeMenu}>Soluciones</a>
+              <a href="#proyectos" onClick={closeMenu}>Proyectos</a>
+              <a href="#contacto" onClick={closeMenu}>Contacto</a>
+              <button className="advisor-login" type="button" onClick={() => { closeMenu(); onLoginClick(); }}>
+                <i className="bi bi-person" aria-hidden="true" /> Asesores
+              </button>
+              <a className="btn btn-redsolar-primary nav-quote" href="#cotizador-factura" onClick={closeMenu}>
+                Cotiza tu proyecto <i className="bi bi-arrow-up-right" aria-hidden="true" />
+              </a>
+            </>
+          ) : (
+            <>
+              <NavLink to="/dashboard" onClick={closeMenu}>Historial</NavLink>
+              <NavLink to="/app" onClick={closeMenu}>Calculadora</NavLink>
+              <span className="nav-account">{user.email}</span>
+              <button className="btn btn-outline-primary" onClick={onLogout}>Cerrar sesión</button>
+            </>
+          )}
         </div>
       </div>
     </nav>
