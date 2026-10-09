@@ -4,6 +4,7 @@ import { collection, query, where, orderBy, onSnapshot } from "firebase/firestor
 import { useNavigate } from "react-router-dom";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
+import { PDF_BRAND_COLORS as COLORS, drawBrandLogo, loadBrandLogo } from "../utils/brandPdf";
 
 const Dashboard = () => {
   const [cotizaciones, setCotizaciones] = useState([]);
@@ -35,8 +36,9 @@ const Dashboard = () => {
   };
 
   // 🔹 Exportar comprobante con template corporativo
-  const exportarComprobante = (coti) => {
+  const exportarComprobante = async (coti) => {
     const doc = new jsPDF();
+    const logo = await loadBrandLogo();
     const precio = coti.precio_total || 0;
     const comision = precio * 0.05; // % ajustable
     const fecha = coti.fecha?.toDate
@@ -46,12 +48,16 @@ const Dashboard = () => {
     // ===========================
     // 1. ENCABEZADO
     // ===========================
-    doc.setFillColor(7, 8, 9); // Negro principal
+    doc.setFillColor(...COLORS.black);
     doc.rect(0, 0, 210, 35, "F");
+    doc.setFillColor(...COLORS.red);
+    doc.rect(0, 34, 210, 1, "F");
 
     doc.setTextColor(255, 255, 255);
     doc.setFontSize(18);
-    doc.text("REDSOLAR S.A.S.", 105, 15, { align: "center" });
+    if (!drawBrandLogo(doc, logo, { x: 69, y: 9, width: 72 })) {
+      doc.text("REDSOLAR S.A.S.", 105, 15, { align: "center" });
+    }
 
     doc.setFontSize(12);
     doc.text("Soluciones Fotovoltaicas", 105, 25, { align: "center" });
@@ -64,7 +70,7 @@ const Dashboard = () => {
     doc.text(" Comprobante de Gestión Comercial", 105, 50, { align: "center" });
 
     doc.setFontSize(11);
-    doc.setTextColor(189, 195, 201);
+    doc.setTextColor(...COLORS.muted);
     doc.text("Documento interno para cobro de comisión", 105, 58, {
       align: "center",
     });
@@ -106,9 +112,9 @@ const Dashboard = () => {
           }),
         ],
       ],
-      headStyles: { fillColor: [237, 28, 36], halign: "center" },
-      bodyStyles: { textColor: [36, 39, 43] },
-      alternateRowStyles: { fillColor: [255, 255, 255] },
+      headStyles: { fillColor: COLORS.black, halign: "center" },
+      bodyStyles: { textColor: COLORS.ink },
+      alternateRowStyles: { fillColor: COLORS.surface },
     });
 
     // ===========================
@@ -124,7 +130,7 @@ const Dashboard = () => {
     // 5. PIE DE PÁGINA FIJO
     // ===========================
     const pageHeight = doc.internal.pageSize.height;
-    doc.setFillColor(189, 195, 201);
+    doc.setFillColor(...COLORS.surface);
     doc.rect(0, pageHeight - 25, 210, 25, "F");
 
     doc.setFontSize(9);
@@ -142,7 +148,8 @@ const Dashboard = () => {
 
   return (
     <div className="container py-5 dashboard-container">
-      <h2 className="text-center text-primary fw-bold mb-4">Dashboard</h2>
+      <span className="workspace-eyebrow">REDSOLAR / Historial</span>
+      <h1 className="dashboard-title">Tus cotizaciones</h1>
       <p className="text-center mb-4">
         Hola, <strong>{auth.currentUser?.email}</strong>
       </p>

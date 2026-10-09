@@ -5,7 +5,7 @@
 .rs-shell {
   max-width: 1180px;
   margin: 0 auto;
-  padding: 18px;
+  padding: 0;
 }
 
 .rs-header {
@@ -13,14 +13,14 @@
   justify-content: space-between;
   gap: 16px;
   align-items: flex-start;
-  margin-bottom: 14px;
+  margin-bottom: 32px;
 }
 
 .rs-title {
   margin: 0;
-  font-weight: 900;
-  letter-spacing: 0.2px;
-  color: #070809;
+  font-weight: 700;
+  letter-spacing: -0.045em;
+  color: #101114;
 }
 
 .rs-subtitle {
@@ -37,20 +37,20 @@
 }
 
 .rs-btn {
-  border-radius: 12px;
+  border-radius: 4px;
 }
 
 .rs-form {
   display: grid;
-  gap: 14px;
+  gap: 28px;
 }
 
 .rs-card {
   background: #FFFFFF;
-  border: 1px solid rgba(7, 8, 9, 0.08);
-  border-radius: 16px;
-  padding: 14px;
-  box-shadow: 0 6px 18px rgba(7, 8, 9, 0.04);
+  border: 0;
+  border-top: 1px solid var(--redsolar-border);
+  border-radius: 0;
+  padding: 28px 0;
 }
 
 .rs-card-compact {
@@ -58,13 +58,13 @@
 }
 
 .rs-card-title {
-  font-weight: 900;
+  font-weight: 700;
   margin-bottom: 10px;
   display: flex;
   justify-content: space-between;
   gap: 12px;
   align-items: flex-start;
-  color: #070809;
+  color: #101114;
 }
 
 .rs-card-subtitle {
@@ -87,15 +87,15 @@
 }
 
 .rs-field {
-  border: 1px solid rgba(7, 8, 9, 0.06);
-  border-radius: 14px;
-  padding: 12px;
-  background: linear-gradient(180deg, rgba(7, 8, 9, 0.01), rgba(7, 8, 9, 0.00));
+  border: 0;
+  border-radius: 0;
+  padding: 18px;
+  background: var(--redsolar-surface);
+  min-width: 0;
 }
 
 .rs-field-highlight {
-  border-color: rgba(237, 28, 36, 0.22);
-  box-shadow: 0 10px 22px rgba(237, 28, 36, 0.08);
+  border-left: 2px solid var(--redsolar-red);
 }
 
 .rs-field-head {
@@ -103,6 +103,7 @@
   justify-content: space-between;
   gap: 12px;
   align-items: baseline;
+  flex-wrap: wrap;
 }
 
 .rs-label-wrap {
@@ -113,9 +114,9 @@
 }
 
 .rs-label {
-  font-weight: 900;
+  font-weight: 700;
   margin: 0;
-  color: #070809;
+  color: #101114;
 }
 
 .rs-tip {
@@ -125,10 +126,10 @@
   width: 18px;
   height: 18px;
   border-radius: 999px;
-  border: 1px solid rgba(7, 8, 9, 0.18);
-  background: rgba(7, 8, 9, 0.02);
+  border: 1px solid rgba(16, 17, 20, 0.18);
+  background: rgba(16, 17, 20, 0.02);
   font-size: 12px;
-  color: #070809;
+  color: #101114;
   opacity: 0.8;
   cursor: help;
 }
@@ -139,14 +140,15 @@
   border-radius: 999px;
   border: 1px solid rgba(237, 28, 36, 0.22);
   background: rgba(237, 28, 36, 0.06);
-  color: #070809;
+  color: #101114;
 }
 
 .rs-preview {
-  font-weight: 900;
+  font-size: .8rem;
+  font-weight: 700;
   opacity: 0.88;
   white-space: nowrap;
-  color: #070809;
+  color: #101114;
 }
 
 .rs-hint {
@@ -160,9 +162,9 @@
 .rs-explain {
   margin-top: 8px;
   padding: 0 10px;
-  border-radius: 12px;
-  background: rgba(7, 8, 9, 0.02);
-  border: 1px solid rgba(7, 8, 9, 0.06);
+  border-radius: 4px;
+  background: rgba(16, 17, 20, 0.02);
+  border: 1px solid rgba(16, 17, 20, 0.06);
 
   max-height: 0;
   opacity: 0;
@@ -187,8 +189,8 @@
 .rs-how { margin-top: 6px; }
 
 .rs-desc-label {
-  font-weight: 900;
-  color: #070809;
+  font-weight: 700;
+  color: #101114;
 }
 
 .rs-input-row {
@@ -203,7 +205,7 @@
 }
 
 .rs-input {
-  border-radius: 12px !important;
+  border-radius: 4px !important;
   padding-right: 40px;
   padding-left: 54px;
 }
@@ -218,9 +220,9 @@
   right: 12px;
   top: 50%;
   transform: translateY(-50%);
-  font-weight: 900;
+  font-weight: 700;
   opacity: 0.7;
-  color: #070809;
+  color: #101114;
 }
 
 .rs-input-prefix {
@@ -228,10 +230,10 @@
   left: 12px;
   top: 50%;
   transform: translateY(-50%);
-  font-weight: 900;
+  font-weight: 700;
   opacity: 0.7;
-  color: #070809;
-  border-right: 1px solid rgba(7, 8, 9, 0.12);
+  color: #101114;
+  border-right: 1px solid rgba(16, 17, 20, 0.12);
   padding-right: 10px;
 }
 
@@ -247,24 +249,24 @@
 }
 
 .rs-chip {
-  border: 1px solid rgba(7, 8, 9, 0.12);
-  background: rgba(7, 8, 9, 0.02);
+  border: 1px solid rgba(16, 17, 20, 0.12);
+  background: rgba(16, 17, 20, 0.02);
   padding: 4px 10px;
   border-radius: 999px;
   font-size: 12px;
   cursor: pointer;
   font-weight: 800;
-  color: #070809;
+  color: #101114;
 }
 
 .rs-chip:hover {
-  background: rgba(7, 8, 9, 0.06);
+  background: rgba(16, 17, 20, 0.06);
 }
 
 .rs-submit {
-  border-radius: 14px;
+  border-radius: 4px;
   padding: 12px 14px;
-  font-weight: 900;
+  font-weight: 700;
   margin-top: 6px;
 }
 
@@ -279,15 +281,15 @@
   border-radius: 999px;
   padding: 6px 10px;
   font-size: 12px;
-  border: 1px solid rgba(7, 8, 9, 0.12);
-  background: rgba(7, 8, 9, 0.02);
-  color: #070809;
+  border: 1px solid rgba(16, 17, 20, 0.12);
+  background: rgba(16, 17, 20, 0.02);
+  color: #101114;
 }
 
 .rs-badge-warning {
   border-color: rgba(237, 28, 36, 0.25);
   background: rgba(237, 28, 36, 0.06);
-  font-weight: 900;
+  font-weight: 700;
 }
 
 .rs-badge-neutral {
@@ -308,8 +310,8 @@
   gap: 10px;
   align-items: center;
   user-select: none;
-  font-weight: 900;
-  color: #070809;
+  font-weight: 700;
+  color: #101114;
 }
 
 /* ===== Métricas ===== */
@@ -324,24 +326,24 @@
 }
 
 .rs-metric {
-  border: 1px solid rgba(7, 8, 9, 0.08);
-  border-radius: 16px;
+  border: 1px solid rgba(16, 17, 20, 0.08);
+  border-radius: 4px;
   padding: 12px;
-  background: rgba(7, 8, 9, 0.02);
+  background: rgba(16, 17, 20, 0.02);
 }
 
 .rs-metric-title {
-  font-weight: 900;
+  font-weight: 700;
   opacity: 0.75;
   font-size: 12px;
-  color: #070809;
+  color: #101114;
 }
 
 .rs-metric-value {
-  font-weight: 950;
+  font-weight: 700;
   font-size: 20px;
   margin-top: 6px;
-  color: #070809;
+  color: #101114;
 }
 
 .rs-metric-sub {
@@ -352,10 +354,10 @@
 }
 
 .rs-chart-wrap {
-  border: 1px solid rgba(7, 8, 9, 0.08);
-  border-radius: 16px;
+  border: 1px solid rgba(16, 17, 20, 0.08);
+  border-radius: 4px;
   padding: 10px;
-  background: rgba(7, 8, 9, 0.02);
+  background: rgba(16, 17, 20, 0.02);
 }
 
 .rs-actions {
@@ -364,3 +366,12 @@
   flex-wrap: wrap;
   margin-top: 10px;
 }
+
+.rs-subtitle { max-width: 680px; font-size: .95rem; color: var(--redsolar-muted); }
+.rs-shell .rs-title { font-size: clamp(2rem, 4vw, 3rem); }
+.rs-card-title { font-size: 1.15rem; }
+.rs-label { font-size: .88rem; }
+.rs-shell .table-responsive { max-width: 100%; }
+.rs-shell .form-range::-webkit-slider-thumb { background: var(--redsolar-red-dark); }
+.rs-shell .form-range::-moz-range-thumb { background: var(--redsolar-red-dark); }
+@media (max-width: 575px) { .rs-field { padding: 14px; } .rs-card-title { flex-wrap: wrap; } .rs-input { padding-left: 48px; } }

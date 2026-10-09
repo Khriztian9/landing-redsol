@@ -1,38 +1,55 @@
+import { useEffect, useRef } from 'react';
+import BrandLogo from './BrandLogo';
+
 function LoginModal({ email, password, error, onClose, onSubmit, onEmailChange, onPasswordChange }) {
+  const dialogRef = useRef(null);
+  useEffect(() => {
+    const previousFocus = document.activeElement;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    dialogRef.current.querySelector('input').focus();
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      previousFocus?.focus();
+    };
+  }, []);
+
+  const handleKeys = (event) => {
+    if (event.key === 'Escape') onClose();
+    if (event.key !== 'Tab') return;
+    const controls = dialogRef.current.querySelectorAll('button, input, a[href]');
+    const first = controls[0];
+    const last = controls[controls.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault(); last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault(); first.focus();
+    }
+  };
+
   return (
-    <div className="modal d-block" tabIndex="-1" style={{ background: 'rgba(7, 8, 9, 0.5)' }}>
-      <div className="modal-dialog">
-        <div className="modal-content p-4">
-          <h5 className="mb-3">Iniciar Sesión</h5>
-          {error && <div className="alert alert-danger">{error}</div>}
-          <form onSubmit={onSubmit}>
-            <div className="mb-3">
-              <label>Email</label>
-              <input
-                type="email"
-                className="form-control"
-                value={email}
-                onChange={(event) => onEmailChange(event.target.value)}
-                required
-              />
-            </div>
-            <div className="mb-3">
-              <label>Contraseña</label>
-              <input
-                type="password"
-                className="form-control"
-                value={password}
-                onChange={(event) => onPasswordChange(event.target.value)}
-                required
-              />
-            </div>
-            <div className="d-flex justify-content-between">
-              <button type="submit" className="btn btn-primary">Ingresar</button>
-              <button type="button" className="btn btn-secondary" onClick={onClose}>Cancelar</button>
-            </div>
-          </form>
-        </div>
-      </div>
+    <div className="brand-modal-backdrop" onKeyDown={handleKeys}>
+      <section className="brand-login" ref={dialogRef} role="dialog" aria-modal="true" aria-labelledby="login-title">
+        <button className="login-close" type="button" onClick={onClose} aria-label="Cerrar acceso"><i className="bi bi-x-lg" aria-hidden="true" /></button>
+        <BrandLogo />
+        <span className="section-kicker">Equipo REDSOLAR</span>
+        <h2 id="login-title">Tu espacio de trabajo.</h2>
+        <p>Accede a tus cotizaciones y herramientas de análisis solar.</p>
+        {error && <div className="alert alert-danger" role="alert">{error}</div>}
+        <form onSubmit={onSubmit}>
+          <div className="mb-3">
+            <label className="form-label" htmlFor="login-email">Correo electrónico</label>
+            <input id="login-email" type="email" autoComplete="username" className="form-control" value={email}
+              onChange={(event) => onEmailChange(event.target.value)} required />
+          </div>
+          <div className="mb-4">
+            <label className="form-label" htmlFor="login-password">Contraseña</label>
+            <input id="login-password" type="password" autoComplete="current-password" className="form-control" value={password}
+              onChange={(event) => onPasswordChange(event.target.value)} required />
+          </div>
+          <button type="submit" className="btn btn-redsolar-primary w-100">Iniciar sesión <i className="bi bi-arrow-right" aria-hidden="true" /></button>
+        </form>
+      </section>
     </div>
   );
 }
