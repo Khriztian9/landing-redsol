@@ -4,10 +4,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./CotizadorFactura.css";
 
 // Firebase
-import { db, auth } from "../firebase";
+import { auth } from "../firebase";
+import { db } from "../firestore";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
-import { generateQuotePdf } from "../utils/generateQuotePdf";
 
 const CotizadorFactura = () => {
   const [file, setFile] = useState(null);
@@ -212,6 +212,7 @@ const CotizadorFactura = () => {
     setGenerandoPDF(true);
     setError(null);
     try {
+      const { generateQuotePdf } = await import("../utils/generateQuotePdf");
       await generateQuotePdf({
         resultado,
         configuracion: { estructura, cubierta, ubicacion, tipoInversor, porcentajeGeneracion },

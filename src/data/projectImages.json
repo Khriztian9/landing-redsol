@@ -1,0 +1,150 @@
+{
+  "fortich-1": [
+    {
+      "src": "/images/projects/fortich-1-640.webp",
+      "width": 640,
+      "height": 360
+    },
+    {
+      "src": "/images/projects/fortich-1-1280.webp",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "src": "/images/projects/fortich-1-1920.webp",
+      "width": 1920,
+      "height": 1080
+    }
+  ],
+  "fortich-2": [
+    {
+      "src": "/images/projects/fortich-2-640.webp",
+      "width": 640,
+      "height": 480
+    },
+    {
+      "src": "/images/projects/fortich-2-1280.webp",
+      "width": 1280,
+      "height": 960
+    },
+    {
+      "src": "/images/projects/fortich-2-1920.webp",
+      "width": 1920,
+      "height": 1440
+    }
+  ],
+  "fortich-3": [
+    {
+      "src": "/images/projects/fortich-3-640.webp",
+      "width": 640,
+      "height": 480
+    },
+    {
+      "src": "/images/projects/fortich-3-1280.webp",
+      "width": 1280,
+      "height": 960
+    },
+    {
+      "src": "/images/projects/fortich-3-1920.webp",
+      "width": 1920,
+      "height": 1440
+    }
+  ],
+  "sonreir-1": [
+    {
+      "src": "/images/projects/sonreir-1-640.webp",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "src": "/images/projects/sonreir-1-1280.webp",
+      "width": 1280,
+      "height": 1280
+    },
+    {
+      "src": "/images/projects/sonreir-1-1920.webp",
+      "width": 1920,
+      "height": 1920
+    }
+  ],
+  "sonreir-2": [
+    {
+      "src": "/images/projects/sonreir-2-640.webp",
+      "width": 640,
+      "height": 360
+    },
+    {
+      "src": "/images/projects/sonreir-2-1280.webp",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "src": "/images/projects/sonreir-2-1920.webp",
+      "width": 1920,
+      "height": 1080
+    }
+  ],
+  "sonreir-3": [
+    {
+      "src": "/images/projects/sonreir-3-640.webp",
+      "width": 640,
+      "height": 333
+    },
+    {
+      "src": "/images/projects/sonreir-3-1273.webp",
+      "width": 1273,
+      "height": 662
+    }
+  ],
+  "gyte-1": [
+    {
+      "src": "/images/projects/gyte-1-640.webp",
+      "width": 640,
+      "height": 360
+    },
+    {
+      "src": "/images/projects/gyte-1-1280.webp",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "src": "/images/projects/gyte-1-1920.webp",
+      "width": 1920,
+      "height": 1080
+    }
+  ],
+  "gyte-2": [
+    {
+      "src": "/images/projects/gyte-2-640.webp",
+      "width": 640,
+      "height": 482
+    },
+    {
+      "src": "/images/projects/gyte-2-1280.webp",
+      "width": 1280,
+      "height": 964
+    },
+    {
+      "src": "/images/projects/gyte-2-1920.webp",
+      "width": 1920,
+      "height": 1446
+    }
+  ],
+  "gyte-3": [
+    {
+      "src": "/images/projects/gyte-3-640.webp",
+      "width": 640,
+      "height": 360
+    },
+    {
+      "src": "/images/projects/gyte-3-1280.webp",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "src": "/images/projects/gyte-3-1920.webp",
+      "width": 1920,
+      "height": 1080
+    }
+  ]
+}

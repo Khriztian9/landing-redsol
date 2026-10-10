@@ -1,7 +1,6 @@
 // src/firebase.js
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
 
 // ⚡ Configuración de Firebase
 const firebaseConfig = {
@@ -15,13 +14,11 @@ const firebaseConfig = {
 };
 
 // Inicializar Firebase
-const app = initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig);
 
 // 🔐 Autenticación
 export const auth = getAuth(app);
 
-// 📦 Firestore
-export const db = getFirestore(app);
 
 // 🚪 Funciones de login/logout
 export const login = (email, password) =>

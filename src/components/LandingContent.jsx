@@ -1,5 +1,9 @@
-import { useState } from 'react';
-import CotizadorFactura from './Cotizadorfactura';
+import { useRef, useState } from 'react';
+import DeferredQuote from './DeferredQuote';
+import ProjectGallery from './ProjectGallery';
+import ProjectImage from './ProjectImage';
+import SolarVideo from './SolarVideo';
+import useSectionReveal from '../hooks/useSectionReveal';
 import BrandLogo from './BrandLogo';
 
 const featuredProjects = [
@@ -7,8 +11,8 @@ const featuredProjects = [
     category: 'Residencial',
     name: 'Familia Fortich',
     location: 'Vivienda familiar',
-    poster: '/FORTICH0.JPG',
-    photos: ['/FORTICH0.JPG', '/FORTICH1.jpg', '/FORTICH2.jpg'],
+    challenge: 'Aprovechar el espacio disponible para reducir la energía comprada a la red.',
+    photos: ['fortich-1', 'fortich-2', 'fortich-3'],
     icon: 'bi-house-heart',
     summary:
       'Un sistema solar pensado para bajar el consumo mensual y darle independencia energética a una familia que quería una solución limpia, silenciosa y durable.',
@@ -22,8 +26,8 @@ const featuredProjects = [
     category: 'Comercial',
     name: 'Clínica Sonreír',
     location: 'Consultorio odontológico',
-    poster: '/SONREIR0.png',
-    photos: ['/SONREIR0.png', '/SONREIR1.JPG', '/SONREIR2.png'],
+    challenge: 'Alinear la generación solar con el consumo de un consultorio en funcionamiento.',
+    photos: ['sonreir-1', 'sonreir-2', 'sonreir-3'],
     icon: 'bi-building-check',
     summary:
       'Energía solar para una operación comercial que necesita continuidad, control de costos y una imagen sostenible frente a sus pacientes y visitantes.',
@@ -37,11 +41,11 @@ const featuredProjects = [
     category: 'Industrial',
     name: 'GYTE',
     location: 'Industria metalmecánica',
-    poster: '/GYTE0.JPG',
-    photos: ['/GYTE0.JPG', '/GYTE1.jpg', '/GYTE2.JPG'],
+    challenge: 'Integrar generación fotovoltaica en un entorno de consumo industrial.',
+    photos: ['gyte-1', 'gyte-2', 'gyte-3'],
     icon: 'bi-lightning-charge',
     summary:
-      'Una solución fotovoltaica robusta para industria, enfocada en alto desempeño, seguridad electrica y respaldo a procesos de consumo exigente.',
+      'Una solución fotovoltaica robusta para industria, enfocada en alto desempeño, seguridad eléctrica y respaldo a procesos de consumo exigente.',
     stats: [
       { value: '31.2 kWp', label: '48 paneles' },
       { value: '25 kW', label: 'inversor' },
@@ -68,73 +72,6 @@ const serviceHighlights = [
   },
 ];
 
-function ProjectMedia({ project }) {
-  const [activePhoto, setActivePhoto] = useState(0);
-  const projectPhotos = project.photos?.length ? project.photos : [project.poster];
-
-  const showPhoto = (direction) => {
-    setActivePhoto((current) => (current + direction + projectPhotos.length) % projectPhotos.length);
-  };
-
-  return (
-    <div className="project-media-panel">
-      <div className="project-photo-frame">
-        <button
-          className="project-photo-hitarea"
-          type="button"
-          aria-label={`Ver siguiente foto de ${project.name}`}
-          onClick={() => showPhoto(1)}
-        >
-          <img
-            className="project-project-photo"
-            src={projectPhotos[activePhoto]}
-            alt={`Foto ${activePhoto + 1} del proyecto solar ${project.name}`}
-            loading="lazy"
-          />
-        </button>
-
-        <div className="project-photo-controls" aria-label={`Galería de fotos de ${project.name}`}>
-          <button
-            className="project-photo-control"
-            type="button"
-            aria-label={`Foto anterior de ${project.name}`}
-            onClick={() => showPhoto(-1)}
-          >
-            <i className="bi bi-chevron-left" aria-hidden="true"></i>
-          </button>
-          <div className="project-photo-dots">
-            {projectPhotos.map((photo, index) => (
-              <button
-                className={`project-photo-dot ${index === activePhoto ? 'active' : ''}`}
-                type="button"
-                aria-label={`Ver foto ${index + 1} de ${project.name}`}
-                aria-current={index === activePhoto ? 'true' : undefined}
-                key={photo}
-                onClick={() => setActivePhoto(index)}
-              ></button>
-            ))}
-          </div>
-          <button
-            className="project-photo-control"
-            type="button"
-            aria-label={`Siguiente foto de ${project.name}`}
-            onClick={() => showPhoto(1)}
-          >
-            <i className="bi bi-chevron-right" aria-hidden="true"></i>
-          </button>
-          <span className="project-photo-count">{activePhoto + 1}/{projectPhotos.length}</span>
-        </div>
-      </div>
-
-      <div className="project-media-shade"></div>
-      <div className="project-media-badge">
-        <i className={`bi ${project.icon}`} aria-hidden="true"></i>
-        <span>{project.category}</span>
-      </div>
-    </div>
-  );
-}
-
 const questions = [
   ['¿Cómo sé si mi proyecto solar es viable?', 'Revisamos tu factura, los horarios de consumo, el área disponible y las condiciones de conexión. Con esa información definimos el tamaño del sistema y su alcance técnico.'],
   ['¿Cuánto tarda una instalación fotovoltaica?', 'Depende del tamaño y los permisos. Un sistema residencial suele instalarse en pocos días después de completar la ingeniería y las aprobaciones.'],
@@ -144,10 +81,15 @@ const questions = [
 ];
 
 function LandingContent() {
+  const mainRef = useRef(null);
+  const [projectFilter, setProjectFilter] = useState('Todos');
+  useSectionReveal(mainRef);
+  const visibleProjects = featuredProjects.filter(project => projectFilter === 'Todos' || project.category === projectFilter);
   return (
     <>
-      <main id="contenido-principal">
+      <main id="contenido-principal" ref={mainRef}>
         <section id="inicio" className="brand-hero" aria-labelledby="hero-title">
+          <div className="hero-scene"><ProjectImage className="hero-project" photo="fortich-1" sizes="(max-width: 767px) 1600px, 100vw" alt="Paneles solares instalados en la vivienda del proyecto Familia Fortich" fetchPriority="high" /></div>
           <div className="container hero-grid">
             <div className="hero-copy">
               <span className="section-kicker"><span className="status-dot" /> Energía solar en Colombia</span>
@@ -159,24 +101,24 @@ function LandingContent() {
               </div>
               <div className="hero-sectors"><span>Hogares</span><span>Comercios</span><span>Industria</span></div>
             </div>
-            <div className="hero-visual">
-              <img className="hero-project" src="/FORTICH0.JPG" alt="Instalación de paneles solares del proyecto Familia Fortich" width="1600" height="1200" fetchPriority="high" />
-              <div className="hero-photo-caption"><span><i className="bi bi-sun" aria-hidden="true" /> Ingeniería que se ve.</span><a href="#proyectos" aria-label="Ver los proyectos REDSOLAR"><i className="bi bi-arrow-up-right" aria-hidden="true" /></a></div>
-              <div className="hero-signature"><BrandLogo variant="dark" /><span>Diseñamos hoy. Generamos futuro.</span></div>
-            </div>
+            <a className="hero-case" href="#proyectos">
+              <span className="hero-case-label">Detrás de esta imagen <i className="bi bi-arrow-up-right" aria-hidden="true" /></span>
+              <strong>Familia Fortich</strong><span>Un hogar que genera su propia energía.</span>
+              <div className="hero-case-specs"><div><b>6.9 <small>kWp</small></b><span>Potencia instalada</span></div><div><b>12</b><span>Paneles solares</span></div></div>
+            </a>
           </div>
-          <div className="container hero-bottom"><span>Una nueva forma de vivir la energía.</span><a href="#servicios">Descubre cómo <i className="bi bi-arrow-down" aria-hidden="true" /></a></div>
+          <div className="container hero-bottom"><span>Diseño a medida <i aria-hidden="true">/</i> Instalación <i aria-hidden="true">/</i> Legalización</span><a href="#servicios">Descubre cómo <i className="bi bi-arrow-down" aria-hidden="true" /></a></div>
         </section>
 
         <section id="servicios" className="services-section section-space" aria-labelledby="services-title">
           <div className="container">
-            <div className="section-heading split-heading">
+            <div className="section-heading split-heading" data-reveal>
               <div><span className="section-kicker">01 / Soluciones</span><h2 id="services-title">Del primer plano<br />al primer kilovatio.</h2></div>
               <p>Cada proyecto empieza contigo. Entendemos tu consumo y te acompañamos en cada paso para convertirlo en energía solar.</p>
             </div>
             <div className="services-grid">
               {serviceHighlights.map((service, index) => (
-                <article className="service-card-redsolar" key={service.title}>
+                <article className="service-card-redsolar" key={service.title} data-reveal>
                   <div className="service-top"><i className={`bi ${service.icon}`} aria-hidden="true" /><span>0{index + 1}</span></div>
                   <h3>{service.title}</h3><p>{service.text}</p>
                   <a href="#contacto">Hablemos de tu proyecto <i className="bi bi-arrow-up-right" aria-hidden="true" /></a>
@@ -188,18 +130,20 @@ function LandingContent() {
 
         <section id="proyectos" className="project-showcase-section section-space" aria-labelledby="projects-title">
           <div className="container">
-            <div className="section-heading split-heading">
+            <div className="section-heading split-heading" data-reveal>
               <div><span className="section-kicker">02 / Nuestro trabajo</span><h2 id="projects-title">Proyectos reales.<br />Energía en movimiento.</h2></div>
               <p>Soluciones diferentes, un mismo compromiso: diseñar un sistema que responda a las necesidades de cada espacio.</p>
             </div>
+            <div className="project-filter" role="group" aria-label="Filtrar proyectos por tipo">{['Todos', 'Residencial', 'Comercial', 'Industrial'].map(category => <button type="button" key={category} aria-pressed={projectFilter === category} onClick={() => setProjectFilter(category)}>{category}</button>)}<span role="status">{visibleProjects.length} {visibleProjects.length === 1 ? 'proyecto' : 'proyectos'}</span></div>
             <div className="project-showcase-list">
-              {featuredProjects.map((project, index) => (
+              {visibleProjects.map((project, index) => (
                 <article className={`project-feature ${index % 2 === 1 ? 'project-feature-reverse' : ''}`} key={project.name}>
-                  <ProjectMedia project={project} />
+                  <ProjectGallery project={project} />
                   <div className="project-info-panel">
                     <span className="project-sector">{project.category}</span>
                     <h3>{project.name}</h3><p className="project-location">{project.location}</p>
-                    <p className="project-summary">{project.summary}</p>
+                    <div className="case-challenge"><span>El reto</span><p>{project.challenge}</p></div>
+                    <span className="case-solution-label">La solución instalada</span>
                     <div className="project-stats" aria-label={`Características de ${project.name}`}>
                       {project.stats.map((stat) => <div className="project-stat" key={stat.label}><strong>{stat.value}</strong><span>{stat.label}</span></div>)}
                     </div>
@@ -213,14 +157,14 @@ function LandingContent() {
         </section>
 
         <section className="intro-video-section section-space" aria-labelledby="process-title">
-          <div className="container intro-video-grid">
+          <div className="container intro-video-grid" data-reveal>
             <div className="process-copy"><span className="section-kicker">03 / Ingeniería con criterio</span><h2 id="process-title">El respaldo está<br />en los detalles.</h2><p>Antes de instalar, revisamos consumo, espacio, retorno y conexión. Después, acompañamos la puesta en marcha de tu sistema.</p><a className="text-link" href="#contacto">Conversemos <i className="bi bi-arrow-up-right" aria-hidden="true" /></a></div>
-            <div className="process-video"><div className="responsive-video"><iframe src="https://www.youtube.com/embed/bNO_ha_oO20" loading="lazy" title="Conoce la tecnología solar de LIVOLTEK" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen /></div><p><span>TECNOLOGÍA SOLAR</span> Conoce más sobre LIVOLTEK <i className="bi bi-play-circle" aria-hidden="true" /></p></div>
+            <div className="process-video"><SolarVideo /><p><span>TECNOLOGÍA SOLAR</span> Conoce más sobre LIVOLTEK <i className="bi bi-play-circle" aria-hidden="true" /></p></div>
           </div>
         </section>
 
         <section id="cotizador-factura" className="quote-section section-space" aria-label="Cotiza tu sistema solar">
-          <div className="container"><CotizadorFactura /></div>
+          <div className="container"><DeferredQuote /></div>
         </section>
 
         <section id="faq-solar" className="faq-section section-space" aria-labelledby="faq-title">
