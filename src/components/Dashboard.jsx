@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { auth, db, logout } from "../firebase";
+import { auth, logout } from "../firebase";
+import { db } from "../firestore";
 import { collection, query, where, orderBy, onSnapshot } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import jsPDF from "jspdf";

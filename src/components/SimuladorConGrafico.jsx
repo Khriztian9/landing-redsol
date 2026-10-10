@@ -7,7 +7,6 @@ import React, { useState, useEffect, useRef, useMemo } from 'react';
 import Chart from 'chart.js/auto';
 import annotationPlugin from 'chartjs-plugin-annotation';
 import { saveAs } from 'file-saver';
-import { generateAnalysisPdf } from '../utils/generateAnalysisPdf';
 import './Simulador.css';
 
 Chart.register(annotationPlugin);
@@ -71,6 +70,7 @@ const Simulador = () => {
 
   const [focusedKey, setFocusedKey] = useState(null); // ✅ campo enfocado
   const [loading, setLoading] = useState(false);
+  const [exportingPDF, setExportingPDF] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
   const chartRef = useRef(null);
@@ -496,14 +496,25 @@ const Simulador = () => {
   }, [resultado, verConBeneficios, verLeasing]);
 
   // ====== Exportar PDF ======
-  const exportPDF = () => generateAnalysisPdf({
-    chartCanvas: chartRef.current,
-    formData,
-    indicators: indicadores,
-    table: getTablaDinamica(),
-    withBenefits: verConBeneficios,
-    withLeasing: verLeasing,
-  });
+  const exportPDF = async () => {
+    if (exportingPDF) return;
+    setExportingPDF(true);
+    try {
+      const { generateAnalysisPdf } = await import('../utils/generateAnalysisPdf');
+      await generateAnalysisPdf({
+        chartCanvas: chartRef.current,
+        formData,
+        indicators: indicadores,
+        table: getTablaDinamica(),
+        withBenefits: verConBeneficios,
+        withLeasing: verLeasing,
+      });
+    } catch {
+      setErrorMsg('No fue posible preparar el PDF. Inténtalo nuevamente.');
+    } finally {
+      setExportingPDF(false);
+    }
+  };
 
   // ====== Exportar CSV ======
   const exportCSV = () => {
@@ -780,7 +791,7 @@ const Simulador = () => {
             </div>
 
             <div className="rs-actions">
-              <button onClick={exportPDF} className="btn btn-danger me-2">
+              <button onClick={exportPDF} disabled={exportingPDF} className="btn btn-danger me-2">
                 Descargar informe PDF
               </button>
               <button onClick={exportCSV} className="btn btn-success">
