@@ -1,35 +1,51 @@
 import React, { useEffect, useState } from "react";
-import { auth, logout } from "../firebase";
+import { logout } from "../firebase";
 import { db } from "../firestore";
 import { collection, query, where, orderBy, onSnapshot } from "firebase/firestore";
-import { useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate, useOutletContext } from "react-router-dom";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import { PDF_BRAND_COLORS as COLORS, drawBrandLogo, loadBrandLogo } from "../utils/brandPdf";
 
 const Dashboard = () => {
   const [cotizaciones, setCotizaciones] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const { user } = useOutletContext();
   const navigate = useNavigate();
+  const { hash } = useLocation();
+  const linkedQuoteId = hash.startsWith("#quote-") ? hash.slice(7) : "";
 
   useEffect(() => {
-    if (!auth.currentUser) return;
+    if (!linkedQuoteId || loading) return;
+    document.getElementById(`quote-${linkedQuoteId}`)?.scrollIntoView({ block: "center" });
+  }, [linkedQuoteId, loading]);
 
+  useEffect(() => {
     const q = query(
       collection(db, "cotizaciones"),
-      where("userId", "==", auth.currentUser.uid),
+      where("userId", "==", user.uid),
       orderBy("fecha", "desc")
     );
 
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const docs = snapshot.docs.map((doc) => ({
-        id: doc.id,
         ...doc.data(),
+        id: doc.id,
       }));
       setCotizaciones(docs);
+      setLoading(false);
+      setError("");
+    }, (snapshotError) => {
+      setCotizaciones([]);
+      setLoading(false);
+      setError(snapshotError.code === "permission-denied"
+        ? "No tienes permiso para consultar estas cotizaciones. Comunícate con el administrador."
+        : "No pudimos cargar tus cotizaciones. Recarga la página para intentarlo de nuevo.");
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [user.uid]);
 
   const handleLogout = async () => {
     await logout();
@@ -152,25 +168,29 @@ const Dashboard = () => {
       <span className="workspace-eyebrow">REDSOLAR / Historial</span>
       <h1 className="dashboard-title">Tus cotizaciones</h1>
       <p className="text-center mb-4">
-        Hola, <strong>{auth.currentUser?.email}</strong>
+        Hola, <strong>{user.email}</strong>
       </p>
 
       <div className="card shadow p-4 mb-4">
         <h5 className="fw-bold text-primary mb-3">Tus cotizaciones</h5>
 
-        {cotizaciones.length === 0 ? (
+        {loading ? (
+          <p className="text-muted" role="status">Cargando tus cotizaciones…</p>
+        ) : error ? (
+          <div className="alert alert-danger" role="alert">{error}</div>
+        ) : cotizaciones.length === 0 ? (
           <p className="text-muted">Aún no has guardado cotizaciones.</p>
         ) : (
           <div className="accordion" id="accordionCotizaciones">
             {cotizaciones.map((coti, index) => (
-              <div className="accordion-item mb-3" key={coti.id}>
+              <div className="accordion-item mb-3" id={`quote-${coti.id}`} key={coti.id}>
                 <h2 className="accordion-header" id={`heading-${index}`}>
                   <button
-                    className="accordion-button collapsed custom-accordion-btn"
+                    className={`accordion-button custom-accordion-btn ${coti.id === linkedQuoteId ? "" : "collapsed"}`}
                     type="button"
                     data-bs-toggle="collapse"
                     data-bs-target={`#collapse-${index}`}
-                    aria-expanded="false"
+                    aria-expanded={coti.id === linkedQuoteId}
                     aria-controls={`collapse-${index}`}
                   >
                      {coti.nombre} –{" "}
@@ -181,7 +201,7 @@ const Dashboard = () => {
                 </h2>
                 <div
                   id={`collapse-${index}`}
-                  className="accordion-collapse collapse"
+                  className={`accordion-collapse collapse ${coti.id === linkedQuoteId ? "show" : ""}`}
                   aria-labelledby={`heading-${index}`}
                   data-bs-parent="#accordionCotizaciones"
                 >
@@ -207,7 +227,10 @@ const Dashboard = () => {
                       </div>
                     </div>
 
-                    <div className="text-end mt-3">
+                    <div className="d-flex justify-content-end flex-wrap gap-2 mt-3">
+                      <Link className="btn btn-sm btn-primary" to={`/crm?quote=${encodeURIComponent(coti.id)}`}>
+                        Llevar al CRM <i className="bi bi-arrow-right" aria-hidden="true" />
+                      </Link>
                       <button
                         className="btn btn-sm btn-outline-success custom-pdf-btn"
                         onClick={() => exportarComprobante(coti)}

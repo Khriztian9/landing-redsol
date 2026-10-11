@@ -34,7 +34,7 @@ function LoginModal({ email, password, error, onClose, onSubmit, onEmailChange, 
         <BrandLogo />
         <span className="section-kicker">Equipo REDSOLAR</span>
         <h2 id="login-title">Tu espacio de trabajo.</h2>
-        <p>Accede a tus cotizaciones y herramientas de análisis solar.</p>
+        <p>Gestiona tus clientes, oportunidades y seguimientos. Accede también a tus cotizaciones solares.</p>
         {error && <div className="alert alert-danger" role="alert">{error}</div>}
         <form onSubmit={onSubmit}>
           <div className="mb-3">

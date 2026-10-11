@@ -23,7 +23,7 @@ function App() {
       setUser(currentUser);
 
       if (currentUser && location.pathname === '/') {
-        navigate('/dashboard', { replace: true });
+        navigate('/crm', { replace: true });
       }
     });
 
@@ -53,7 +53,7 @@ function App() {
       await login(email, password);
       setError('');
       setShowLogin(false);
-      navigate('/dashboard', { replace: true });
+      navigate('/crm', { replace: true });
     } catch {
       setError('Usuario o contraseña incorrectos');
     }

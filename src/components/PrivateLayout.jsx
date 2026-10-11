@@ -43,7 +43,7 @@ export default function PrivateLayout() {
       <a href="#workspace-content" className="visually-hidden-focusable workspace-skip">Saltar al contenido</a>
       <nav className="workspace-nav" aria-label="Navegación de herramientas">
         <div className="container workspace-nav-inner">
-          <NavLink to="/dashboard" className="workspace-brand" aria-label="REDSOLAR · Inicio">
+          <NavLink to="/crm" className="workspace-brand" aria-label="REDSOLAR · Inicio">
             <BrandLogo />
           </NavLink>
 
@@ -60,6 +60,18 @@ export default function PrivateLayout() {
 
           <div className={`workspace-nav-menu ${menuOpen ? 'is-open' : ''}`} id="privateNavbar">
             <ul className="workspace-nav-links">
+              <li className="nav-item">
+                <NavLink
+                  to="/crm"
+                  className={({ isActive }) =>
+                    `workspace-nav-link ${isActive ? "is-active" : ""}`
+                  }
+                  onClick={() => setMenuOpen(false)}
+                >
+                  CRM
+                </NavLink>
+              </li>
+
               <li className="nav-item">
                 <NavLink
                   to="/dashboard"
@@ -112,7 +124,7 @@ export default function PrivateLayout() {
         </div>
       </div>
       <main id="workspace-content" className="container workspace-content" tabIndex="-1">
-        <Outlet />
+        <Outlet key={user.uid} context={{ user }} />
       </main>
       <footer className="workspace-footer container">
         <span>REDSOLAR · Soluciones fotovoltaicas</span>

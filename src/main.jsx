@@ -10,6 +10,7 @@ import './index.css';
 
 const CotizadorFactura = lazy(() => import('./components/Cotizadorfactura'));
 const Dashboard = lazy(() => import('./components/Dashboard'));
+const AdvisorCRM = lazy(() => import('./components/AdvisorCRM'));
 const SimuladorConGrafico = lazy(() => import('./components/SimuladorConGrafico'));
 const PrivateLayout = lazy(() => import('./components/PrivateLayout'));
 
@@ -25,6 +26,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Routes>
           <Route path="/" element={<App />} />
           <Route element={<PrivateLayout />}>
+            <Route path="/crm" element={<AdvisorCRM />} />
             <Route path="/cotizador" element={<CotizadorFactura />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/app" element={<SimuladorConGrafico />} />
