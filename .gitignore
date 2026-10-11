@@ -1,4 +1,4 @@
-﻿# Ignorar dependencias
+# Ignorar dependencias
 node_modules/
 
 # Ignorar build
@@ -10,3 +10,6 @@ dist/
 .vscode/
 *.log
 node_modules
+
+# Local QA and temporary tooling
+/work/

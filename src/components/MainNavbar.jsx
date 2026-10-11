@@ -9,7 +9,7 @@ function MainNavbar({ user, onLoginClick, onLogout }) {
   return (
     <nav id="mainNavbar" className="main-navbar" aria-label="Navegación principal">
       <div className="container navbar-layout">
-        <a className="brand-home" href={user ? '/dashboard' : '#inicio'} aria-label="REDSOLAR, inicio" onClick={closeMenu}>
+        <a className="brand-home" href={user ? '/crm' : '#inicio'} aria-label="REDSOLAR, inicio" onClick={closeMenu}>
           <BrandLogo />
         </a>
         <button className="menu-toggle" type="button" aria-controls="navbarContent" aria-expanded={menuOpen}
@@ -31,8 +31,10 @@ function MainNavbar({ user, onLoginClick, onLogout }) {
             </>
           ) : (
             <>
+              <NavLink to="/crm" onClick={closeMenu}>CRM</NavLink>
               <NavLink to="/dashboard" onClick={closeMenu}>Historial</NavLink>
               <NavLink to="/app" onClick={closeMenu}>Calculadora</NavLink>
+              <NavLink to="/cotizador" onClick={closeMenu}>Cotizador</NavLink>
               <span className="nav-account">{user.email}</span>
               <button className="btn btn-outline-primary" onClick={onLogout}>Cerrar sesión</button>
             </>

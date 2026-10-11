@@ -1,0 +1,87 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Existing site policies supplied by the owner on 2026-10-11.
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    match /cotizaciones/{docId} {
+      allow create: if isSignedIn();
+      allow read, update, delete: if isOwner(resource.data.userId);
+    }
+
+    match /cotizaciones_publicas/{docId} {
+      allow create: if true;
+      allow read: if isSignedIn();
+      allow update, delete: if false;
+    }
+
+    // CRM: each signed-in advisor can only access their own clients and history.
+    function crmOwner(advisorId) {
+      return request.auth != null && request.auth.uid == advisorId;
+    }
+
+    function crmValidClient(data) {
+      return data.keys().hasAll([
+          'name', 'email', 'phone', 'city', 'interest', 'source', 'stage', 'value',
+          'nextFollowUp', 'nextAction', 'createdAt', 'updatedAt'
+        ])
+        && data.keys().hasOnly([
+          'name', 'email', 'phone', 'city', 'interest', 'source', 'stage', 'value',
+          'nextFollowUp', 'nextAction', 'createdAt', 'updatedAt', 'quoteId', 'quoteLabel'
+        ])
+        && data.name is string && data.name.size() >= 2 && data.name.size() <= 120
+        && data.email is string && data.email.size() <= 254
+        && data.phone is string && data.phone.size() <= 40
+        && (data.email.size() > 0 || data.phone.size() > 0)
+        && data.city is string && data.city.size() <= 100
+        && data.interest is string && data.interest.size() <= 240
+        && data.source in ['Sitio web', 'Referido', 'WhatsApp', 'Llamada', 'Redes sociales', 'Otro']
+        && data.stage in ['nuevo', 'contactado', 'propuesta', 'negociacion', 'ganado', 'perdido']
+        && (data.value is int || data.value is float) && data.value >= 0 && data.value <= 1000000000000
+        && data.nextFollowUp is string
+        && (data.nextFollowUp == '' || data.nextFollowUp.matches('^[0-9]{4}-[0-9]{2}-[0-9]{2}$'))
+        && data.nextAction is string && data.nextAction.size() <= 400
+        && ((data.nextFollowUp == '' && data.nextAction == '')
+          || (data.nextFollowUp != '' && data.nextAction.size() > 0))
+        && (!('quoteId' in data) || (data.quoteId is string && data.quoteId.size() <= 200 && !data.quoteId.matches('.*[/].*')))
+        && (!('quoteLabel' in data) || (data.quoteLabel is string && data.quoteLabel.size() <= 200))
+        && data.createdAt is timestamp && data.updatedAt is timestamp;
+    }
+
+    match /advisors/{advisorId}/crmClients/{clientId} {
+      allow read: if crmOwner(advisorId);
+      allow create: if crmOwner(advisorId)
+        && crmValidClient(request.resource.data)
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.updatedAt == request.time;
+      allow update: if crmOwner(advisorId)
+        && crmValidClient(request.resource.data)
+        && request.resource.data.createdAt == resource.data.createdAt
+        && request.resource.data.updatedAt == request.time;
+      allow delete: if false;
+
+      match /activities/{activityId} {
+        allow read: if crmOwner(advisorId);
+        allow create: if crmOwner(advisorId)
+          && getAfter(/databases/$(database)/documents/advisors/$(advisorId)/crmClients/$(clientId)).data.name is string
+          && request.resource.data.keys().hasAll(['type', 'text', 'createdAt'])
+          && request.resource.data.keys().hasOnly(['type', 'text', 'createdAt'])
+          && request.resource.data.type in ['note', 'call', 'meeting', 'email', 'task_done', 'stage']
+          && request.resource.data.text is string
+          && request.resource.data.text.size() > 0 && request.resource.data.text.size() <= 4000
+          && request.resource.data.createdAt == request.time;
+        allow update, delete: if false;
+      }
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
