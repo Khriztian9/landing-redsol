@@ -93,7 +93,7 @@ function LandingContent() {
           <div className="container hero-grid">
             <div className="hero-copy">
               <span className="section-kicker"><span className="status-dot" /> Energía solar en Colombia</span>
-              <h1 id="hero-title">Tu energía.<br /><span>A tu medida.</span></h1>
+              <h1 id="hero-title">Energía solar.<br /><span>A tu medida.</span></h1>
               <p>Transformamos el sol en oportunidades para tu hogar y tu empresa. Diseño, instalación y legalización en un solo equipo.</p>
               <div className="hero-actions">
                 <a className="btn btn-redsolar-primary" href="#cotizador-factura">Cotiza tu proyecto <i className="bi bi-arrow-up-right" aria-hidden="true" /></a>
@@ -113,7 +113,7 @@ function LandingContent() {
         <section id="servicios" className="services-section section-space" aria-labelledby="services-title">
           <div className="container">
             <div className="section-heading split-heading" data-reveal>
-              <div><span className="section-kicker">01 / Soluciones</span><h2 id="services-title">Del primer plano<br />al primer kilovatio.</h2></div>
+              <div><span className="section-kicker">01 / Soluciones</span><h2 id="services-title">Reduce hasta 100%<br />Tu factura de energía.</h2></div>
               <p>Cada proyecto empieza contigo. Entendemos tu consumo y te acompañamos en cada paso para convertirlo en energía solar.</p>
             </div>
             <div className="services-grid">
