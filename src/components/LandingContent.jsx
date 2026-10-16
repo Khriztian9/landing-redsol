@@ -5,6 +5,7 @@ import ProjectImage from './ProjectImage';
 import SolarVideo from './SolarVideo';
 import useSectionReveal from '../hooks/useSectionReveal';
 import BrandLogo from './BrandLogo';
+import AboutSection from './AboutSection';
 
 const featuredProjects = [
   {
@@ -156,9 +157,11 @@ function LandingContent() {
           </div>
         </section>
 
+        <AboutSection />
+
         <section className="intro-video-section section-space" aria-labelledby="process-title">
           <div className="container intro-video-grid" data-reveal>
-            <div className="process-copy"><span className="section-kicker">03 / Ingeniería con criterio</span><h2 id="process-title">El respaldo está<br />en los detalles.</h2><p>Antes de instalar, revisamos consumo, espacio, retorno y conexión. Después, acompañamos la puesta en marcha de tu sistema.</p><a className="text-link" href="#contacto">Conversemos <i className="bi bi-arrow-up-right" aria-hidden="true" /></a></div>
+            <div className="process-copy"><span className="section-kicker">04 / Ingeniería con criterio</span><h2 id="process-title">El respaldo está<br />en los detalles.</h2><p>Antes de instalar, revisamos consumo, espacio, retorno y conexión. Después, acompañamos la puesta en marcha de tu sistema.</p><a className="text-link" href="#contacto">Conversemos <i className="bi bi-arrow-up-right" aria-hidden="true" /></a></div>
             <div className="process-video"><SolarVideo /><p><span>TECNOLOGÍA SOLAR</span> Conoce más sobre LIVOLTEK <i className="bi bi-play-circle" aria-hidden="true" /></p></div>
           </div>
         </section>
@@ -190,7 +193,7 @@ function LandingContent() {
 
       <footer className="brand-footer">
         <div className="container">
-          <div className="footer-main"><div className="footer-brand"><a href="#inicio" aria-label="REDSOLAR, volver al inicio"><BrandLogo variant="dark" /></a><p>Tu energía. A tu medida.</p></div><div className="footer-links"><a href="#servicios">Soluciones</a><a href="#proyectos">Proyectos</a><a href="#cotizador-factura">Cotizador</a><a href="#faq-solar">Preguntas frecuentes</a></div><div className="footer-social"><a href="https://instagram.com/redsolarenergy" target="_blank" rel="noopener noreferrer"><i className="bi bi-instagram" aria-hidden="true" /> Instagram <i className="bi bi-arrow-up-right" aria-hidden="true" /></a><a href="https://wa.me/573183464183" target="_blank" rel="noopener noreferrer"><i className="bi bi-whatsapp" aria-hidden="true" /> WhatsApp <i className="bi bi-arrow-up-right" aria-hidden="true" /></a></div></div>
+          <div className="footer-main"><div className="footer-brand"><a href="#inicio" aria-label="REDSOLAR, volver al inicio"><BrandLogo variant="dark" /></a><p>Tu energía. A tu medida.</p></div><div className="footer-links"><a href="#servicios">Soluciones</a><a href="#proyectos">Proyectos</a><a href="#quienes-somos">Quiénes somos</a><a href="#cotizador-factura">Cotizador</a><a href="#faq-solar">Preguntas frecuentes</a></div><div className="footer-social"><a href="https://instagram.com/redsolarenergy" target="_blank" rel="noopener noreferrer"><i className="bi bi-instagram" aria-hidden="true" /> Instagram <i className="bi bi-arrow-up-right" aria-hidden="true" /></a><a href="https://wa.me/573183464183" target="_blank" rel="noopener noreferrer"><i className="bi bi-whatsapp" aria-hidden="true" /> WhatsApp <i className="bi bi-arrow-up-right" aria-hidden="true" /></a></div></div>
           <div className="footer-bottom"><small>© {new Date().getFullYear()} REDSOLAR. Todos los derechos reservados.</small><span>Energía solar para Colombia.</span></div>
         </div>
       </footer>
