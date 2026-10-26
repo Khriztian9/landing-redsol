@@ -63,7 +63,10 @@ const featuredProjects = [
     photoDescriptions: ['Paneles solares sobre la cubierta de Cardisel Turín', 'Inversor y canalizaciones eléctricas de Cardisel Turín'],
     photoPositions: ['center 65%', 'center'],
     icon: 'bi-building-check',
-    stats: [],
+    stats: [
+      { value: '19 kWp', label: 'Potencia instalada' },
+      { value: '15 kW', label: 'Inversor' },
+    ],
     details: ['Paneles solares sobre cubierta', 'Inversor y canalizaciones eléctricas'],
   },
   {
@@ -76,7 +79,10 @@ const featuredProjects = [
     photos: ['itac-sur-1', 'itac-sur-2', 'itac-sur-3'],
     photoDescriptions: ['Vista frontal de la cubierta solar y la fachada de ITAC Sur', 'Vista aérea lateral de los paneles solares de ITAC Sur', 'Inversor instalado en la sede ITAC Sur'],
     icon: 'bi-building-check',
-    stats: [],
+    stats: [
+      { value: '27 kWp', label: 'Potencia instalada' },
+      { value: '20 kW', label: 'Inversor' },
+    ],
     details: ['Paneles solares sobre cubierta', 'Inversor instalado en la sede'],
   },
 ];
