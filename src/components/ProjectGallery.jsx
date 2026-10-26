@@ -28,7 +28,7 @@ function PhotoLightbox({ project, activePhoto, onChange, onClose }) {
       }}>
       <div className="lightbox-surface">
         <header><div><span>Proyecto REDSOLAR</span><h2>{name}</h2></div><button type="button" onClick={onClose} aria-label="Cerrar galería" autoFocus><i className="bi bi-x-lg" aria-hidden="true" /></button></header>
-        <div className="lightbox-image"><ProjectImage photo={photos[activePhoto]} sizes="90vw" alt={`Foto ${activePhoto + 1} del proyecto ${name}`} /></div>
+        <div className="lightbox-image"><ProjectImage photo={photos[activePhoto]} sizes="90vw" alt={project.photoDescriptions?.[activePhoto] || `Foto ${activePhoto + 1} del proyecto ${name}`} /></div>
         <footer><button type="button" aria-label="Foto anterior" onClick={() => navigate(-1)}><i className="bi bi-arrow-left" aria-hidden="true" /></button><span aria-live="polite">{activePhoto + 1} / {photos.length}</span><button type="button" aria-label="Foto siguiente" onClick={() => navigate(1)}><i className="bi bi-arrow-right" aria-hidden="true" /></button><small>Usa las flechas para explorar · Esc para cerrar</small></footer>
       </div>
     </dialog>, document.body,
@@ -43,7 +43,7 @@ export default function ProjectGallery({ project }) {
     <div className="project-media-panel">
       <div className="project-photo-frame">
         <button className="project-photo-hitarea" type="button" aria-label={`Ampliar fotos de ${project.name}`} onClick={() => setIsOpen(true)}>
-          <ProjectImage className="project-project-photo" photo={project.photos[activePhoto]} alt={`Foto ${activePhoto + 1} del proyecto solar ${project.name}`} loading="lazy" />
+          <ProjectImage className="project-project-photo" photo={project.photos[activePhoto]} alt={project.photoDescriptions?.[activePhoto] || `Foto ${activePhoto + 1} del proyecto solar ${project.name}`} style={{ objectPosition: project.photoPositions?.[activePhoto] }} loading="lazy" />
           <span className="photo-expand"><i className="bi bi-arrows-fullscreen" aria-hidden="true" /> Explorar proyecto</span>
         </button>
         <div className="project-photo-controls" aria-label={`Galería de fotos de ${project.name}`}>

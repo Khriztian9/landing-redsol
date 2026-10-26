@@ -1,0 +1,63 @@
+.romelia-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding-top: 88px;
+  color: #fff;
+  background: radial-gradient(ellipse at 88% 36%, #381b20 0, transparent 55%), #101114;
+}
+.romelia-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 72px;
+  padding-block: 48px;
+}
+.romelia-copy { min-width: 0; }
+.romelia-copy .section-kicker { color: #e4e5e9; font-size: .65rem; letter-spacing: .18em; margin-bottom: 30px; }
+.romelia-status-dot { flex: 0 0 7px; height: 7px; background: #ED1C24; border-radius: 50%; box-shadow: 0 0 0 5px #ed1c2420; }
+.romelia-copy h1 { color: #fff; font-size: clamp(3.5rem, 6.2vw, 6rem); line-height: 1; letter-spacing: -.065em; margin-bottom: 28px; }
+.romelia-copy > p { max-width: 420px; color: #d0d2d8; font-size: 1.04rem; margin-bottom: 34px; }
+.romelia-actions { display: flex; gap: 26px; align-items: center; flex-wrap: wrap; }
+.romelia-actions .btn { padding: 16px 23px; font-size: .87rem; }
+.romelia-secondary { color: #fff; font-size: .8rem; text-decoration: none; display: inline-flex; align-items: center; gap: 13px; padding-block: 10px; }
+.romelia-secondary:hover { color: #fff; text-decoration: underline; }
+.romelia-sectors { display: flex; flex-wrap: wrap; gap: 22px; margin-top: 40px; color: #c3c7d0; font-size: .73rem; }
+.romelia-sectors span + span::before { content: '/'; color: #ED1C24; margin-right: 22px; }
+.romelia-project { width: min(100%, 314px); min-width: 0; justify-self: center; margin: 0; }
+.romelia-video-frame { aspect-ratio: 478 / 850; overflow: hidden; border: 1px solid #ffffff26; border-radius: 4px; background: #08090b; box-shadow: 0 18px 65px #0005; }
+.romelia-video-frame video, .romelia-video-frame img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.romelia-project figcaption { display: grid; gap: 4px; margin-top: 17px; padding-left: 14px; border-left: 2px solid #ED1C24; }
+.romelia-project-label { color: #c3c7d0; font-size: .59rem; letter-spacing: .13em; text-transform: uppercase; }
+.romelia-project strong { font-size: 1.06rem; letter-spacing: -.02em; }
+.romelia-project figcaption > span:last-of-type { color: #c3c7d0; font-size: .73rem; }
+.romelia-bottom { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding-block: 24px; border-top: 1px solid #ffffff30; color: #d0d2d8; font-size: .72rem; }
+.romelia-bottom > span { display: flex; flex-wrap: wrap; gap: 19px; align-items: center; }
+.romelia-bottom > span i { color: #ED1C24; font-style: normal; }
+.romelia-bottom a { color: #fff; text-decoration: none; white-space: nowrap; }
+.romelia-bottom a:hover { text-decoration: underline; }
+.romelia-bottom a i { margin-left: 20px; }
+
+@media (max-width: 991px) {
+  .romelia-hero { padding-top: 78px; }
+  .romelia-grid { gap: 30px; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); }
+  .romelia-copy h1 { font-size: clamp(3.25rem, 6.4vw, 4rem); }
+  .romelia-copy > p { font-size: .94rem; }
+  .romelia-actions { gap: 12px; }
+  .romelia-project { width: min(100%, 280px); }
+}
+@media (max-width: 767px) {
+  .romelia-grid { grid-template-columns: minmax(0, 1fr); gap: 35px; padding-block: 44px 30px; }
+  .romelia-copy h1 { font-size: clamp(3.3rem, 12vw, 5rem); }
+  .romelia-copy > p { max-width: 440px; margin-bottom: 25px; }
+  .romelia-copy .section-kicker { font-size: .59rem; margin-bottom: 25px; }
+  .romelia-sectors { margin-top: 24px; }
+  .romelia-project { width: min(100%, 314px); }
+  .romelia-bottom { font-size: .65rem; gap: 16px; }
+  .romelia-bottom > span { gap: 9px; }
+  .romelia-bottom a i { margin-left: 6px; }
+}
+@media (max-width: 374px) {
+  .romelia-copy h1 { font-size: 3.1rem; }
+  .romelia-bottom { align-items: flex-start; flex-direction: column; gap: 10px; }
+}

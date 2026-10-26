@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import DeferredQuote from './DeferredQuote';
 import ProjectGallery from './ProjectGallery';
-import ProjectImage from './ProjectImage';
+import HeroSection from './HeroSection';
 import SolarVideo from './SolarVideo';
 import useSectionReveal from '../hooks/useSectionReveal';
 import BrandLogo from './BrandLogo';
@@ -52,6 +52,33 @@ const featuredProjects = [
     ],
     details: ['Ingeniería para grandes superficies', 'Instalación con criterios de seguridad', 'Monitoreo y soporte especializado'],
   },
+  {
+    id: 'cardisel-turin',
+    category: 'Comercial',
+    name: 'Cardisel Turín',
+    location: 'Sede Turín',
+    challengeLabel: 'El proyecto',
+    challenge: 'Energía solar en la sede Cardisel Turín: una instalación fotovoltaica que aprovecha la cubierta del edificio.',
+    photos: ['cardisel-turin-1', 'cardisel-turin-2'],
+    photoDescriptions: ['Paneles solares sobre la cubierta de Cardisel Turín', 'Inversor y canalizaciones eléctricas de Cardisel Turín'],
+    photoPositions: ['center 65%', 'center'],
+    icon: 'bi-building-check',
+    stats: [],
+    details: ['Paneles solares sobre cubierta', 'Inversor y canalizaciones eléctricas'],
+  },
+  {
+    id: 'itac-sur',
+    category: 'Comercial',
+    name: 'ITAC Sur',
+    location: 'Sede Sur',
+    challengeLabel: 'El proyecto',
+    challenge: 'Generación solar en ITAC Sur. Conoce la instalación desde sus vistas aéreas y los equipos que la componen.',
+    photos: ['itac-sur-1', 'itac-sur-2', 'itac-sur-3'],
+    photoDescriptions: ['Vista frontal de la cubierta solar y la fachada de ITAC Sur', 'Vista aérea lateral de los paneles solares de ITAC Sur', 'Inversor instalado en la sede ITAC Sur'],
+    icon: 'bi-building-check',
+    stats: [],
+    details: ['Paneles solares sobre cubierta', 'Inversor instalado en la sede'],
+  },
 ];
 
 const serviceHighlights = [
@@ -88,27 +115,7 @@ function LandingContent() {
   return (
     <>
       <main id="contenido-principal" ref={mainRef}>
-        <section id="inicio" className="brand-hero" aria-labelledby="hero-title">
-          <div className="hero-scene"><ProjectImage className="hero-project" photo="fortich-1" sizes="(max-width: 767px) 1600px, 100vw" alt="Paneles solares instalados en la vivienda del proyecto Familia Fortich" fetchPriority="high" /></div>
-          <div className="container hero-grid">
-            <div className="hero-copy">
-              <span className="section-kicker"><span className="status-dot" /> Energía solar en Colombia</span>
-              <h1 id="hero-title">Energía solar.<br /><span>A tu medida.</span></h1>
-              <p>Transformamos el sol en oportunidades para tu hogar y tu empresa. Diseño, instalación y legalización en un solo equipo.</p>
-              <div className="hero-actions">
-                <a className="btn btn-redsolar-primary" href="#cotizador-factura">Cotiza tu proyecto <i className="bi bi-arrow-up-right" aria-hidden="true" /></a>
-                <a className="hero-secondary" href="#proyectos">Conoce nuestro trabajo <i className="bi bi-arrow-right" aria-hidden="true" /></a>
-              </div>
-              <div className="hero-sectors"><span>Hogares</span><span>Comercios</span><span>Industria</span></div>
-            </div>
-            <a className="hero-case" href="#proyectos">
-              <span className="hero-case-label">Detrás de esta imagen <i className="bi bi-arrow-up-right" aria-hidden="true" /></span>
-              <strong>Familia Fortich</strong><span>Un hogar que genera su propia energía.</span>
-              <div className="hero-case-specs"><div><b>6.9 <small>kWp</small></b><span>Potencia instalada</span></div><div><b>12</b><span>Paneles solares</span></div></div>
-            </a>
-          </div>
-          <div className="container hero-bottom"><span>Diseño a medida <i aria-hidden="true">/</i> Instalación <i aria-hidden="true">/</i> Legalización</span><a href="#servicios">Descubre cómo <i className="bi bi-arrow-down" aria-hidden="true" /></a></div>
-        </section>
+        <HeroSection />
 
         <section id="servicios" className="services-section section-space" aria-labelledby="services-title">
           <div className="container">
@@ -137,16 +144,16 @@ function LandingContent() {
             <div className="project-filter" role="group" aria-label="Filtrar proyectos por tipo">{['Todos', 'Residencial', 'Comercial', 'Industrial'].map(category => <button type="button" key={category} aria-pressed={projectFilter === category} onClick={() => setProjectFilter(category)}>{category}</button>)}<span role="status">{visibleProjects.length} {visibleProjects.length === 1 ? 'proyecto' : 'proyectos'}</span></div>
             <div className="project-showcase-list">
               {visibleProjects.map((project, index) => (
-                <article className={`project-feature ${index % 2 === 1 ? 'project-feature-reverse' : ''}`} key={project.name}>
+                <article id={project.id ? `proyecto-${project.id}` : undefined} className={`project-feature ${index % 2 === 1 ? 'project-feature-reverse' : ''}`} key={project.name}>
                   <ProjectGallery project={project} />
                   <div className="project-info-panel">
                     <span className="project-sector">{project.category}</span>
                     <h3>{project.name}</h3><p className="project-location">{project.location}</p>
-                    <div className="case-challenge"><span>El reto</span><p>{project.challenge}</p></div>
-                    <span className="case-solution-label">La solución instalada</span>
+                    <div className="case-challenge"><span>{project.challengeLabel || 'El reto'}</span><p>{project.challenge}</p></div>
+                    {project.stats.length > 0 && <><span className="case-solution-label">La solución instalada</span>
                     <div className="project-stats" aria-label={`Características de ${project.name}`}>
                       {project.stats.map((stat) => <div className="project-stat" key={stat.label}><strong>{stat.value}</strong><span>{stat.label}</span></div>)}
-                    </div>
+                    </div></>}
                     <ul className="project-details">{project.details.map(detail => <li key={detail}><i className="bi bi-check2" aria-hidden="true" />{detail}</li>)}</ul>
                     <a className="project-cta" href="#cotizador-factura">Quiero un proyecto así <i className="bi bi-arrow-up-right" aria-hidden="true" /></a>
                   </div>

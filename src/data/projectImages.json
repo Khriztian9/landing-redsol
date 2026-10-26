@@ -146,5 +146,85 @@
       "width": 1920,
       "height": 1080
     }
+  ],
+  "cardisel-turin-1": [
+    {
+      "src": "/images/projects/cardisel-turin-1-640.webp",
+      "width": 640,
+      "height": 853
+    },
+    {
+      "src": "/images/projects/cardisel-turin-1-1280.webp",
+      "width": 1280,
+      "height": 1707
+    },
+    {
+      "src": "/images/projects/cardisel-turin-1-1728.webp",
+      "width": 1728,
+      "height": 2304
+    }
+  ],
+  "cardisel-turin-2": [
+    {
+      "src": "/images/projects/cardisel-turin-2-640.webp",
+      "width": 640,
+      "height": 853
+    },
+    {
+      "src": "/images/projects/cardisel-turin-2-1200.webp",
+      "width": 1200,
+      "height": 1600
+    }
+  ],
+  "itac-sur-1": [
+    {
+      "src": "/images/projects/itac-sur-1-640.webp",
+      "width": 640,
+      "height": 360
+    },
+    {
+      "src": "/images/projects/itac-sur-1-1280.webp",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "src": "/images/projects/itac-sur-1-1600.webp",
+      "width": 1600,
+      "height": 900
+    }
+  ],
+  "itac-sur-2": [
+    {
+      "src": "/images/projects/itac-sur-2-640.webp",
+      "width": 640,
+      "height": 360
+    },
+    {
+      "src": "/images/projects/itac-sur-2-1280.webp",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "src": "/images/projects/itac-sur-2-1600.webp",
+      "width": 1600,
+      "height": 900
+    }
+  ],
+  "itac-sur-3": [
+    {
+      "src": "/images/projects/itac-sur-3-640.webp",
+      "width": 640,
+      "height": 853
+    },
+    {
+      "src": "/images/projects/itac-sur-3-1280.webp",
+      "width": 1280,
+      "height": 1707
+    },
+    {
+      "src": "/images/projects/itac-sur-3-1920.webp",
+      "width": 1920,
+      "height": 2560
+    }
   ]
 }

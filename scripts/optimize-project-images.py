@@ -14,6 +14,11 @@ SOURCES = {
     'fortich-1': 'FORTICH0.JPG', 'fortich-2': 'FORTICH1.jpg', 'fortich-3': 'FORTICH2.jpg',
     'sonreir-1': 'SONREIR0.png', 'sonreir-2': 'SONREIR1.JPG', 'sonreir-3': 'SONREIR2.png',
     'gyte-1': 'GYTE0.JPG', 'gyte-2': 'GYTE1.jpg', 'gyte-3': 'GYTE2.JPG',
+    'cardisel-turin-1': 'images/originals/cardisel-turin-frente.jpg',
+    'cardisel-turin-2': 'images/originals/cardisel-turin-inversor.jpg',
+    'itac-sur-1': 'images/originals/itac-sur-frente.jpg',
+    'itac-sur-2': 'images/originals/itac-sur-lateral.jpg',
+    'itac-sur-3': 'images/originals/itac-sur-inversor.jpg',
 }
 # The known GYTE original is 16320 × 12288 pixels. Bound input size and decode
 # JPEGs at reduced resolution before transposing/resizing, keeping memory low.
