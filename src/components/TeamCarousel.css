@@ -223,3 +223,6 @@
   .team-portrait img, .team-arrow { transition: none; }
   .team-card:hover .team-portrait img { transform: none; }
 }
+
+/* Preserve the same portrait framing across founder and team photos. */
+.team-portrait.team-portrait-photo { aspect-ratio: 4 / 5; }

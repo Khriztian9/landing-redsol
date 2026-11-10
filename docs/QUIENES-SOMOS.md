@@ -1,25 +1,37 @@
 # Quiénes somos · REDSOLAR
 
 La sección `#quienes-somos` se integra después de Proyectos, con enlaces en el
-menú principal y el pie de página. En escritorio, Christian aparece a la izquierda,
-la historia compartida al centro y Katherine a la derecha. En pantallas pequeñas,
-la historia precede a los perfiles para facilitar la lectura.
+menú principal y el pie de página. En escritorio, Christian Carvajal aparece a
+la izquierda, la historia compartida al centro y Katherine a la derecha.
 
-## Fotos de los fundadores
+## Fotografías incorporadas
 
-1. Guardar las fotos en `public/images/team/` (crear la carpeta cuando estén listas).
-2. En `src/data/team.js`, completar `photo` en cada fundador, por ejemplo
-   `/images/team/christian-carvajal.webp` y `/images/team/katherine-polania.webp`.
-3. Ajustar `photoPosition` si hace falta, por ejemplo `'center 30%'`, para mantener
-   el rostro dentro del encuadre. Una imagen vertical de 800 × 1000 px en WebP es
-   una buena base. Mantener aire alrededor del rostro para el recorte en móvil.
+Las cuatro fotografías fueron suministradas por el usuario y retocadas para
+uniformar fondo gris claro, iluminación y encuadre. Las versiones para la web
+conservan 1122 × 1402 px y se guardan en JPEG optimizado, con aproximadamente
+167–218 kB por imagen. No se incorporan dependencias de procesamiento a la app.
 
-Sin una foto válida, se muestran sus iniciales y «Retrato próximamente».
-No se han usado retratos de otras personas ni imágenes generadas.
+| Archivo en `public/images/team/` | Persona | Cargo |
+| --- | --- | --- |
+| `christian-carvajal.jpg` | Christian Eduardo Carvajal | Director de proyectos |
+| `christian-castano.jpg` | Christian Castaño | Gerente comercial |
+| `katherine-polania.jpg` | Katherine Polania | Líder jurídica |
+| `david-velasquez.jpg` | David Velasquez | Gerente técnico |
 
-## Colaboradores
+La asignación sigue el orden de los retratos editados indicado por el usuario.
+Los nombres, cargos, descripciones y rutas se mantienen en `src/data/team.js`.
+Los fundadores aparecen en la portada y Christian Castaño y David Velasquez
+en el carrusel de colaboradores.
 
-Completar el arreglo `collaborators` del mismo archivo con una entrada por persona:
+## Sustituir fotos o añadir personas
+
+1. Guardar la imagen optimizada en `public/images/team/`.
+2. Actualizar `photo` en el perfil correspondiente de `src/data/team.js`.
+3. Mantener un retrato vertical 4:5, con aire sobre la cabeza y alrededor de los
+   hombros. Las fotos conservan ese encuadre también en celular.
+4. Ajustar `photoPosition` si hace falta, por ejemplo `'center 30%'`.
+
+Para añadir colaboradores, usar una entrada por persona:
 
 ```js
 {
@@ -27,24 +39,21 @@ Completar el arreglo `collaborators` del mismo archivo con una entrada por perso
   name: 'Nombre y apellido',
   role: 'Cargo real',
   description: 'Descripción breve de su aporte al equipo.',
-  photo: '/images/team/nombre-apellido.webp',
+  photo: '/images/team/nombre-apellido.jpg',
   photoPosition: 'center',
 }
 ```
 
-Los cuatro espacios reservados del estado vacío son una vista previa del diseño;
-no representan el número de colaboradores de REDSOLAR. Al añadir el primer perfil,
-el carrusel utiliza solamente los datos reales. Cada perfil puede tener una foto
-pendiente sin impedir que se muestre su información.
+Sin una foto válida se conserva el respaldo de iniciales. Si el arreglo de
+colaboradores está vacío, el carrusel vuelve a mostrar los espacios de vista
+previa; no representan el número de integrantes del equipo.
 
 El carrusel admite controles anterior/siguiente, deslizamiento táctil y las teclas
 Flecha izquierda/derecha, Inicio y Fin al enfocarlo. No avanza automáticamente y
 respeta la preferencia de movimiento reducido.
 
-## Archivos
+## Verificación
 
-- `src/components/AboutSection.jsx` y `.css`: portada, fundadores y propósito.
-- `src/components/TeamCarousel.jsx` y `.css`: carrusel adaptable.
-- `src/data/team.js`: datos de personas y rutas de imágenes.
-
-Para verificar la compilación: `npm run build`.
+Para verificar la compilación: `npm run build`. Revisar en la vista previa
+los nombres, los cargos, el recorte de las fotografías y las versiones de
+computador y celular antes de integrar el PR.

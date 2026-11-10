@@ -63,6 +63,7 @@
   .about-story p { font-size: .9rem; }
   .about-sun { margin-bottom: 18px; }
   .about-portrait { aspect-ratio: 5 / 4; }
+  .about-portrait.has-photo { aspect-ratio: 4 / 5; }
   .about-founder-copy { padding-top: 20px; }
   .about-founder-copy h3 { font-size: 1.65rem; }
   .about-founder-description { font-size: .9rem; }
