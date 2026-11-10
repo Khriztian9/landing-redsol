@@ -121,8 +121,11 @@
 .login-close { position: absolute; right: 15px; top: 12px; width: 36px; height: 36px; background: none; color: var(--redsolar-muted); border: 0; }
 
 @media (max-width: 1199px) {
-  .main-menu { gap: 18px; }
-  .main-navbar .brand-logo { width: 220px; }
+  .main-menu { gap: 16px; }
+  .main-navbar .brand-logo { width: 200px; }
+  .main-menu > a:not(.btn), .advisor-login { font-size: .8rem; }
+  .advisor-login { padding-left: 16px; }
+  .nav-quote { font-size: .78rem; padding-inline: .9rem; }
   .project-feature, .intro-video-grid, .contact-grid, .faq-grid { gap: 45px; }
 }
 @media (max-width: 991px) {

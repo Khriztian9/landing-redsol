@@ -21,6 +21,7 @@ function MainNavbar({ user, onLoginClick, onLogout }) {
             <>
               <a href="#servicios" onClick={closeMenu}>Soluciones</a>
               <a href="#proyectos" onClick={closeMenu}>Proyectos</a>
+              <a href="#quienes-somos" onClick={closeMenu}>Quiénes somos</a>
               <a href="#contacto" onClick={closeMenu}>Contacto</a>
               <button className="advisor-login" type="button" onClick={() => { closeMenu(); onLoginClick(); }}>
                 <i className="bi bi-person" aria-hidden="true" /> Asesores
